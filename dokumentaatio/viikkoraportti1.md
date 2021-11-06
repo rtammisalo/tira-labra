@@ -6,7 +6,7 @@ Valitisin aiheen ja algoritmit projektille. Loin githubiin repositorion ja kirjo
 
 ## Tuntikirjanpito
 
-Käytin aikaa n. 8 h tällä viikolla.
+Käytin aikaa n. 9 tuntia tällä viikolla.
 
 ## Mitä opin
 
@@ -18,5 +18,5 @@ Projektille on luotu Poetry pohja ja src-kansio varustettuna tyhjällä main.py 
 
 ## Seuraavalla viikkolla
 
-Aion ensin toteuttaa kurssin neuvojen mukaisesti jonkin näköisen graafisen toteutuksen sokkelon tulostamiselle. Se on mahdollisesti pelkkä ASCII-pohjainen konsolitoteutus, 
+Aion ensin toteuttaa kurssin neuvojen mukaisesti jonkinnäköisen graafisen toteutuksen sokkelon tulostamiselle. Se on mahdollisesti pelkkä ASCII-pohjainen konsolitoteutus, 
 tai hieman 'tyylikkäämpi' graafinen PyGame-pohjainen toteutus. En ole vielä varma. Ajattelin tämän jälkeen toteuttaa sokkelon generoinnin.
