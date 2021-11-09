@@ -6,8 +6,11 @@ authors = ["Roni Tammisalo <81182631+rtammisalo@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.6"
+pygame = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
+pygame = "^2.1.0"
+autopep8 = "^1.6.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
