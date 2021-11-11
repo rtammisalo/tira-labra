@@ -2,8 +2,20 @@ from entities.cell import Cell
 
 
 class Grid():
+    """A business-logic side representation of the map as a x by y grid,
+    made from different grid cells (walls, empty space, start, goal).
+    """
 
     def __init__(self, grid_str):
+        """Generates the grid based on the string encoding of the grid. All empty lines in
+        the string are discarded, and the lines are trimmed of leading and trailing whitespaces.
+        Smaller lines are padded by implied empty cells in the actual grid.
+
+        Args:
+            grid_str (str): A string encoding of the map. Each line of the string contains one row
+                of the grid. Use characters '.' (empty), '#' (wall), 'S' (starting cell),
+                'G' (goal cell) to signify cell contents in the string.
+        """
         lines = self._clean_grid_string(grid_str)
         self._grid = [[Cell(char)
                        for char in line] for line in lines]

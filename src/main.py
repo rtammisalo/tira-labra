@@ -1,14 +1,14 @@
-import ui.ui as ui
-import entities.grid as grid
+from ui.ui import UI
+from entities.grid import Grid
 
 if __name__ == "__main__":
-    test_grid_str = """
+    TEST_GRID_STR = """
     ########............zzz......##############
     .............###................G........
     .....S...................................
     ......................########......#.#.#
     """
-    test_grid = grid.Grid(test_grid_str)
+    test_grid = Grid(TEST_GRID_STR)
     print(test_grid)
-    display = ui.UI(test_grid)
+    display = UI(test_grid)
     display.run()
