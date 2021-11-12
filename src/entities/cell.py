@@ -3,7 +3,7 @@ class Cell():
     """
     LEGAL_CELLS = {'.', '#', 'S', 'G'}
 
-    def __init__(self, char=None):
+    def __init__(self, char='.'):
         """Creates a new cell.
 
         Args:

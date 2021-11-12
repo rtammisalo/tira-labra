@@ -1,0 +1,6 @@
+[run]
+source = src
+omit = src/tests/*
+       src/ui/*
+       src/main.py
+       *__init__.py

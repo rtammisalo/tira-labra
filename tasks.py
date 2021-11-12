@@ -7,6 +7,11 @@ def start(ctx):
 
 
 @task
+def pytest(ctx):
+    ctx.run("pytest", pty=True)
+
+
+@task
 def coverage(ctx):
     ctx.run("coverage run --branch -m pytest")
 
