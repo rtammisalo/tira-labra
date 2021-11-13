@@ -1,6 +1,6 @@
 # MazeFinder (tira-labra)
 
-![Actions:CI](https://github.com/rtammisalo/tira-labra/workflows/CI/badge.svg)
+![Actions:CI](https://github.com/rtammisalo/tira-labra/workflows/CI/badge.svg) [![codecov](https://codecov.io/gh/rtammisalo/tira-labra/branch/main/graph/badge.svg?token=T9UVAQ8WRV)](https://codecov.io/gh/rtammisalo/tira-labra)
 
 Projektin tarkoituksena on tehdä vertailua kahden reitinhakualgoritmin välillä (Jump Point Search ja Dijkstra). Testaus tapahtuu satunnaisgeneroidussa
 sokkelossa, joka on toteutettuna ruudukkona.
