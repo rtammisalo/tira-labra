@@ -22,7 +22,7 @@ class Node():
         self.visited = False
 
     def get_neighbors(self):
-        """Returns a list of neighboring nodes.
+        """Returns a list of tuples featuring neighboring nodes and their edge weights.
         """
         neighbors = []
 
@@ -44,6 +44,9 @@ class Node():
         node = self
         path = []
 
+        if not self.previous:
+            return path
+
         while True:
             if not node:
                 break
@@ -60,9 +63,6 @@ class Node():
         if isinstance(other_node, Node):
             return self.pos == other_node.pos
         raise NotImplementedError()
-
-    def __hash__(self):
-        return hash(self.pos)
 
     def __str__(self):
         return f'Node at {self.pos}, distance of {self.distance}, ' \
