@@ -11,6 +11,6 @@ if __name__ == "__main__":
     """
     test_grid = Grid(TEST_GRID_STR)
     print(test_grid)
-    print(dijkstra(test_grid).path_from_start())
-    display = UI(test_grid)
+    goal_node, history = dijkstra(test_grid)
+    display = UI(test_grid, goal_node.path_from_start(), history)
     display.run()

@@ -17,3 +17,13 @@ class Grid():
 
     def draw(self, surface):
         self.group.draw(surface)
+
+    def set_graph_visited(self, visited_pos):
+        self.grid[visited_pos[1]][visited_pos[0]].set_graph_visited()
+
+    def set_graph_visible(self, visible_pos):
+        self.grid[visible_pos[1]][visible_pos[0]].set_graph_visible()
+
+    def set_graph_visible_nodes(self, visible_nodes):
+        for visible_node in visible_nodes:
+            self.set_graph_visible(visible_node.pos)

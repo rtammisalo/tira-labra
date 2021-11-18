@@ -3,12 +3,13 @@ import pygame
 import pygame.locals as pgl
 import ui.grid
 
+
 class UI():
     SCREEN_WIDTH = 800
     SCREEN_HEIGHT = 600
     BACKGROUND_COLOR = (100, 100, 100)
 
-    def __init__(self, grid):
+    def __init__(self, grid, path_to_goal, history):
         pygame.init()
         self._screen_size = (UI.SCREEN_WIDTH, UI.SCREEN_HEIGHT)
         self._screen = pygame.display.set_mode(self._screen_size)
@@ -16,11 +17,23 @@ class UI():
         self._clock = pygame.time.Clock()
         self._grid = ui.grid.Grid(grid)
         self._grid.draw(self._screen)
+        self._path_to_goal = path_to_goal
+        self._history = history
 
     def run(self):
+        history_step = 0
+
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
-            self._clock.tick(60)
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        visited_node, visible_nodes = self._history.get_step(
+                            history_step)
+                        self._grid.set_graph_visited(visited_node.pos)
+                        self._grid.set_graph_visible_nodes(visible_nodes)
+                        self._grid.draw(self._screen)
+                        history_step += 1
+            self._clock.tick(30)
             pygame.display.flip()

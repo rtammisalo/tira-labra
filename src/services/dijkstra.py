@@ -1,5 +1,6 @@
 import heapq
 from entities.graph import Graph
+from entities.history import History
 
 
 class Heap():
@@ -52,7 +53,7 @@ def init_distance_heap(graph):
     return distance
 
 
-def dijkstra(grid):
+def dijkstra(grid, logging=True):
     """Implementation of Dijkstra's algorithm. Finds the shortest path on a cell-based
     grid from the starting cell to the goal cell.
 
@@ -61,15 +62,23 @@ def dijkstra(grid):
             starting and goal cells.
 
     Returns:
-        Node: Returns the goal node, which can be used to find the shortest path to
-            the goal node from the starting node. None if the goal was not reachable.
+        Node, History: Returns a tuple containing the goal node and a history of
+            visited/visible nodes. The goal node can be used to find the shortest path from
+            the starting node. Returns a None if the goal was not reachable.
+
+            History object can be used to trace the visited and visible nodes per each step of
+            the algorithm.
     """
     graph = Graph(grid)
     distance = init_distance_heap(graph)
+    history = History()
 
     while not distance.is_empty():
         node = distance.pop_node()
         node.visited = True
+
+        if logging:
+            history.add_step(node)
 
         for neighbor_node, edge_weight in node.get_neighbors():
             if neighbor_node.visited:
@@ -81,7 +90,10 @@ def dijkstra(grid):
                 distance.update_node(neighbor_node, new_distance)
                 neighbor_node.previous = node
 
-            if neighbor_node == graph.get_goal_node():
-                return neighbor_node
+            if logging:
+                history.add_visible_node(neighbor_node)
 
-    return None
+            if neighbor_node == graph.get_goal_node():
+                return neighbor_node, history
+
+    return None, history
