@@ -40,6 +40,7 @@ class Node():
 
     def path_from_start(self):
         """Returns a list with node coordinates starting from start node to this node.
+        Returns an empty list, if the node was not reachable from the start node.
         """
         node = self
         path = []
@@ -54,6 +55,10 @@ class Node():
             node = node.previous
 
         path.reverse()
+
+        if len(path) > 0 and path[0] != self.graph.get_start_node().pos:
+            return []
+
         return path
 
     def __lt__(self, other_node):

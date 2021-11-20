@@ -11,13 +11,12 @@ class TestDijkstra(unittest.TestCase):
         S..G
         ##.#
         """)
-        goal, history = dijkstra.dijkstra(simple_test_grid)
-        self.simple_test_goal = goal
+        path, history = dijkstra.dijkstra(simple_test_grid)
+        self.simple_test_path = path
         self.simple_test_history = history
 
     def test_simple_test_path_to_goal_is_correct(self):
-        path = self.simple_test_goal.path_from_start()
-        self.assertEqual(path, [(0, 1), (1, 1), (2, 1), (3, 1)])
+        self.assertEqual(self.simple_test_path, [(0, 1), (1, 1), (2, 1), (3, 1)])
 
     def test_simple_test_history_contains_correct_visited_and_visible_nodes(self):
         visited_node, visible_nodes = self.simple_test_history.advance_step()
@@ -36,9 +35,9 @@ class TestDijkstra(unittest.TestCase):
         _, history = dijkstra.dijkstra(Grid("SG"), logging=False)
         self.assertIsNone(history.advance_step())
 
-    def test_dijkstra_on_a_grid_with_no_path_to_goal_returns_None_as_goal_node(self):
-        goal, _ = dijkstra.dijkstra(Grid("S#G"))
-        self.assertIsNone(goal)
+    def test_dijkstra_on_a_grid_with_no_path_to_goal_returns_empty_list_as_path(self):
+        path, _ = dijkstra.dijkstra(Grid("S#G"))
+        self.assertEqual(len(path), 0)
 
     def test_dijkstra_complex_path_length_is_correct(self):
         grid = """
@@ -54,8 +53,8 @@ class TestDijkstra(unittest.TestCase):
         ###.#.#.##
         """
         correct_length = 8 + 7 * math.sqrt(2)
-        goal, history = dijkstra.dijkstra(Grid(grid))
-        path_length = calculate_path_length(goal.path_from_start())
+        path, history = dijkstra.dijkstra(Grid(grid))
+        path_length = calculate_path_length(path)
         self.assertAlmostEqual(path_length, correct_length, places=5)
 
 

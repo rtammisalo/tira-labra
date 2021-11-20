@@ -12,9 +12,8 @@ def dijkstra(grid, logging=True):
             starting and goal cells.
 
     Returns:
-        Node, History: Returns a tuple containing the goal node and a history of
-            visited/visible nodes. The goal node can be used to find the shortest path from
-            the starting node. Returns a None if the goal was not reachable.
+        Node, History: Returns a tuple containing the path to goal and a history of
+            visited/visible nodes. Returns an empty list as path if the goal was not reachable.
 
             History object can be used to trace the visited and visible nodes per each step of
             the algorithm.
@@ -45,6 +44,6 @@ def dijkstra(grid, logging=True):
                 history.add_visible_node(neighbor_node)
 
             if neighbor_node == graph.get_goal_node():
-                return neighbor_node, history
+                return neighbor_node.path_from_start(), history
 
-    return None, history
+    return [], history
