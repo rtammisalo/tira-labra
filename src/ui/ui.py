@@ -19,22 +19,38 @@ class UI():
         self._grid.draw(self._screen)
         self._path_to_goal = path_to_goal
         self._history = history
+        self._keyboard_timer = 0
+        self._keys_pressed = set()
 
     def run(self):
         while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        step = self._history.advance_step()
-                        if not step:
-                            self._grid.set_path_to_goal(self._path_to_goal)
-                            self._grid.draw(self._screen)
-                            continue
-                        visited_node, visible_nodes = step
-                        self._grid.set_graph_visited(visited_node.pos)
-                        self._grid.set_graph_visible_nodes(visible_nodes)
-                        self._grid.draw(self._screen)
+            self._process_input()
             self._clock.tick(30)
             pygame.display.flip()
+
+    def _process_input(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+
+        key_pressed = pygame.key.get_pressed()
+        if key_pressed[pygame.K_SPACE]:
+            self._keys_pressed.add(pygame.K_SPACE)
+
+        if self._keyboard_timer != 0:
+            self._keyboard_timer -= 1
+            return
+
+        if pygame.K_SPACE in self._keys_pressed:
+            step = self._history.advance_step()
+            if not step:
+                self._grid.set_path_to_goal(self._path_to_goal)
+                self._grid.draw(self._screen)
+            else:
+                visited_node, visible_nodes = step
+                self._grid.set_graph_visited(visited_node.pos)
+                self._grid.set_graph_visible_nodes(visible_nodes)
+                self._grid.draw(self._screen)
+
+        self._keyboard_timer = 3
+        self._keys_pressed = set()
