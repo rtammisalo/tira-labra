@@ -21,19 +21,18 @@ class UI():
         self._history = history
 
     def run(self):
-        history_step = 0
-
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        visited_node, visible_nodes = self._history.get_step(
-                            history_step)
+                        step = self._history.advance_step()
+                        if not step:
+                            continue
+                        visited_node, visible_nodes = step
                         self._grid.set_graph_visited(visited_node.pos)
                         self._grid.set_graph_visible_nodes(visible_nodes)
                         self._grid.draw(self._screen)
-                        history_step += 1
             self._clock.tick(30)
             pygame.display.flip()
