@@ -23,7 +23,8 @@ class History():
 
     def advance_step(self):
         """Returns a tuple (visited, visible nodes) containing the node visited in the
-        next step, and a list of visible nodes from the visited node.
+        next step, and a list of visible nodes from the visited node. Returns None
+        if there are no steps left in the log.
         """
         if len(self._log) == 0:
             return None
@@ -31,6 +32,7 @@ class History():
         self._step += 1
 
         if len(self._log) - 1 < self._step:
-            self._step = len(self._log) - 1
+            self._step -= 1
+            return None
 
         return self._log[self._step]

@@ -12,6 +12,7 @@ class Cell(pygame.sprite.DirtySprite):
                   'S': START_COLOR, 'G': GOAL_COLOR}
     VISITED_COLOR = (255, 255, 100)
     VISIBLE_COLOR = (150, 150, 20, 50)
+    PATH_MARKER_COLOR = (250, 0, 250)
 
     def __init__(self, pos, cell):
         super().__init__()
@@ -40,3 +41,10 @@ class Cell(pygame.sprite.DirtySprite):
 
     def _get_new_surface(self):
         return pygame.Surface([Cell.WIDTH, Cell.HEIGHT]).convert_alpha()
+
+    def set_path_to_goal(self):
+        pygame.draw.aaline(self.image, Cell.PATH_MARKER_COLOR,
+                           (0, 0), (Cell.WIDTH, Cell.HEIGHT))
+        pygame.draw.aaline(self.image, Cell.PATH_MARKER_COLOR,
+                           (Cell.WIDTH, 0), (0, Cell.HEIGHT))
+        self.dirty = 1

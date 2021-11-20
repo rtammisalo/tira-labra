@@ -27,3 +27,7 @@ class Grid():
     def set_graph_visible_nodes(self, visible_nodes):
         for visible_node in visible_nodes:
             self.set_graph_visible(visible_node.pos)
+
+    def set_path_to_goal(self, path_to_goal):
+        for pos in path_to_goal:
+            self.grid[pos[1]][pos[0]].set_path_to_goal()

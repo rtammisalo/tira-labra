@@ -35,10 +35,9 @@ class TestHistory(unittest.TestCase):
         visited, visible_nodes = self.history.advance_step()
         self.assertEqual(visited.pos, (0, 0))
 
-    def test_advance_step_does_not_advance_past_last_step(self):
+    def test_advance_step_does_not_advance_past_last_step_and_returns_none(self):
         self.history.advance_step()
         self.history.advance_step()
         self.history.advance_step()
         self.history.advance_step()
-        visited, visible_nodes = self.history.advance_step()
-        self.assertEqual(visited.pos, (2, 0))
+        self.assertIsNone(self.history.advance_step())

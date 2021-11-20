@@ -29,6 +29,8 @@ class UI():
                     if event.key == pygame.K_SPACE:
                         step = self._history.advance_step()
                         if not step:
+                            self._grid.set_path_to_goal(self._path_to_goal)
+                            self._grid.draw(self._screen)
                             continue
                         visited_node, visible_nodes = step
                         self._grid.set_graph_visited(visited_node.pos)
