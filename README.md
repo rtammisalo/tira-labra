@@ -7,11 +7,29 @@ kartassa, joka on toteutettuna ruudukkona.
 
 Toteutuskielenä Python.
 
+## Käyttöohjeet
+
+Lataa sovellus ja asenna se ajamalla seuraava komento projektin juuressa:
+
+``` bash
+poetry install
+```
+
+Sovelluksen voi nyt käynnistää ajamalla komennon:
+
+``` bash
+poetry run invoke start
+```
+
+Dijkstran algoritmin toimintaa voi seurata pitämällä space-nappia pohjassa. Suorituksen lopussa ohjelma piirtää löydetyn reitin risteillä.
+
 ## Dokumentaatio
 
 - [Määrittelydokumentti](/dokumentaatio/maarittelydokumentti.md)
+- [Testausdokumentti](/dokumentaatio/testausdokumentti.md)
 
 ## Viikkoraportit
 
 - [Viikkoraportti 1](/dokumentaatio/viikkoraportti1.md)
 - [Viikkoraportti 2](/dokumentaatio/viikkoraportti2.md)
+- [Viikkoraportti 3](/dokumentaatio/viikkoraportti3.md)
