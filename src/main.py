@@ -1,6 +1,7 @@
 from ui.ui import UI
 from entities.grid import Grid
-from services.dijkstra import dijkstra
+from services.dijkstra import Dijkstra
+# from services.timer_service import TimerService
 
 if __name__ == "__main__":
     TEST_GRID_STR = """
@@ -9,8 +10,9 @@ if __name__ == "__main__":
     .....S.........#..........#..###.........
     .............#........######....#...#.#.#
     """
+
     test_grid = Grid(TEST_GRID_STR)
-    print(test_grid)
-    path, history = dijkstra(test_grid)
-    display = UI(test_grid, path, history)
+    display = UI(test_grid, Dijkstra(test_grid))
     display.run()
+    # timer = TimerService()
+    # print(timer.time_performance())

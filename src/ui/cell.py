@@ -11,7 +11,7 @@ class Cell(pygame.sprite.DirtySprite):
     CELL_COLOR = {'.': EMPTY_COLOR, '#': WALL_COLOR,
                   'S': START_COLOR, 'G': GOAL_COLOR}
     VISITED_COLOR = (255, 255, 100)
-    VISIBLE_COLOR = (150, 150, 20, 50)
+    VISIBLE_COLOR = (120, 120, 10, 10)
     PATH_MARKER_COLOR = (250, 0, 250)
 
     def __init__(self, pos, cell):
@@ -27,9 +27,11 @@ class Cell(pygame.sprite.DirtySprite):
         self.image.fill(cell_color)
         self.dirty = 1
 
+    def get_cell_center(self):
+        return (Cell.WIDTH // 2, Cell.HEIGHT // 2)
+
     def set_graph_visited(self):
-        pygame.draw.polygon(self.image, Cell.VISITED_COLOR,
-                            [(0, 0), (Cell.WIDTH, 0), (0, Cell.HEIGHT)])
+        pygame.draw.circle(self.image, Cell.VISITED_COLOR, self.get_cell_center(), 2)
         self.dirty = 1
 
     def set_graph_visible(self):

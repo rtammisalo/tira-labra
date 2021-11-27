@@ -1,7 +1,7 @@
 import math
 import unittest
 from entities.grid import Grid
-import services.dijkstra as dijkstra
+from services.dijkstra import Dijkstra
 
 
 class TestDijkstra(unittest.TestCase):
@@ -11,32 +11,33 @@ class TestDijkstra(unittest.TestCase):
         S..G
         ##.#
         """)
-        path, history = dijkstra.dijkstra(simple_test_grid)
-        self.simple_test_path = path
-        self.simple_test_history = history
+        self.dijkstra = Dijkstra(simple_test_grid)
 
     def test_simple_test_path_to_goal_is_correct(self):
-        self.assertEqual(self.simple_test_path, [(0, 1), (1, 1), (2, 1), (3, 1)])
+        path = self.dijkstra.run()
+        self.assertEqual(path, [(0, 1), (1, 1), (2, 1), (3, 1)])
 
-    def test_simple_test_history_contains_correct_visited_and_visible_nodes(self):
-        visited_node, visible_nodes = self.simple_test_history.advance_step()
+    def test_simple_test_next_steps_return_correct_visited_and_visible_nodes(self):
+        next_step_gen = self.dijkstra.next_step()
+        visited_node, visible_nodes = next_step_gen.__next__()
         self.assertEqual(visited_node.pos, (0, 1))
         self.assertEqual(list_positions(visible_nodes), [(1, 1)])
 
-        visited_node, visible_nodes = self.simple_test_history.advance_step()
+        visited_node, visible_nodes = next_step_gen.__next__()
         self.assertEqual(visited_node.pos, (1, 1))
         self.assertCountEqual(list_positions(visible_nodes), [(2, 1), (2, 2)])
 
-        visited_node, visible_nodes = self.simple_test_history.advance_step()
+        visited_node, visible_nodes = next_step_gen.__next__()
         self.assertEqual(visited_node.pos, (2, 1))
         self.assertCountEqual(list_positions(visible_nodes), [(2, 2), (3, 1)])
 
-    def test_dijkstra_returns_empty_history_when_not_logging(self):
-        _, history = dijkstra.dijkstra(Grid("SG"), logging=False)
-        self.assertIsNone(history.advance_step())
+    def test_next_step_gen_yields_none_when_not_using_step_info(self):
+        next_step_gen = self.dijkstra.next_step(step_info=False)
+        self.assertIsNone(next_step_gen.__next__())
 
     def test_dijkstra_on_a_grid_with_no_path_to_goal_returns_empty_list_as_path(self):
-        path, _ = dijkstra.dijkstra(Grid("S#G"))
+        dijkstra = Dijkstra(Grid("S#G"))
+        path = dijkstra.run()
         self.assertEqual(len(path), 0)
 
     def test_dijkstra_complex_path_length_is_correct(self):
@@ -53,7 +54,8 @@ class TestDijkstra(unittest.TestCase):
         ###.#.#.##
         """
         correct_length = 8 + 7 * math.sqrt(2)
-        path, history = dijkstra.dijkstra(Grid(grid))
+        dijkstra = Dijkstra(Grid(grid))
+        path = dijkstra.run()
         path_length = calculate_path_length(path)
         self.assertAlmostEqual(path_length, correct_length, places=5)
 

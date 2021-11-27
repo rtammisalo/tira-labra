@@ -1,7 +1,7 @@
 import sys
 import pygame
-import pygame.locals as pgl
 import ui.grid
+from services.dijkstra import Dijkstra
 
 
 class UI():
@@ -9,7 +9,7 @@ class UI():
     SCREEN_HEIGHT = 600
     BACKGROUND_COLOR = (100, 100, 100)
 
-    def __init__(self, grid, path_to_goal, history):
+    def __init__(self, grid, algorithm):
         pygame.init()
         self._screen_size = (UI.SCREEN_WIDTH, UI.SCREEN_HEIGHT)
         self._screen = pygame.display.set_mode(self._screen_size)
@@ -17,8 +17,8 @@ class UI():
         self._clock = pygame.time.Clock()
         self._grid = ui.grid.Grid(grid)
         self._grid.draw(self._screen)
-        self._path_to_goal = path_to_goal
-        self._history = history
+        self._algorithm = algorithm
+        self._step_algorithm = algorithm.next_step()
         self._keyboard_timer = 0
         self._keys_pressed = set()
 
@@ -42,15 +42,20 @@ class UI():
             return
 
         if pygame.K_SPACE in self._keys_pressed:
-            step = self._history.advance_step()
-            if not step:
-                self._grid.set_path_to_goal(self._path_to_goal)
-                self._grid.draw(self._screen)
-            else:
-                visited_node, visible_nodes = step
+            self._process_next_step()
+
+        self._keyboard_timer = 2
+        self._keys_pressed = set()
+
+    def _process_next_step(self):
+        if isinstance(self._algorithm, Dijkstra):
+            try:
+                visited_node, visible_nodes = self._step_algorithm.__next__()
                 self._grid.set_graph_visited(visited_node.pos)
                 self._grid.set_graph_visible_nodes(visible_nodes)
-                self._grid.draw(self._screen)
+            except StopIteration as stop:
+                path_to_goal = stop.value
+                if path_to_goal:
+                    self._grid.set_path_to_goal(path_to_goal)
 
-        self._keyboard_timer = 3
-        self._keys_pressed = set()
+        self._grid.draw(self._screen)
