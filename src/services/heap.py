@@ -8,30 +8,36 @@ class Heap():
     def __init__(self, nodes_list):
         """Inits the min-heap. Accepts a list of nodes as an argument.
         """
-        self._heap = nodes_list
+        self._heap = [(node.distance, node) for node in nodes_list]
         heapq.heapify(self._heap)
 
     def push_node(self, node):
         """Push a node to the min-heap.
         """
-        heapq.heappush(self._heap, node)
+        heapq.heappush(self._heap, (node.distance, node))
 
     def pop_node(self):
-        """Pops the smallest node from the heap and returns it. Returns None, if the heap is empty.
+        """Pops the smallest node from the heap and returns it. Sets popped node to visited.
+        Returns None, if the heap is empty.
         """
-        if len(self._heap) == 0:
-            return None
-        return heapq.heappop(self._heap)
+        while len(self._heap) > 0:
+            node = heapq.heappop(self._heap)[1]
+            if not node.visited:
+                node.visited = True
+                return node
 
-    def update_node(self, node, new_distance):
-        """Call this if you need to update the distance of a node.
+        return None
+
+    def decrease_distance(self, node, new_distance):
+        """Call this if you need to update the distance of a node. Works only when
+        decreasing distance.
 
         Args:
             node (Node): The node to be updated.
             new_distance (float): The new distance to the starting node for this node.
         """
         node.distance = new_distance
-        heapq.heapify(self._heap)
+        self.push_node(node)
 
     def is_empty(self):
         """Returns True if the heap is empty.

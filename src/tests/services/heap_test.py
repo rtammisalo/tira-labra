@@ -39,10 +39,10 @@ class TestHeap(unittest.TestCase):
         self.assertEqual(self.heap.pop_node().distance, 1)
 
     def test_updating_node_distance_changes_heap(self):
-        self.heap.update_node(self.node_a, 4)
+        self.assertEqual(self.heap.pop_node().distance, 1)
+        self.heap.decrease_distance(self.node_c, 1)
+        self.assertEqual(self.heap.pop_node().distance, 1)
         self.assertEqual(self.heap.pop_node().distance, 2)
-        self.assertEqual(self.heap.pop_node().distance, 3)
-        self.assertEqual(self.heap.pop_node().distance, 4)
 
     def test_is_empty_returns_true_on_empty_heaps(self):
         empty = Heap([])

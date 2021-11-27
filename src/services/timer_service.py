@@ -13,8 +13,8 @@ class TimerService():
         self.map_description = ""
         self.dijkstra_delta = 0
 
-    def time_performance(self, grid_str=test_maps.BIG_MAP,
-                         map_description=test_maps.BIG_MAP_DESCRIPTION):
+    def time_performance(self, grid_str=test_maps.REALLY_BIG_MAP,
+                         map_description=test_maps.REALLY_BIG_MAP_DESCRIPTION):
         """Call this method to start the test. Returns performance report as a string.
 
         Args:

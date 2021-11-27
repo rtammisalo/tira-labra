@@ -16,7 +16,7 @@ class Dijkstra():
         self._grid = grid
         self._graph = Graph(grid)
         self._open_nodes_by_distance = Heap(self._graph.get_nodes())
-        self._open_nodes_by_distance.update_node(
+        self._open_nodes_by_distance.decrease_distance(
             self._graph.get_start_node(), 0)
 
     def run(self):
@@ -47,7 +47,6 @@ class Dijkstra():
         """
         while not self._open_nodes_by_distance.is_empty():
             node = self._open_nodes_by_distance.pop_node()
-            node.visited = True
 
             if step_info:
                 visible_nodes = []
@@ -62,7 +61,7 @@ class Dijkstra():
                 new_distance = node.distance + edge_weight
 
                 if new_distance < neighbor_node.distance:
-                    self._open_nodes_by_distance.update_node(
+                    self._open_nodes_by_distance.decrease_distance(
                         neighbor_node, new_distance)
                     neighbor_node.previous = node
 
