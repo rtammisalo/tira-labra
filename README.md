@@ -15,7 +15,7 @@ Lataa sovellus ja asenna se ajamalla seuraava komento projektin juuressa:
 poetry install
 ```
 
-Sovelluksen voi nyt käynnistää ajamalla komennon:
+Sovelluksen graafisen näkymäb voi nyt käynnistää ajamalla komennon:
 
 ``` bash
 poetry run invoke start
@@ -23,13 +23,21 @@ poetry run invoke start
 
 Dijkstran algoritmin toimintaa voi seurata pitämällä space-nappia pohjassa. Suorituksen lopussa ohjelma piirtää löydetyn reitin risteillä.
 
+Jos haluaa ajaa yksinkertaisen nopeustestin Dijkstralle, niin käytä komentoa:
+
+``` bash
+poetry run invoke timer
+```
+
 ## Dokumentaatio
 
 - [Määrittelydokumentti](/dokumentaatio/maarittelydokumentti.md)
 - [Testausdokumentti](/dokumentaatio/testausdokumentti.md)
+- [Toteutusdokumentti](/dokumentaatio/toteutusdokumentti.md)
 
 ## Viikkoraportit
 
 - [Viikkoraportti 1](/dokumentaatio/viikkoraportti1.md)
 - [Viikkoraportti 2](/dokumentaatio/viikkoraportti2.md)
 - [Viikkoraportti 3](/dokumentaatio/viikkoraportti3.md)
+- [Viikkoraportti 4](/dokumentaatio/viikkoraportti4.md)
