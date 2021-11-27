@@ -7,6 +7,11 @@ def start(ctx):
 
 
 @task
+def timer(ctx):
+    ctx.run("python3 src/main.py timer")
+
+
+@task
 def pytest(ctx):
     ctx.run("pytest", pty=True)
 

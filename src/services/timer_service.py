@@ -30,8 +30,8 @@ class TimerService():
     def get_report(self):
         """Returns a report string of the last performance measuring.
         """
-        return f"Map description: {self.map_description}" + \
-            f"Dijkstra time: {self.dijkstra_delta:0.5f}"
+        return f"Map description: {self.map_description}\n" + \
+            f"Dijkstra time: {self.dijkstra_delta:0.5f} s"
 
     def _time_dijkstra(self):
         dijkstra = Dijkstra(self._grid)
