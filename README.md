@@ -21,7 +21,11 @@ Sovelluksen graafisen näkymäb voi nyt käynnistää ajamalla komennon:
 poetry run invoke start
 ```
 
-Dijkstran algoritmin toimintaa voi seurata pitämällä space-nappia pohjassa. Suorituksen lopussa ohjelma piirtää löydetyn reitin risteillä.
+- Dijkstran algoritmin toimintaa voi seurata pitämällä space-nappia pohjassa. 
+- Painamalla e-nappia ohjelma etenee nopeasti loppuun. 
+- Esc-napilla voi lopettaa ohjelman. 
+
+Suorituksen lopussa ohjelma piirtää löydetyn reitin risteillä.
 
 Jos haluaa ajaa yksinkertaisen nopeustestin Dijkstralle, niin käytä komentoa:
 
