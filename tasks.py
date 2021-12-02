@@ -2,13 +2,18 @@ from invoke import task
 
 
 @task
-def start(ctx):
-    ctx.run("python3 src/main.py")
+def timer(ctx):
+    ctx.run("python3 src/main.py timer")
 
 
 @task
-def timer(ctx):
-    ctx.run("python3 src/main.py timer")
+def dijkstra(ctx):
+    ctx.run("python3 src/main.py dijsktra")
+
+
+@task
+def jps(ctx):
+    ctx.run("python3 src/main.py jps")
 
 
 @task

@@ -2,6 +2,7 @@ import sys
 import pygame
 import ui.grid
 from services.dijkstra import Dijkstra
+from services.jps import JPS
 
 
 class UI():
@@ -55,16 +56,31 @@ class UI():
             self._process_next_step()
             self._grid.draw(self._screen)
 
-        self._keyboard_timer = 2
+        self._keyboard_timer = 40
         self._keys_pressed = set()
 
     def _process_next_step(self):
+        path_to_goal = None
+
         if isinstance(self._algorithm, Dijkstra):
             try:
                 visited_node, visible_nodes = self._step_algorithm.__next__()
-                self._grid.set_graph_visited(visited_node.pos)
-                self._grid.set_graph_visible_nodes(visible_nodes)
+                self._update_grid(visited_node, visible_nodes)
             except StopIteration as stop:
                 path_to_goal = stop.value
-                if path_to_goal:
-                    self._grid.set_path_to_goal(path_to_goal)
+        elif isinstance(self._algorithm, JPS):
+            try:
+                visited_node, visible_nodes, look_ahead_nodes = self._step_algorithm.__next__()
+                self._update_grid(
+                    visited_node, visible_nodes, look_ahead_nodes)
+            except StopIteration as stop:
+                path_to_goal = stop.value
+
+        if path_to_goal:
+            self._grid.set_path_to_goal(path_to_goal)
+
+    def _update_grid(self, visited_node, visible_nodes, look_ahead_nodes=None):
+        self._grid.set_graph_visited(visited_node.pos)
+        self._grid.set_graph_visible_nodes(visible_nodes)
+        if look_ahead_nodes:
+            self._grid.set_graph_look_ahead_nodes(look_ahead_nodes)

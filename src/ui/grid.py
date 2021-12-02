@@ -24,9 +24,17 @@ class Grid():
     def set_graph_visible(self, visible_pos):
         self.grid[visible_pos[1]][visible_pos[0]].set_graph_visible()
 
+    def set_graph_look_ahead(self, look_ahead_pos, direction):
+        self.grid[look_ahead_pos[1]][look_ahead_pos[0]
+                                     ].set_graph_look_ahead(direction)
+
     def set_graph_visible_nodes(self, visible_nodes):
         for visible_node in visible_nodes:
             self.set_graph_visible(visible_node.pos)
+
+    def set_graph_look_ahead_nodes(self, look_ahead_nodes):
+        for node, direction in look_ahead_nodes:
+            self.set_graph_look_ahead(node.pos, direction)
 
     def set_path_to_goal(self, path_to_goal):
         for pos in path_to_goal:
