@@ -72,6 +72,8 @@ class JPS():
 
             if self._generate_step_info:
                 yield current_node, self._visible_nodes, self._expanded_nodes
+            else:
+                yield None
 
             if self._graph.get_goal_node().visited:
                 return self._create_path_to_goal()
