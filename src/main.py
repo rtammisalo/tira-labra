@@ -17,5 +17,5 @@ if __name__ == "__main__":
                 algorithm = JPS(grid)
             else:
                 algorithm = Dijkstra(grid)
-        display = UI(grid, algorithm)
-        display.run()
+            display = UI(grid, algorithm)
+            display.run()
