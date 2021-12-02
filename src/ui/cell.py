@@ -1,5 +1,5 @@
 import pygame
-from services.jps import JPS
+from entities.grid import Grid
 
 
 class Cell(pygame.sprite.DirtySprite):
@@ -16,14 +16,14 @@ class Cell(pygame.sprite.DirtySprite):
     PATH_MARKER_COLOR = (250, 0, 250)
     DIRECTION_MARKER_COLOR = (50, 50, 200)
     DIRECTION_MARKER_VERTICES = {
-        JPS.DOWN: [(WIDTH//2, HEIGHT - 1), (WIDTH//2 - 3, HEIGHT - 4), (WIDTH//2 + 3, HEIGHT - 4)],
-        JPS.UP: [(WIDTH//2, 0), (WIDTH//2 - 3, 3), (WIDTH//2 + 3, 3)],
-        JPS.RIGHT: [(WIDTH - 1, HEIGHT//2), (WIDTH - 4, HEIGHT//2 - 3), (WIDTH - 4, HEIGHT//2 + 3)],
-        JPS.LEFT: [(0, HEIGHT//2), (3, HEIGHT//2 - 3), (3, HEIGHT//2 + 3)],
-        JPS.NE: [(WIDTH - 1, 0), (WIDTH - 4, 0), (WIDTH - 1, 3)],
-        JPS.SE: [(WIDTH - 1, HEIGHT - 1), (WIDTH - 4, HEIGHT - 1), (WIDTH - 1, HEIGHT - 4)],
-        JPS.SW: [(0, HEIGHT - 1), (3, HEIGHT - 1), (0, HEIGHT - 4)],
-        JPS.NW: [(0, 0), (0, 3), (3, 0)],
+        Grid.DOWN: [(WIDTH//2, HEIGHT - 1), (WIDTH//2 - 3, HEIGHT - 4), (WIDTH//2 + 3, HEIGHT - 4)],
+        Grid.UP: [(WIDTH//2, 0), (WIDTH//2 - 3, 3), (WIDTH//2 + 3, 3)],
+        Grid.RIGHT: [(WIDTH - 1, HEIGHT//2), (WIDTH - 4, HEIGHT//2 - 3), (WIDTH - 4, HEIGHT//2 + 3)],
+        Grid.LEFT: [(0, HEIGHT//2), (3, HEIGHT//2 - 3), (3, HEIGHT//2 + 3)],
+        Grid.NE: [(WIDTH - 1, 0), (WIDTH - 4, 0), (WIDTH - 1, 3)],
+        Grid.SE: [(WIDTH - 1, HEIGHT - 1), (WIDTH - 4, HEIGHT - 1), (WIDTH - 1, HEIGHT - 4)],
+        Grid.SW: [(0, HEIGHT - 1), (3, HEIGHT - 1), (0, HEIGHT - 4)],
+        Grid.NW: [(0, 0), (0, 3), (3, 0)],
     }
 
     def __init__(self, pos, cell):

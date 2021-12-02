@@ -1,36 +1,30 @@
 import math
 from entities.graph import Graph
-from entities.history import History
+from entities.grid import Grid
 from services.heap import Heap
 
 
 class JPS():
-    UP = (0, -1)
-    DOWN = (0, 1)
-    RIGHT = (1, 0)
-    LEFT = (-1, 0)
-    NE = (1, -1)
-    SE = (1, 1)
-    SW = (-1, 1)
-    NW = (-1, -1)
-    CARDINAL_DIRECTIONS = {UP, RIGHT, DOWN, LEFT}
-    DIAGONAL_DIRECTIONS = {NE, SE, SW, NW}
-
     # Running into these points while looking ahead can cause forced neighbors.
     # Dict key is the expanding direction, values are a list of (blocked, free) tuples
     # stored as relative directions to the inspected node position.
-    BLOCKED_FREE_PAIRS = {UP: [(LEFT, NW), (RIGHT, NE)],
-                          RIGHT: [(UP, NE), (DOWN, SE)],
-                          DOWN: [(LEFT, SW), (RIGHT, SE)],
-                          LEFT: [(UP, NW), (DOWN, SW)],
-                          NE: [(LEFT, NW), (DOWN, SE)],
-                          SE: [(LEFT, SW), (UP, NE)],
-                          SW: [(UP, NW), (RIGHT, SE)],
-                          NW: [(DOWN, SW), (RIGHT, NE)]}
+    BLOCKED_FREE_PAIRS = {Grid.UP: [(Grid.LEFT, Grid.NW), (Grid.RIGHT, Grid.NE)],
+                          Grid.RIGHT: [(Grid.UP, Grid.NE), (Grid.DOWN, Grid.SE)],
+                          Grid.DOWN: [(Grid.LEFT, Grid.SW), (Grid.RIGHT, Grid.SE)],
+                          Grid.LEFT: [(Grid.UP, Grid.NW), (Grid.DOWN, Grid.SW)],
+                          Grid.NE: [(Grid.LEFT, Grid.NW), (Grid.DOWN, Grid.SE)],
+                          Grid.SE: [(Grid.LEFT, Grid.SW), (Grid.UP, Grid.NE)],
+                          Grid.SW: [(Grid.UP, Grid.NW), (Grid.RIGHT, Grid.SE)],
+                          Grid.NW: [(Grid.DOWN, Grid.SW), (Grid.RIGHT, Grid.NE)]}
 
-    EXPANSION_DIRECTIONS = {UP: [UP], RIGHT: [RIGHT], DOWN: [DOWN], LEFT: [LEFT],
-                            NE: [UP, NE, RIGHT], SE: [DOWN, SE, RIGHT],
-                            SW: [DOWN, SW, LEFT], NW: [UP, NW, LEFT]}
+    EXPANSION_DIRECTIONS = {Grid.UP: [Grid.UP],
+                            Grid.RIGHT: [Grid.RIGHT],
+                            Grid.DOWN: [Grid.DOWN],
+                            Grid.LEFT: [Grid.LEFT],
+                            Grid.NE: [Grid.UP, Grid.NE, Grid.RIGHT],
+                            Grid.SE: [Grid.DOWN, Grid.SE, Grid.RIGHT],
+                            Grid.SW: [Grid.DOWN, Grid.SW, Grid.LEFT],
+                            Grid.NW: [Grid.UP, Grid.NW, Grid.LEFT]}
 
     def __init__(self, grid):
         self._grid = grid
@@ -146,7 +140,7 @@ class JPS():
         return additional_expanding_directions
 
     def _expand_in_direction(self, original_node, direction, cost):
-        if direction in self.CARDINAL_DIRECTIONS:
+        if direction in Grid.CARDINAL_DIRECTIONS:
             self._expand_in_cardinal_direction(original_node, direction, cost)
         else:
             self._expand_in_diagonal_direction(original_node, direction, cost)
@@ -198,17 +192,17 @@ class JPS():
             extra_cardinal_directions = []
             found_cardinal_expansion_interest = False
             if direction[0] > 0:
-                extra_cardinal_directions.append(self.RIGHT)
+                extra_cardinal_directions.append(Grid.RIGHT)
             else:
-                extra_cardinal_directions.append(self.LEFT)
+                extra_cardinal_directions.append(Grid.LEFT)
 
             if direction[1] > 0:
-                extra_cardinal_directions.append(self.DOWN)
+                extra_cardinal_directions.append(Grid.DOWN)
             else:
-                extra_cardinal_directions.append(self.UP)
+                extra_cardinal_directions.append(Grid.UP)
 
             for expand_direction in self.EXPANSION_DIRECTIONS[direction]:
-                if expand_direction in self.DIAGONAL_DIRECTIONS:
+                if expand_direction in Grid.DIAGONAL_DIRECTIONS:
                     continue
                 if self._expand_in_cardinal_direction(next_node, expand_direction, cost):
                     found_cardinal_expansion_interest = True
@@ -222,8 +216,8 @@ class JPS():
                 self._visible_nodes.append(next_node)
 
     def _expand_start_node(self, start_node):
-        all_directions = list(self.CARDINAL_DIRECTIONS) + \
-            list(self.DIAGONAL_DIRECTIONS)
+        all_directions = list(Grid.CARDINAL_DIRECTIONS) + \
+            list(Grid.DIAGONAL_DIRECTIONS)
         for direction in all_directions:
             self._expand_in_direction(start_node, direction, 0)
 

@@ -7,6 +7,16 @@ class Grid():
     """A business-logic side representation of the map as a x by y grid,
     made from different grid cells (walls, empty space, start, goal).
     """
+    UP = (0, -1)
+    DOWN = (0, 1)
+    RIGHT = (1, 0)
+    LEFT = (-1, 0)
+    NE = (1, -1)
+    SE = (1, 1)
+    SW = (-1, 1)
+    NW = (-1, -1)
+    CARDINAL_DIRECTIONS = {UP, RIGHT, DOWN, LEFT}
+    DIAGONAL_DIRECTIONS = {NE, SE, SW, NW}
 
     def __init__(self, grid_str):
         """Generates the grid based on the string encoding of the grid. All empty lines in
