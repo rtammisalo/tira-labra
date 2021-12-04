@@ -8,7 +8,11 @@
 - Tein muutaman testikartan
 - Päivitin koodin kommentteja vastaamaan muutoksia.
 
+JPS:
 ![graafinen toteutus](/dokumentaatio/viikko5kuva.jpg)
+
+Dijsktra:
+![Dijsktra](/dokumentaatio/dijkstra.jpg)
 
 ## Tuntikirjanpito
 
