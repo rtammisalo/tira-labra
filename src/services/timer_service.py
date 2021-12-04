@@ -19,7 +19,6 @@ class TimerService():
             map_description (str, optional): Description of the map.
                 Defaults to test_maps.BIG_MAP_DESCRIPTION.
         """
-        print("hello")
         grid = Grid(grid_str)
         dijkstra_delta = TimerService._time_dijkstra(grid)
         jps_delta = TimerService._time_jps(grid)
@@ -39,7 +38,7 @@ class TimerService():
         start_time = time.perf_counter()
         path = dijkstra.run()
         end_time = time.perf_counter()
-        print("Dijksta path length:", len(path))
+        print("Dijkstra path length:", len(path))
         return end_time - start_time
 
     @staticmethod

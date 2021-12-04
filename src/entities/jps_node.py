@@ -3,6 +3,8 @@ from entities.node import Node
 
 
 class JPSNode(Node):
+    """A node used by Jump Point Search. Inherits Node.
+    """
     # Running into these points while looking ahead can cause forced neighbors.
     # Dict key is the expanding direction, values are a list of (blocked, free) tuples
     # stored as relative directions to the inspected node position.
@@ -32,9 +34,13 @@ class JPSNode(Node):
         self.total_cost = 0
 
     def get_cardinal_expansion_directions(self, direction):
+        """ Returns a list of straight directions of pruned neighbors for moving diagonally.
+        """
         return self.EXPANSION_DIRECTIONS[direction]
 
     def iter_pruned_neighbor_directions(self, direction):
+        """ Iterate through all pruned neighbors for this node going toward given direction.
+        """
         if direction in Grid.DIAGONAL_DIRECTIONS:
             for neighbor_dir in self.get_cardinal_expansion_directions(direction):
                 yield neighbor_dir
@@ -43,6 +49,8 @@ class JPSNode(Node):
             yield forced_dir
 
     def iter_forced_neighbor_directions(self, direction):
+        """ Iterate through forced neighbors of this node, when going toward given direction.
+        """
         for blocked_direction, free_direction in self.BLOCKED_FREE_PAIRS[direction]:
             blocked_neighbor = self.get_node_in_direction(blocked_direction)
             free_neighbor = self.get_node_in_direction(free_direction)
@@ -50,10 +58,14 @@ class JPSNode(Node):
                 yield free_direction
 
     def has_forced_neighbor(self, direction):
-        for direction in self.iter_forced_neighbor_directions(direction):
+        """ Returns true, if the node has a forced neighbor when jumping
+        towards the given direction.
+        """
+        for neighbor_direction in self.iter_forced_neighbor_directions(direction):
             return True
         return False
 
     def get_node_in_direction(self, direction):
+        """ Returns the neighboring node in the given direction. """
         neighbor_pos = (self.pos[0] + direction[0], self.pos[1] + direction[1])
         return self.graph.get_node(neighbor_pos)
