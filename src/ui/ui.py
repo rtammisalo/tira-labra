@@ -6,7 +6,7 @@ from services.jps import JPS
 
 
 class UI():
-    SCREEN_WIDTH = 1200
+    SCREEN_WIDTH = 1600
     SCREEN_HEIGHT = 830
     BACKGROUND_COLOR = (100, 100, 100)
 

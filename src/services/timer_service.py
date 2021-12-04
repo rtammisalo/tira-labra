@@ -10,8 +10,8 @@ class TimerService():
     """
 
     @staticmethod
-    def time_performance(grid_str=test_maps.BIG_MAP,
-                         map_description=test_maps.REALLY_BIG_MAP_DESCRIPTION):
+    def time_performance(grid_str=test_maps.CITY_MAP,
+                         map_description=test_maps.CITY_MAP_DESCRIPTION):
         """Call this method to start the test. Returns performance report as a string.
 
         Args:
