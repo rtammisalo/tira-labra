@@ -3,17 +3,17 @@ from invoke import task
 
 @task
 def timer(ctx):
-    ctx.run("python3 src/main.py timer")
+    ctx.run("python3 src/main.py timer", pty=True)
 
 
 @task
 def dijkstra(ctx):
-    ctx.run("python3 src/main.py dijsktra")
+    ctx.run("python3 src/main.py dijsktra", pty=True)
 
 
 @task
 def jps(ctx):
-    ctx.run("python3 src/main.py jps")
+    ctx.run("python3 src/main.py jps", pty=True)
 
 
 @task

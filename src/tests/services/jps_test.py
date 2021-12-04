@@ -22,12 +22,12 @@ class TestDijkstra(unittest.TestCase):
         next_step_gen = self.jps.next_step()
         self.assertIsNone(next_step_gen.__next__())
 
-    def test_dijkstra_on_a_grid_with_no_path_to_goal_returns_empty_list_as_path(self):
+    def test_jps_on_a_grid_with_no_path_to_goal_returns_empty_list_as_path(self):
         jps = JPS(Grid("S#G"))
         path = jps.run()
         self.assertEqual(len(path), 0)
 
-    def test_dijkstra_complex_path_length_is_correct(self):
+    def test_jps_complex_path_length_is_correct(self):
         grid = """
         S........#
         .#######.#

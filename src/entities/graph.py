@@ -23,7 +23,7 @@ class Graph():
                 cell = grid[y_pos][x_pos].cell
 
                 if cell != '#':
-                    node = Node((x_pos, y_pos), self)
+                    node = self._create_new_node((x_pos, y_pos))
 
                 if cell == 'S':
                     self._start_node_pos = (x_pos, y_pos)
@@ -31,6 +31,9 @@ class Graph():
                     self._goal_node_pos = (x_pos, y_pos)
 
                 self._graph[y_pos].append(node)
+
+    def _create_new_node(self, pos):
+        return Node(pos, self)
 
     def get_start_node(self):
         """Returns the starting node of the graph.

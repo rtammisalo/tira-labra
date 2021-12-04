@@ -10,7 +10,7 @@ class TimerService():
     """
 
     @staticmethod
-    def time_performance(grid_str=test_maps.REALLY_BIG_MAP,
+    def time_performance(grid_str=test_maps.BIG_MAP,
                          map_description=test_maps.REALLY_BIG_MAP_DESCRIPTION):
         """Call this method to start the test. Returns performance report as a string.
 
@@ -19,6 +19,7 @@ class TimerService():
             map_description (str, optional): Description of the map.
                 Defaults to test_maps.BIG_MAP_DESCRIPTION.
         """
+        print("hello")
         grid = Grid(grid_str)
         dijkstra_delta = TimerService._time_dijkstra(grid)
         jps_delta = TimerService._time_jps(grid)
@@ -36,14 +37,16 @@ class TimerService():
     def _time_dijkstra(grid):
         dijkstra = Dijkstra(grid)
         start_time = time.perf_counter()
-        dijkstra.run()
+        path = dijkstra.run()
         end_time = time.perf_counter()
+        print("Dijksta path length:", len(path))
         return end_time - start_time
 
     @staticmethod
     def _time_jps(grid):
         jps = JPS(grid)
         start_time = time.perf_counter()
-        jps.run()
+        path = jps.run()
         end_time = time.perf_counter()
+        print("JPS path length:", len(path))
         return end_time - start_time
