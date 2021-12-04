@@ -38,9 +38,7 @@ class JPSNode(Node):
         if direction in Grid.DIAGONAL_DIRECTIONS:
             for neighbor_dir in self.get_cardinal_expansion_directions(direction):
                 yield neighbor_dir
-            yield direction
-        else:
-            yield direction
+        yield direction
         for forced_dir in self.iter_forced_neighbor_directions(direction):
             yield forced_dir
 
