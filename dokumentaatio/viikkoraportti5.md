@@ -27,3 +27,4 @@ Ohjelma lähestyy valmistumista. Aion ehkä vielä toteuttaa vertaisarvioian ehd
 - Yksikkötestien kirjoittamista
 - Uusia karttoja, mahd. JPS:n algoritmin artikkelissa mainituista lähteistä
 - UI-värkkäystä
+- Kattavampi suorituskykytestaus
