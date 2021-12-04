@@ -23,6 +23,10 @@ Dijkstran algoritmin toteutuksessa kutsutaan korkeintaan 8V kertaa min_heapistä
 päivittämään 8 naapurin sijaa min-heapissä. Päivitys tapahtuu pushaamalla sama Node uudestaan kekoon pienemmällä etäisyydellä. Myöhemmät versiot samasta Nodesta
 hylätään. Päivitys tapahtuu O(log V) ajassa. Yhteensä Dijkstran algoritmin toteutuksen aikavaativuus on siis O(V log V).
 
+Jump Point Search (JPS) algoritmin toteutuksessa pyöritään while-loopissa next_step-metodissa. Jokaisella askeleella haetaan min-heapistä uusi alkio, jonka
+toiminallisuus on sama kuin ylempänä eli yhteisaikavaativuus sille on O(V log V). Keon päivitys, kuten ylempänä, ei muuta aikavaativuutta. En oikein osaa sanoa,
+mikä aikavaativuus on JPS:n jump-funktiolla.
+
 ## Saavutetut tilavaativuudet
 
 Dijkstran algoritmi on toteutettuna kartan ruudukon kokoisena taulukkona Nodeja, jotka sisältävät muutaman ylläpitoon liittyvän kentän. Graafin siirtymiä ei erikseen
@@ -30,16 +34,23 @@ säiltytetä missään, vaan ne haetaan taulukon muodosta (yhdellä nodella on k
 määrä. Graphin avoimista Nodeista saadaan valittua Node, jolla on pienin etäisyys käyttämällä Pythonin heapq min-heap toteutusta (min-heapillä on tilavaativuus O(N)).
 Yhteensä siis O(V).
 
+JPS ei tarvitse lisärakenteita toimintaansa verrattuna Dijkstran algoritmiin, joten sen tilavaativuus on O(V).
+
 ## Suorituskyky
 
-Mittaamalla Dijkstran algoritmin toteutuksen suoritusta kartalla, jossa on yli 80 000 solua, saadaan kuluneeksi ajaksi n. 1.0581 sekunttia.
+Mittaamalla algoritmien toteutuksien suoritusta kartalla, jossa on yli 1 000 000 solua, saadaan kuluneeksi ajaksi:
+
+Dijkstra time: 16.28049 s
+JPS time: 11.22136 s
 
 ## Puutteet
 
-En vielä ole ehtinyt kunnolla aloittamaan JPS:n toteutusta. Timer karttojen kokoa tulisi varmaankin nostaa.
+Timer karttoja ja eri yksikkötestejä tarvitaan lisää.
 
 ## Lähteet
 - [PyGame](https://www.pygame.org/)
 - [Binary Heap](https://en.wikipedia.org/wiki/Binary_heap)
 - [Dijkstran algoritmi](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
 - [Pythonin heapq decrease_key toteutuksesta](https://docs.python.org/2/library/heapq.html#priority-queue-implementation-notes)
+- [JPS](http://users.cecs.anu.edu.au/~dharabor/data/papers/harabor-grastien-aaai11.pdf)
+
