@@ -15,19 +15,25 @@ Lataa sovellus ja asenna se ajamalla seuraava komento projektin juuressa:
 poetry install
 ```
 
-Sovelluksen graafisen näkymäb voi nyt käynnistää ajamalla komennon:
+Sovelluksen graafisen näkymän Dijkstran algoritmille saa ajamalla komennon:
 
 ``` bash
-poetry run invoke start
+poetry run invoke dijkstra
 ```
 
-- Dijkstran algoritmin toimintaa voi seurata pitämällä space-nappia pohjassa. 
+JPS:n graafisen seurannan käynnistys tapahtuu komennolla:
+
+``` bash
+poetry run invoke jps
+```
+
+- Algoritmin toimintaa voi seurata pitämällä space-nappia pohjassa. 
 - Painamalla e-nappia ohjelma etenee nopeasti loppuun. 
 - Esc-napilla voi lopettaa ohjelman. 
 
 Suorituksen lopussa ohjelma piirtää löydetyn reitin risteillä.
 
-Jos haluaa ajaa yksinkertaisen nopeustestin Dijkstralle, niin käytä komentoa:
+Jos haluaa ajaa yksinkertaisen nopeustestin, niin käytä komentoa:
 
 ``` bash
 poetry run invoke timer
