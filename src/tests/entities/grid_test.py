@@ -53,6 +53,45 @@ class TestGrid(unittest.TestCase):
         with self.assertRaises(ValueError):
             Grid("GS#..#G")
 
+    def test_set_new_start_changes_the_start_cell(self):
+        self.assertEqual(self.grid[0][0].cell, "S")
+        self.grid.set_new_start((0, 0), (0, 1))
+        self.assertEqual(self.grid[0][0].cell, ".")
+        self.assertEqual(self.grid[1][0].cell, "S")
+
+    def test_set_new_start_does_not_change_start_when_called_on_a_wall_cell(self):
+        self.grid.set_new_start((0, 0), (1, 0))
+        self.assertEqual(self.grid[0][0].cell, "S")
+        self.assertNotEqual(self.grid[0][1].cell, "S")
+
+    def test_set_new_goal_changes_the_goal_cell(self):
+        self.assertEqual(self.grid[2][1].cell, "G")
+        self.grid.set_new_goal((1, 2), (0, 1))
+        self.assertEqual(self.grid[2][1].cell, ".")
+        self.assertEqual(self.grid[1][0].cell, "G")
+
+    def test_set_new_goal_does_not_change_goal_when_called_on_a_wall_cell(self):
+        self.grid.set_new_goal((1, 2), (1, 0))
+        self.assertEqual(self.grid[2][1].cell, "G")
+
+    def test_clear_walls_clears_all_wall_cells(self):
+        self.grid.clear_walls()
+        for row in self.grid:
+            for cell in row:
+                self.assertNotEqual(cell.cell, "#")
+
+    def test_clear_walls_does_not_clear_start_or_goal(self):
+        self.grid.clear_walls()
+        start_found = goal_found = False
+        for row in self.grid:
+            for cell in row:
+                if cell.cell == "S":
+                    start_found = True
+                if cell.cell == "G":
+                    goal_found = True
+        self.assertTrue(start_found)
+        self.assertTrue(goal_found)
+
 
 def cells_to_chars(cell_row):
     row = []
