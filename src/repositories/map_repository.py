@@ -8,7 +8,8 @@ class MapRepository:
     def __init__(self):
         self._dir = "maps"
         self._map_files = set(["AR0011SR.map", "AR0516SR.map", "AR0711SR.map",
-                              "AR0012SR.map", "AR0203SR.map", "AR0700SR.map"])
+                               "AR0012SR.map", "AR0203SR.map", "AR0700SR.map",
+                               "AR0400SR.map", "AR0511SR.map"])
 
     def read_map(self, map_file):
         """ Reads the map indicated by map_file. Returns a tuple of
