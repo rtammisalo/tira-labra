@@ -15,21 +15,19 @@ Lataa sovellus ja asenna se ajamalla seuraava komento projektin juuressa:
 poetry install
 ```
 
-Sovelluksen graafisen näkymän Dijkstran algoritmille saa ajamalla komennon:
+Sovelluksen graafisen näkymän algoritmeille saa ajamalla komennon:
 
 ``` bash
-poetry run invoke dijkstra
+poetry run invoke start
 ```
 
-JPS:n graafisen seurannan käynnistys tapahtuu komennolla:
-
-``` bash
-poetry run invoke jps
-```
-
-- Algoritmin toimintaa voi seurata pitämällä space-nappia pohjassa. 
-- Painamalla e-nappia ohjelma etenee nopeasti loppuun. 
-- Esc-napilla voi lopettaa ohjelman. 
+- `mouse 1`-nappi siirtää lähtöruutua, `mouse 2` siirtää maaliruutua, `mouse 3` vaihtaa seinän tyhjäksi (tai toisinpäin).
+- `d`-napilla vaihdetaan Dijkstran algoritmiin.
+- `j`-napilla vaihdetaan JPS algoritmiin.
+- `e`-nappi ajaa nopeasti algoritmin toiminnan loppuun.
+- `c`-nappi tyhjentää koko ruudun seinistä ja `r`-nappi täyttää ruudun alkuperäisellä konfiguraatiolla.
+- välilyönnillä voi seurata algoritmin toimintaa. 
+- `esc`-napilla voi lopettaa ohjelman. 
 
 Suorituksen lopussa ohjelma piirtää löydetyn reitin risteillä.
 
