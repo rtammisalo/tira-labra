@@ -7,8 +7,7 @@ Cell-olioista taulukossa. Gridillä on tarkoitus mallintaa yleisemmällä tasoll
 Algoritmejä varten luodaan gridistä oma Graph-olio, joka koostuu Cell-luokan vastakohdan eli Node-luokan oliosta. Algoritmit siis käsittelevät tätä ylemmän tason
 Graph-oliota. 
 
-Hahmottelin algoritmit palveluiksi (sovelluslogiikka), eli ne on services-paketin sisällä. Toteutettu Dijkstran algoritmi on tehty niin, että sen toimintaa voidaan
-seurata ajon aikana generaattorin (next_step) avulla. Uskon, että tämä lähestymistapa myös auttaa myöhemmän Jump Point Searchin toteuttamisessa.
+Hahmottelin algoritmit palveluiksi (sovelluslogiikka), eli ne on services-paketin sisällä. Toteutetut Dijkstran algoritmi ja JPS on tehty niin, että niiden toimintaa voidaan seurata ajon aikana generaattorin (next_step) avulla.
 
 Käyttöliittymä on toteutettu PyGame-kirjaston avulla. Käyttöliittymätason koodi on sijoitettu ui-pakettiin siten, että käyttöliittymäkoodia ei kutsuta erikseen tason 
 ulkopuolelta. Suurin osa toteutuksesta tapahtuu ui/ui.py:n UI-luokassa, joka kysyy ajettavan algoritmin seuraavaa askelta aina, kun käyttäjä niin haluaa. 
@@ -38,14 +37,44 @@ JPS:n toteutus ei tarvitse lisärakenteita toimintaansa verrattuna Dijkstran alg
 
 ## Suorituskyky
 
-Mittaamalla algoritmien toteutuksien suoritusta kartalla, jossa on yli 1 000 000 solua, saadaan kuluneeksi ajaksi:
+Ajamalla kaikki kartat maps-hakemistosta kummallakin algoritmillä antaa seuraavat tulokset:
+```
+Running each algorithm 5 times per map..
 
-Dijkstra time: 16.28049 s
-JPS time: 11.22136 s
+Map file: maps/AR0012SR.map, 512x512 = 262144 cells.
+Dijkstra average time taken: 0.48551 s
+JPS average time taken: 0.05385 s
+Found path length of 195 with a total cost of 223.40916.
+
+Map file: maps/AR0516SR.map, 512x512 = 262144 cells.
+Dijkstra average time taken: 0.58470 s
+JPS average time taken: 0.09032 s
+Found path length of 324 with a total cost of 367.73506.
+
+Map file: maps/AR0700SR.map, 512x512 = 262144 cells.
+Dijkstra average time taken: 2.20224 s
+JPS average time taken: 0.08896 s
+Found path length of 370 with a total cost of 480.42345.
+
+Map file: maps/AR0203SR.map, 512x512 = 262144 cells.
+Dijkstra average time taken: 1.55805 s
+JPS average time taken: 0.29389 s
+Found path length of 405 with a total cost of 485.18586.
+
+Map file: maps/AR0011SR.map, 512x512 = 262144 cells.
+Dijkstra average time taken: 1.81841 s
+JPS average time taken: 0.31081 s
+Found path length of 477 with a total cost of 503.75231.
+
+Map file: maps/AR0711SR.map, 512x512 = 262144 cells.
+Dijkstra average time taken: 0.43165 s
+JPS average time taken: 0.09314 s
+Found path length of 616 with a total cost of 680.03153.
+```
 
 ## Puutteet
 
-Timer karttoja ja eri yksikkötestejä tarvitaan lisää.
+Lisää Timer karttoja ja yksikkötestejä.
 
 ## Lähteet
 - [PyGame](https://www.pygame.org/)
@@ -53,4 +82,5 @@ Timer karttoja ja eri yksikkötestejä tarvitaan lisää.
 - [Dijkstran algoritmi](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
 - [Pythonin heapq decrease_key toteutuksesta](https://docs.python.org/2/library/heapq.html#priority-queue-implementation-notes)
 - [JPS](http://users.cecs.anu.edu.au/~dharabor/data/papers/harabor-grastien-aaai11.pdf)
+- [movingai.com:n kartat](https://www.movingai.com/benchmarks/bg512/index.html)
 
