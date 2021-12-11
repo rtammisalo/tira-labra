@@ -24,8 +24,8 @@ päivittämään 8 naapurin sijaa min-heapissä. Päivitys tapahtuu pushaamalla 
 hylätään. Päivitys tapahtuu O(log V) ajassa. Yhteensä Dijkstran algoritmin toteutuksen aikavaativuus on siis O(V log V).
 
 Jump Point Search (JPS) algoritmin toteutuksessa pyöritään while-loopissa next_step-metodissa. Jokaisella askeleella haetaan min-heapistä uusi alkio, jonka
-toiminallisuus on sama kuin ylempänä eli yhteisaikavaativuus sille on O(V log V). Keon päivitys, kuten ylempänä, ei muuta aikavaativuutta. En oikein osaa sanoa,
-mikä aikavaativuus on JPS:n jump-funktiolla.
+toiminallisuus on sama kuin ylempänä eli yhteisaikavaativuus sille on O(V log V). Keon päivitys, kuten ylempänä, ei muuta aikavaativuutta. Pahimmassa tapauksessa JPS:n jump-funktiolla (JPS-luokan `_jump_in_direction`-metodi) joudutaan käymään kuitenkin läpi kaikki ruudukon ruudut. Aikaa per ruutu kuluu O(1) ja tämä nostaa
+pahimman aikavaativuuden luokkaan O(V^2). Yleisessä tapauksessa näin ei kuitenkaan tapahdu, sillä eteenpäin hyppääminen törmää nopeasti joko seinään tai uuteen hyppypisteeseen.
 
 ## Saavutetut tilavaativuudet
 
@@ -34,7 +34,7 @@ säiltytetä missään, vaan ne haetaan taulukon muodosta (yhdellä nodella on k
 määrä. Graphin avoimista Nodeista saadaan valittua Node, jolla on pienin etäisyys käyttämällä Pythonin heapq min-heap toteutusta (min-heapillä on tilavaativuus O(N)).
 Yhteensä siis O(V).
 
-JPS ei tarvitse lisärakenteita toimintaansa verrattuna Dijkstran algoritmiin, joten sen tilavaativuus on O(V).
+JPS:n toteutus ei tarvitse lisärakenteita toimintaansa verrattuna Dijkstran algoritmiin, joten sen tilavaativuus on O(V).
 
 ## Suorituskyky
 
