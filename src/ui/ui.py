@@ -86,7 +86,7 @@ class UI():
         key_pressed = pygame.key.get_pressed()
         if key_pressed[pygame.K_SPACE]:
             self._keys_pressed.add(pygame.K_SPACE)
-        if key_pressed[pygame.K_e]:
+        if key_pressed[pygame.K_r]:
             self._run_to_end = True
         if key_pressed[pygame.K_d]:
             self._reset_run(Dijkstra)
@@ -95,7 +95,7 @@ class UI():
         if key_pressed[pygame.K_c]:
             self._grid.clear_walls()
             self._reset_run()
-        if key_pressed[pygame.K_r]:
+        if key_pressed[pygame.K_n]:
             self._create_grid_from_string()
             self._reset_run()
         if key_pressed[pygame.K_ESCAPE]:
