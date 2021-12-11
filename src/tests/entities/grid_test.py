@@ -20,9 +20,9 @@ class TestGrid(unittest.TestCase):
         self.assertEqual([cell.cell for cell in grid[0]], 'G # #'.split())
         self.assertEqual([cell.cell for cell in grid[1]], '. . S'.split())
 
-    def test_init_grid_changes_illegal_characters_in_grid_str_to_empty_spaces(self):
+    def test_init_grid_changes_illegal_characters_in_grid_str_to_walls(self):
         grid = Grid('z\n#SG\n')
-        self.assertEqual(grid[0][0].cell, '.')
+        self.assertEqual(grid[0][0].cell, '#')
 
     def test_init_grid_adds_empty_spaces_to_lines_with_less_characters(self):
         grid = Grid('SG.\n#\n###\n')

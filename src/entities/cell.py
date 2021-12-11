@@ -24,7 +24,7 @@ class Cell():
         if char in Cell.LEGAL_CELLS:
             self.cell = char
         else:
-            self.cell = '.'
+            self.cell = '#'
 
     def __str__(self):
         return self.cell

@@ -4,3 +4,6 @@ omit = src/tests/**
        src/ui/**
        src/main.py
        src/**/__init__.py
+       src/repositories/map_repository.py
+       src/services/timer_service.py
+

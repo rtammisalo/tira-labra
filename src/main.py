@@ -1,13 +1,17 @@
 import sys
 from ui.ui import UI
 from services.timer_service import TimerService
-import test_maps
+from repositories.map_repository import MapRepository
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         if sys.argv[1] == "timer":
             timer = TimerService()
-            print(timer.time_performance())
+            timer.time_performance()
     else:
-        display = UI(test_maps.TEST_MAP)
+        map_repo = MapRepository()
+        map_desc, test_map = map_repo.read_map("test.map")
+        print(map_desc)
+        display = UI(test_map)
         display.run()

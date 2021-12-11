@@ -9,8 +9,9 @@ from services.jps import JPS
 class UI():
     """ The main UI class, call run-method after initializing. """
     SCREEN_WIDTH = 1600
-    SCREEN_HEIGHT = 830
+    SCREEN_HEIGHT = 1200
     BACKGROUND_COLOR = (100, 100, 100)
+    STEPS_PER_UPDATE = 100
 
     def __init__(self, grid_string):
         """ Takes as argument the string description of the grid. """
@@ -79,12 +80,12 @@ class UI():
 
     def _handle_move_screen(self, new_pos):
         """ Considers the new screen mid-point to be new_pos. """
-        new_screen_pos = (new_pos[0] - self._screen_size[0] //
-                          2, new_pos[1] - self._screen_size[1] // 2)
-        delta_pos = (self._screen_pos[0] - new_screen_pos[0],
-                     self._screen_pos[1] - new_screen_pos[1])
+        new_screen_pos = (self._screen_size[0] // 2 - new_pos[0],
+                          self._screen_size[1] // 2 - new_pos[1])
+        self._ui_grid.move(new_screen_pos)
+        new_screen_pos = (self._screen_pos[0] - new_screen_pos[0],
+                          self._screen_pos[1] - new_screen_pos[1])
         self._screen_pos = new_screen_pos
-        self._ui_grid.move(delta_pos)
         self._screen.fill(UI.BACKGROUND_COLOR)
         self._ui_grid.draw(self._screen)
 
@@ -110,7 +111,7 @@ class UI():
                     return
 
         if self._run_to_end:
-            for i in range(20):
+            for i in range(self.STEPS_PER_UPDATE):
                 self._process_next_step()
             self._ui_grid.draw(self._screen)
 
@@ -145,7 +146,7 @@ class UI():
             self._process_next_step()
             self._ui_grid.draw(self._screen)
 
-        self._keyboard_timer = 40
+        self._keyboard_timer = 3
         self._keys_pressed = set()
 
     def _process_next_step(self):
