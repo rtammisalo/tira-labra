@@ -22,11 +22,12 @@ poetry run invoke start
 ```
 
 - `mouse 1`-nappi siirtää lähtöruutua, `mouse 2` siirtää maaliruutua, `mouse 3` vaihtaa seinän tyhjäksi (tai toisinpäin).
-- `lshift + mouse 1` vaihtaa ruudun keskipisteeksi kursorin alla olevan kohdan.
+- `vasen shift + mouse 1` vaihtaa ruudun keskipisteeksi kursorin alla olevan kohdan.
 - `d`-napilla vaihdetaan Dijkstran algoritmiin.
 - `j`-napilla vaihdetaan JPS algoritmiin.
 - `r`-nappi ajaa nopeasti algoritmin toiminnan loppuun.
-- `c`-nappi tyhjentää koko ruudun seinistä ja `n`-nappi täyttää ruudun alkuperäisellä konfiguraatiolla.
+- `c`-nappi tyhjentää koko ruudun seinistä.
+- `n`-nappi täyttää ruudun alkuperäisellä konfiguraatiolla.
 - välilyönnillä voi seurata algoritmin toimintaa. 
 - `esc`-napilla voi lopettaa ohjelman. 
 
