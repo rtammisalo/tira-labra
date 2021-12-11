@@ -87,15 +87,13 @@ class JPS():
 
     def _get_cost_for_jump(self, initial_node, jump_node):
         """ Calculates the cost of travelling from initial_node to
-        the new jump node.
+        the new jump node in octile distance.
         """
-        x_delta = initial_node.pos[0] - jump_node.pos[0]
-        y_delta = initial_node.pos[1] - jump_node.pos[1]
-        if x_delta == 0:
-            return abs(y_delta)
-        if y_delta == 0:
-            return abs(x_delta)
-        return math.sqrt(x_delta**2 + y_delta**2)
+        x_delta = abs(initial_node.pos[0] - jump_node.pos[0])
+        y_delta = abs(initial_node.pos[1] - jump_node.pos[1])
+        if x_delta > y_delta:
+            return x_delta - y_delta + math.sqrt(2) * y_delta
+        return y_delta - x_delta + math.sqrt(2) * x_delta
 
     def _add_jump_node_to_heap(self, initial_node, jump_node, direction):
         """ Adds the jump node to the heap, if the node exists is actually
