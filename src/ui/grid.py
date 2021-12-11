@@ -4,22 +4,33 @@ from ui.cell import Cell
 
 class Grid():
     """ A UI-related grid container for holding a group of UI-related Cell-objects. """
+    BORDER = 1
+    LEFT_PAD = 4
+    TOP_PAD = 4
 
-    def __init__(self, grid):
+    def __init__(self, grid_pos, grid):
         self.group = pygame.sprite.RenderUpdates()
         self.grid = []
+        self._pos = grid_pos
 
         for y in range(grid.y_size):
             self.grid.append([])
             for x in range(grid.x_size):
-                cell = Cell((x * (Cell.WIDTH + 1) + 4,
-                             y * (Cell.HEIGHT + 1) + 4), grid[y][x])
+                cell = Cell((grid_pos[0] + x * (Cell.WIDTH + Grid.BORDER) + Grid.LEFT_PAD,
+                             grid_pos[1] + y * (Cell.HEIGHT + Grid.BORDER) + Grid.TOP_PAD), grid[y][x])
                 self.grid[y].append(cell)
                 self.group.add(cell)
 
     def draw(self, surface):
         """ Draws the changed cells to the screen. """
         self.group.draw(surface)
+
+    def move(self, delta_pos):
+        """ Moves the UI Grid by delta_pos. Call draw afterwards. """
+        self._pos = (self._pos[0] + delta_pos[0], self._pos[1] + delta_pos[1])
+        for row in self.grid:
+            for cell in row:
+                cell.move(delta_pos)
 
     def set_graph_visited(self, visited_pos):
         """ Sets the cell at visited_pos to show as visited (bright yellow dot). Visited
@@ -57,11 +68,12 @@ class Grid():
 
     def get_cell_pos_at_screen_position(self, screen_pos):
         """ Returns the cell position underneath the actual screen position. """
-        screen_pos = screen_pos[0] - 4, screen_pos[1] - 4
-        if screen_pos[0] < 0 or screen_pos[1] < 0:
+        world_pos = (screen_pos[0] - Grid.LEFT_PAD - self._pos[0],
+                     screen_pos[1] - Grid.TOP_PAD - self._pos[1])
+        if world_pos[0] < 0 or world_pos[1] < 0:
             return None
-        cell_pos = (screen_pos[0] // (Cell.WIDTH + 1),
-                    screen_pos[1] // (Cell.HEIGHT + 1))
+        cell_pos = (world_pos[0] // (Cell.WIDTH + Grid.BORDER),
+                    world_pos[1] // (Cell.HEIGHT + Grid.BORDER))
         if cell_pos[0] < len(self.grid[0]):
             if cell_pos[1] < len(self.grid):
                 return cell_pos

@@ -20,6 +20,7 @@ class JPS():
 
     def run(self):
         """ Runs the algorithm without generating step information or stopping every step.
+        Returns the path to the goal, or an empty list if there was no path.
         """
         try:
             self._generate_step_info = False

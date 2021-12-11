@@ -17,9 +17,9 @@ class UI():
         pygame.init()
         self._grid_string = grid_string
         self._create_grid_from_string()
+        self._screen_pos = (0, 0)
         self._screen_size = (UI.SCREEN_WIDTH, UI.SCREEN_HEIGHT)
         self._screen = pygame.display.set_mode(self._screen_size)
-        self._screen.fill(UI.BACKGROUND_COLOR)
         self._clock = pygame.time.Clock()
         self._algorithm_class = Dijkstra
         self._reset_run()
@@ -32,7 +32,9 @@ class UI():
         self._step_algorithm = self._algorithm.next_step()
 
     def _reset_ui_grid(self):
-        self._ui_grid = ui.grid.Grid(self._grid)
+        self._screen.fill(UI.BACKGROUND_COLOR)
+        ui_grid_pos = (0 - self._screen_pos[0], 0 - self._screen_pos[1])
+        self._ui_grid = ui.grid.Grid(ui_grid_pos, self._grid)
         self._ui_grid.draw(self._screen)
 
     def _create_grid_from_string(self):
@@ -60,11 +62,25 @@ class UI():
             self._clock.tick(60)
             pygame.display.flip()
 
+    def _handle_move_screen(self, new_pos):
+        """ Considers the new screen mid-point to be new_pos. """
+        new_screen_pos = (new_pos[0] - self._screen_size[0] //
+                          2, new_pos[1] - self._screen_size[1] // 2)
+        delta_pos = (self._screen_pos[0] - new_screen_pos[0],
+                     self._screen_pos[1] - new_screen_pos[1])
+        self._screen_pos = new_screen_pos
+        self._ui_grid.move(delta_pos)
+        self._screen.fill(UI.BACKGROUND_COLOR)
+        self._ui_grid.draw(self._screen)
+
     def _process_input(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1 and pygame.key.get_pressed()[pygame.K_LSHIFT]:
+                    self._handle_move_screen(event.pos)
+                    return
                 cell_pos = self._ui_grid.get_cell_pos_at_screen_position(
                     event.pos)
                 if cell_pos:
@@ -83,7 +99,11 @@ class UI():
                 self._process_next_step()
             self._ui_grid.draw(self._screen)
 
+        self._process_keyboard_input()
+
+    def _process_keyboard_input(self):
         key_pressed = pygame.key.get_pressed()
+
         if key_pressed[pygame.K_SPACE]:
             self._keys_pressed.add(pygame.K_SPACE)
         if key_pressed[pygame.K_r]:
@@ -96,6 +116,7 @@ class UI():
             self._grid.clear_walls()
             self._reset_run()
         if key_pressed[pygame.K_n]:
+            self._screen_pos = (0, 0)
             self._create_grid_from_string()
             self._reset_run()
         if key_pressed[pygame.K_ESCAPE]:

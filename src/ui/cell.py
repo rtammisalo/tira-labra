@@ -37,6 +37,11 @@ class Cell(pygame.sprite.DirtySprite):
         self.rect.x, self.rect.y = pos
         self._graph_visible = False
 
+    def move(self, delta_pos):
+        self.rect.x += delta_pos[0]
+        self.rect.y += delta_pos[1]
+        self.dirty = 1
+
     def _set_color(self, cell):
         """ Set the color of the cell to match the color of the cell. """
         cell_color = self.CELL_COLOR[str(cell)]
