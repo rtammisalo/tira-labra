@@ -61,6 +61,7 @@ class JPSNode(Node):
         """ Returns true, if the node has a forced neighbor when jumping
         towards the given direction.
         """
+        # pylint: disable=unused-variable
         for neighbor_direction in self.iter_forced_neighbor_directions(direction):
             return True
         return False

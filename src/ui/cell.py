@@ -3,6 +3,7 @@ from entities.grid import Grid
 
 
 class Cell(pygame.sprite.DirtySprite):
+    """ A class to provide graphical representation for graph nodes/cells. """
     WIDTH = 10
     HEIGHT = 10
     EMPTY_COLOR = (0, 0, 0)
@@ -27,27 +28,33 @@ class Cell(pygame.sprite.DirtySprite):
     }
 
     def __init__(self, pos, cell):
+        """ Takes as args the cell position on the UI grid and the actual grid cell,
+        which contains wall data, etc. """
         super().__init__()
         self.image = self._get_new_surface()
-        self.set_color(cell)
+        self._set_color(cell)
         self.rect = self.image.get_rect()
         self.rect.x, self.rect.y = pos
         self._graph_visible = False
 
-    def set_color(self, cell):
+    def _set_color(self, cell):
+        """ Set the color of the cell to match the color of the cell. """
         cell_color = self.CELL_COLOR[str(cell)]
         self.image.fill(cell_color)
         self.dirty = 1
 
-    def get_cell_center(self):
+    def _get_cell_center(self):
         return (Cell.WIDTH // 2, Cell.HEIGHT // 2)
 
     def set_graph_visited(self):
+        """ Draw the UI cell as visited. Paints a small yellow dot on the cell. """
         pygame.draw.circle(self.image, Cell.VISITED_COLOR,
-                           self.get_cell_center(), 2)
+                           self._get_cell_center(), 2)
         self.dirty = 1
 
     def set_graph_visible(self):
+        """ Draw the UI cell as visible to the algorithm. Paints
+        the cell yellow. """
         if not self._graph_visible:
             self.image.fill(Cell.VISIBLE_COLOR,
                             special_flags=pygame.BLEND_RGBA_ADD)
@@ -55,6 +62,8 @@ class Cell(pygame.sprite.DirtySprite):
             self._graph_visible = True
 
     def set_graph_look_ahead(self, direction):
+        """ Draws a small blue-ish arrow on the edge of the cell to mark
+        the cell as a jumped over. The arrow points to the jump direction. """
         vertices = self.DIRECTION_MARKER_VERTICES[direction]
         pygame.draw.polygon(self.image, Cell.DIRECTION_MARKER_COLOR, vertices)
         self.dirty = 1
@@ -63,6 +72,7 @@ class Cell(pygame.sprite.DirtySprite):
         return pygame.Surface([Cell.WIDTH, Cell.HEIGHT]).convert_alpha()
 
     def set_path_to_goal(self):
+        """ Draws a cross on the cell to mark it as one of the path cells. """
         pygame.draw.aaline(self.image, Cell.PATH_MARKER_COLOR,
                            (0, 0), (Cell.WIDTH, Cell.HEIGHT))
         pygame.draw.aaline(self.image, Cell.PATH_MARKER_COLOR,

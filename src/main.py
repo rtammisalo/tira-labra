@@ -1,8 +1,5 @@
 import sys
 from ui.ui import UI
-from entities.grid import Grid
-from services.dijkstra import Dijkstra
-from services.jps import JPS
 from services.timer_service import TimerService
 import test_maps
 

@@ -65,16 +65,21 @@ class Grid():
         return self._grid[key]
 
     def set_new_start(self, old_start, new_start):
+        """ Tries to set a new starting point. The point is only set
+        if it lies on an empty cell. """
         if self._grid[new_start[1]][new_start[0]].cell == ".":
             self._grid[old_start[1]][old_start[0]] = Cell(".")
             self._grid[new_start[1]][new_start[0]] = Cell("S")
 
     def set_new_goal(self, old_goal, new_goal):
+        """ Tries to set a new goal point. Only set if the new position
+        is an empty cell location. """
         if self._grid[new_goal[1]][new_goal[0]].cell == ".":
             self._grid[old_goal[1]][old_goal[0]] = Cell(".")
             self._grid[new_goal[1]][new_goal[0]] = Cell("G")
 
     def flip_cell_status(self, cell_pos):
+        """ Flips an empty cell at cell_pos into a wall cell and vice versa. """
         old_cell = self._grid[cell_pos[1]][cell_pos[0]].cell
         if old_cell == ".":
             self._grid[cell_pos[1]][cell_pos[0]] = Cell("#")
@@ -82,6 +87,7 @@ class Grid():
             self._grid[cell_pos[1]][cell_pos[0]] = Cell(".")
 
     def clear_walls(self):
+        """ Clears all walls from the grid. """
         for row, cell_row in enumerate(self._grid):
             for column, cell in enumerate(cell_row):
                 if cell.cell == "#":

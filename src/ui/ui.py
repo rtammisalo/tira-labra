@@ -7,11 +7,13 @@ from services.jps import JPS
 
 
 class UI():
+    """ The main UI class, call run-method after initializing. """
     SCREEN_WIDTH = 1600
     SCREEN_HEIGHT = 830
     BACKGROUND_COLOR = (100, 100, 100)
 
     def __init__(self, grid_string):
+        """ Takes as argument the string description of the grid. """
         pygame.init()
         self._grid_string = grid_string
         self._create_grid_from_string()
@@ -52,6 +54,7 @@ class UI():
         self._grid.set_new_goal(old_goal, cell_pos)
 
     def run(self):
+        """ Starts the UI. """
         while True:
             self._process_input()
             self._clock.tick(60)
