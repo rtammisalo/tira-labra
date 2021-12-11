@@ -14,7 +14,8 @@ class UI():
 
     def __init__(self, grid_string):
         """ Takes as argument the string description of the grid. """
-        pygame.init()
+        pygame.display.init()
+        self._print_help()
         self._grid_string = grid_string
         self._create_grid_from_string()
         self._screen_pos = (0, 0)
@@ -23,6 +24,20 @@ class UI():
         self._clock = pygame.time.Clock()
         self._algorithm_class = Dijkstra
         self._reset_run()
+
+    def _print_help(self):
+        print("\nKäyttöohjeet:")
+        print("mouse 1 - siirrä lähtöruutu")
+        print("mouse 2 - siirrä maaliruutu")
+        print("mouse 3 - muuta seinä tyhjäksi tai toisinpäin")
+        print("lshift + mouse 1 - vaihtaa ruudun keskipistettä")
+        print("d - vaihda käyttöön Dijkstran algoritmi")
+        print("j - vaihda käyttöön JPS algoritmi")
+        print("r - aja algoritmi nopeasti loppuun")
+        print("space - aja algoritmin seuraava askel (ottaa yhden ruudun pois keosta)")
+        print("c - tyhjentää kartan seinistä")
+        print("n - palauttaa alkuperäisen kartan konfiguraation")
+        print("ESC - lopettaa ohjelman\n")
 
     def _set_algorithm(self, algorithm=None):
         if not algorithm:
