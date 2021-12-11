@@ -14,10 +14,10 @@ class Dijkstra():
             grid (Grid): Grid depiction of the map.
         """
         self._grid = grid
-        self._graph = Graph(grid)
-        self._open_nodes_by_distance = Heap(self._graph.get_nodes())
+        self.graph = Graph(grid)
+        self._open_nodes_by_distance = Heap(self.graph.get_nodes())
         self._open_nodes_by_distance.decrease_distance(
-            self._graph.get_start_node(), 0)
+            self.graph.get_start_node(), 0)
 
     def run(self):
         """Executes Dijkstra's algorithm on the graph. Returns a list of grid positions
@@ -48,6 +48,11 @@ class Dijkstra():
         while not self._open_nodes_by_distance.is_empty():
             node = self._open_nodes_by_distance.pop_node()
 
+            if node.distance == float('inf'):
+                # We ran out of neighbors (direct or indirect) to the starting cell,
+                # which means that there is no path to goal.
+                break
+
             if step_info:
                 visible_nodes = []
 
@@ -65,7 +70,7 @@ class Dijkstra():
                         neighbor_node, new_distance)
                     neighbor_node.previous = node
 
-                if neighbor_node == self._graph.get_goal_node():
+                if neighbor_node == self.graph.get_goal_node():
                     if step_info:
                         yield node, visible_nodes
                     return neighbor_node.path_from_start()

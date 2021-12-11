@@ -64,6 +64,29 @@ class Grid():
     def __getitem__(self, key):
         return self._grid[key]
 
+    def set_new_start(self, old_start, new_start):
+        if self._grid[new_start[1]][new_start[0]].cell == ".":
+            self._grid[old_start[1]][old_start[0]] = Cell(".")
+            self._grid[new_start[1]][new_start[0]] = Cell("S")
+
+    def set_new_goal(self, old_goal, new_goal):
+        if self._grid[new_goal[1]][new_goal[0]].cell == ".":
+            self._grid[old_goal[1]][old_goal[0]] = Cell(".")
+            self._grid[new_goal[1]][new_goal[0]] = Cell("G")
+
+    def flip_cell_status(self, cell_pos):
+        old_cell = self._grid[cell_pos[1]][cell_pos[0]].cell
+        if old_cell == ".":
+            self._grid[cell_pos[1]][cell_pos[0]] = Cell("#")
+        if old_cell == "#":
+            self._grid[cell_pos[1]][cell_pos[0]] = Cell(".")
+
+    def clear_walls(self):
+        for row, cell_row in enumerate(self._grid):
+            for column, cell in enumerate(cell_row):
+                if cell.cell == "#":
+                    self._grid[row][column] = Cell(".")
+
 
 def _check_string_for_start_and_goal(grid_str):
     matches_counter = Counter(re.findall(r'(S|G)', grid_str))

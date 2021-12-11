@@ -11,11 +11,6 @@ if __name__ == "__main__":
         if sys.argv[1] == "timer":
             timer = TimerService()
             print(timer.time_performance())
-        else:
-            grid = Grid(test_maps.TEST_MAP)
-            if sys.argv[1] == "jps":
-                algorithm = JPS(grid)
-            else:
-                algorithm = Dijkstra(grid)
-            display = UI(grid, algorithm)
-            display.run()
+    else:
+        display = UI(test_maps.TEST_MAP)
+        display.run()

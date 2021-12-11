@@ -12,7 +12,7 @@ class JPS():
         """ Inits the algorithm, requires a fully formed Grid-object as the base map.
         """
         self._grid = grid
-        self._graph = JPSGraph(grid)
+        self.graph = JPSGraph(grid)
         self._open_nodes_by_distance = Heap([])
         self._expanded_nodes = []
         self._visible_nodes = []
@@ -38,14 +38,14 @@ class JPS():
         self._init_start_node()
         self._expand_from_start_node()
         if self._generate_step_info:
-            yield self._graph.get_start_node(), self._visible_nodes, self._expanded_nodes
+            yield self.graph.get_start_node(), self._visible_nodes, self._expanded_nodes
 
         while True:
             current_node = self._open_nodes_by_distance.pop_node()
             if not current_node:
                 break
 
-            if current_node == self._graph.get_goal_node():
+            if current_node == self.graph.get_goal_node():
                 return self._create_path_to_goal()
 
             if self._generate_step_info:
@@ -74,7 +74,7 @@ class JPS():
             if self._generate_step_info:
                 self._expanded_nodes.append((next_node, direction))
 
-            if next_node == self._graph.get_goal_node():
+            if next_node == self.graph.get_goal_node():
                 return next_node
             if next_node.has_forced_neighbor(direction):
                 return next_node
@@ -131,7 +131,7 @@ class JPS():
     def _expand_from_start_node(self):
         """ A special case of finding new jump points.
         """
-        start_node = self._graph.get_start_node()
+        start_node = self.graph.get_start_node()
         all_directions = list(Grid.CARDINAL_DIRECTIONS) + \
             list(Grid.DIAGONAL_DIRECTIONS)
         for direction in all_directions:
@@ -139,14 +139,14 @@ class JPS():
             self._add_jump_node_to_heap(start_node, jump_node, direction)
 
     def _init_start_node(self):
-        start_node = self._graph.get_start_node()
+        start_node = self.graph.get_start_node()
         start_node.distance = 0
         start_node.total_cost = 0
         start_node.direction = None
         start_node.visited = True
 
     def _heuristic_distance(self, node):
-        return self._get_cost_for_jump(node, self._graph.get_goal_node())
+        return self._get_cost_for_jump(node, self.graph.get_goal_node())
 
     def _get_nodes_between(self, node, previous_node):
         """ Returns a list of JPSNodes between node and previous node. """
@@ -174,8 +174,8 @@ class JPS():
     def _create_path_to_goal(self):
         """ Creates a list of node positions from start to goal node.
         """
-        node = self._graph.get_goal_node()
-        start_node = self._graph.get_start_node()
+        node = self.graph.get_goal_node()
+        start_node = self.graph.get_start_node()
         path_to_goal = [node.pos]
         while node != start_node:
             previous_node = node.previous

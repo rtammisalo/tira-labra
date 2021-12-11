@@ -39,3 +39,13 @@ class Grid():
     def set_path_to_goal(self, path_to_goal):
         for pos in path_to_goal:
             self.grid[pos[1]][pos[0]].set_path_to_goal()
+
+    def get_cell_pos_at_screen_position(self, pos):
+        pos = pos[0] - 4, pos[1] - 4
+        if pos[0] < 0 or pos[1] < 0:
+            return None
+        cell_pos = pos[0] // (Cell.WIDTH + 1), pos[1] // (Cell.HEIGHT + 1)
+        if cell_pos[0] < len(self.grid[0]):
+            if cell_pos[1] < len(self.grid):
+                return cell_pos
+        return None
