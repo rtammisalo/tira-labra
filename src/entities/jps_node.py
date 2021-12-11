@@ -19,7 +19,7 @@ class JPSNode(Node):
 
     # A dict to hold possible natural neighbors of this node, when moving to the direction of
     # the key value, e.g., when moving NE from this node, consider nodes directly
-    # UP, RIGHT and NE of this node as possible natural neighbors.
+    # UP, RIGHT of this node as possible natural neighbors. The direction itself is left out.
     EXPANSION_DIRECTIONS = {Grid.UP: [],
                             Grid.RIGHT: [],
                             Grid.DOWN: [],

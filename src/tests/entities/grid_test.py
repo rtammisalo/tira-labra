@@ -92,6 +92,20 @@ class TestGrid(unittest.TestCase):
         self.assertTrue(start_found)
         self.assertTrue(goal_found)
 
+    def test_flip_cell_status_flips_wall_to_empty(self):
+        self.grid.flip_cell_status((1, 0))
+        self.assertEqual(self.grid[1][0].cell, ".")
+
+    def test_flip_cell_status_flips_empty_to_wall(self):
+        self.grid.flip_cell_status((0, 1))
+        self.assertEqual(self.grid[0][1].cell, "#")
+
+    def test_flip_cell_does_not_change_start_or_goal(self):
+        self.grid.flip_cell_status((0, 0))
+        self.grid.flip_cell_status((1, 2))
+        self.assertEqual(self.grid[0][0].cell, "S")
+        self.assertEqual(self.grid[2][1].cell, "G")
+
 
 def cells_to_chars(cell_row):
     row = []
