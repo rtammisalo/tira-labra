@@ -1,3 +1,4 @@
+import sys
 import time
 import math
 from entities.grid import Grid
@@ -16,17 +17,22 @@ class TimerService():
         """Runs the algorithms 5 times on all the maps in the maps repository.
         Prints out a detailed report to the console. """
         map_repository = MapRepository()
-        print(f"\nRunning each algorithm {TimerService.RUNS} times per map..")
+        print(f"\nRunning each algorithm {TimerService.RUNS} times per map.")
         for map_desc, map_string in map_repository.iter_maps():
             grid = Grid(map_string)
             dijkstra_deltas = [0]*TimerService.RUNS
             jps_deltas = [0]*TimerService.RUNS
+            print("Running", end="")
 
             for run in range(TimerService.RUNS):
+                print(".", end="")
+                sys.stdout.flush()
                 dijkstra_deltas[run], dijkstra_path = TimerService._time_algorithm(
                     Dijkstra, grid)
                 jps_deltas[run], jps_path = TimerService._time_algorithm(
                     JPS, grid)
+
+            print()
             TimerService._print_details((dijkstra_deltas, dijkstra_path),
                                         (jps_deltas, jps_path), map_desc)
 
