@@ -2,45 +2,13 @@
 
 ![Actions:CI](https://github.com/rtammisalo/tira-labra/workflows/CI/badge.svg) [![codecov](https://codecov.io/gh/rtammisalo/tira-labra/branch/main/graph/badge.svg?token=T9UVAQ8WRV)](https://codecov.io/gh/rtammisalo/tira-labra)
 
-Projektin tarkoituksena on tehdä vertailua kahden reitinhakualgoritmin välillä (Jump Point Search ja Dijkstra). Testaus tapahtuu käsintehdyssä
-kartassa, joka on toteutettuna ruudukkona.
+Projektin tarkoituksena on tehdä vertailua kahden reitinhakualgoritmin välillä (Jump Point Search ja Dijkstra). Ohjelman graafisessa näkymässä voi seurata valitun algoritmin toimintaa askel kerrallaan. Askeleeksi lasketaan yksi poisto open setistä, eli minimi-keosta. Käyttöliittymässä voi myös muuttaa aloitus- ja maalipaikkaa, sekä muuttaa karttaa. Tehokkuustesteissä käytetään suurimmaksi osaksi valmiskarttoja [movingai.com](https://www.movingai.com/benchmarks/grids.html) sivustolta.
 
 Toteutuskielenä Python.
 
-## Käyttöohjeet
-
-Lataa sovellus ja asenna se ajamalla seuraava komento projektin juuressa:
-
-``` bash
-poetry install
-```
-
-Sovelluksen graafisen näkymän algoritmeille saa ajamalla komennon:
-
-``` bash
-poetry run invoke start
-```
-
-- `mouse 1`-nappi siirtää lähtöruutua, `mouse 2` siirtää maaliruutua, `mouse 3` vaihtaa seinän tyhjäksi (tai toisinpäin).
-- `vasen shift + mouse 1` vaihtaa ruudun keskipisteeksi kursorin alla olevan kohdan.
-- `d`-napilla vaihdetaan Dijkstran algoritmiin.
-- `j`-napilla vaihdetaan JPS algoritmiin.
-- `r`-nappi ajaa nopeasti algoritmin toiminnan loppuun.
-- `c`-nappi tyhjentää koko ruudun seinistä.
-- `n`-nappi täyttää ruudun alkuperäisellä konfiguraatiolla.
-- välilyönnillä voi seurata algoritmin toimintaa. 
-- `esc`-napilla voi lopettaa ohjelman. 
-
-Suorituksen lopussa ohjelma piirtää löydetyn reitin risteillä.
-
-Jos haluaa ajaa yksinkertaisen nopeustestin, niin käytä komentoa:
-
-``` bash
-poetry run invoke timer
-```
-
 ## Dokumentaatio
 
+- [Käyttöohjeet](/dokumentaatio/kayttoohjeet.md)
 - [Määrittelydokumentti](/dokumentaatio/maarittelydokumentti.md)
 - [Testausdokumentti](/dokumentaatio/testausdokumentti.md)
 - [Toteutusdokumentti](/dokumentaatio/toteutusdokumentti.md)
@@ -53,4 +21,3 @@ poetry run invoke timer
 - [Viikkoraportti 4](/dokumentaatio/viikkoraportti4.md)
 - [Viikkoraportti 5](/dokumentaatio/viikkoraportti5.md)
 - [Viikkoraportti 6](/dokumentaatio/viikkoraportti6.md)
-
