@@ -70,5 +70,8 @@ class Node():
         raise NotImplementedError()
 
     def __str__(self):
+        prev_node_pos = None
+        if self.previous:
+            prev_node_pos = self.previous.pos
         return f'Node at {self.pos}, distance of {self.distance}, ' \
-            f'previous node set to {self.previous}'
+            f'previous node set to {prev_node_pos}'

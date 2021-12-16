@@ -1,9 +1,11 @@
 import sys
 import pygame
+from services.ida_star import IDAStar
 import ui.grid
 from entities.grid import Grid
 from services.dijkstra import Dijkstra
 from services.jps import JPS
+from services.ida_star import IDAStar
 
 
 class UI():
@@ -128,6 +130,8 @@ class UI():
             self._reset_run(Dijkstra)
         if key_pressed[pygame.K_j]:
             self._reset_run(JPS)
+        if key_pressed[pygame.K_i]:
+            self._reset_run(IDAStar)
         if key_pressed[pygame.K_c]:
             self._grid.clear_walls()
             self._reset_run()
@@ -155,22 +159,29 @@ class UI():
         if isinstance(self._algorithm, Dijkstra):
             try:
                 visited_node, visible_nodes = self._step_algorithm.__next__()
-                self._update_grid(visited_node, visible_nodes)
+                self._update_grid([visited_node], visible_nodes)
             except StopIteration as stop:
                 path_to_goal = stop.value
         elif isinstance(self._algorithm, JPS):
             try:
                 visited_node, visible_nodes, look_ahead_nodes = self._step_algorithm.__next__()
                 self._update_grid(
-                    visited_node, visible_nodes, look_ahead_nodes)
+                    [visited_node], visible_nodes, look_ahead_nodes)
+            except StopIteration as stop:
+                path_to_goal = stop.value
+        elif isinstance(self._algorithm, IDAStar):
+            try:
+                visited_nodes = self._step_algorithm.__next__()
+                self._update_grid(visited_nodes, visited_nodes)
             except StopIteration as stop:
                 path_to_goal = stop.value
 
         if path_to_goal:
             self._ui_grid.set_path_to_goal(path_to_goal)
 
-    def _update_grid(self, visited_node, visible_nodes, look_ahead_nodes=None):
-        self._ui_grid.set_graph_visited(visited_node.pos)
+    def _update_grid(self, visited_nodes, visible_nodes, look_ahead_nodes=None):
+        for visited_node in visited_nodes:
+            self._ui_grid.set_graph_visited(visited_node.pos)
         self._ui_grid.set_graph_visible_nodes(visible_nodes)
         if look_ahead_nodes:
             self._ui_grid.set_graph_look_ahead_nodes(look_ahead_nodes)
