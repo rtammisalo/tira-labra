@@ -3,6 +3,7 @@ from entities.node import Node
 
 class Graph():
     """A graph with nodes and a 'concept' of edges between nodes made from a cell-based grid.
+    This is the actual class used by all the algorithm implementations.
     """
 
     def __init__(self, grid):
@@ -16,18 +17,19 @@ class Graph():
         self._start_node_pos = (-1, -1)
         self._goal_node_pos = (-1, -1)
 
+        # Graph[row][column] is the same as Graph[y][x].
         for y_pos in range(grid.y_size):
             self._graph.append([])
             for x_pos in range(grid.x_size):
                 node = None
-                cell = grid[y_pos][x_pos].cell
+                cell = grid[y_pos][x_pos]
 
-                if cell != '#':
+                if not cell.is_wall():
                     node = self._create_new_node((x_pos, y_pos))
 
-                if cell == 'S':
+                if cell.is_start():
                     self._start_node_pos = (x_pos, y_pos)
-                elif cell == 'G':
+                elif cell.is_goal():
                     self._goal_node_pos = (x_pos, y_pos)
 
                 self._graph[y_pos].append(node)

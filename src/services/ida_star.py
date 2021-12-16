@@ -5,7 +5,10 @@ from services.algorithm import Algorithm
 
 
 class IDAStar(Algorithm):
-    """ Implements IDA* pathfind algorithm. """
+    """ Implements IDA* pathfind algorithm.
+
+    https://en.wikipedia.org/wiki/Iterative_deepening_A*
+    """
 
     def __init__(self, grid):
         """ Constructor needs a Grid-object as an argument. """

@@ -1,48 +1,43 @@
-import math
 from entities.jps_graph import JPSGraph
 from entities.grid import Grid
 from services.heap import Heap
+from services.algorithm import Algorithm
+from services.distance import octile_distance
 
 
-class JPS():
-    """ Class for handling Jump Point Search algorithm.
+class JPS(Algorithm):
+    """Implements the Jump Point Search algorithm.
+
+    http://users.cecs.anu.edu.au/~dharabor/data/papers/harabor-grastien-aaai11.pdf
     """
 
     def __init__(self, grid):
-        """ Inits the algorithm, requires a fully formed Grid-object as the base map.
+        """Inits the algorithm, requires a fully formed Grid-object as the base map.
         """
-        self._grid = grid
+        super().__init__(grid)
         self.graph = JPSGraph(grid)
         self._open_nodes_by_distance = Heap([])
         self._expanded_nodes = []
         self._visible_nodes = []
-        self._generate_step_info = True
-
-    def run(self):
-        """ Runs the algorithm without generating step information or stopping every step.
-        Returns the path to the goal, or an empty list if there was no path.
-        """
-        try:
-            self._generate_step_info = False
-            generator = self.next_step()
-            while True:
-                generator.__next__()
-        except StopIteration as stop:
-            return stop.value
 
     def next_step(self):
-        """ Generates the next step of the algorithm. Expands the popped jump point and yields
-        to the caller a tuple of jump point node (current node), list of new jump points
-        (visited_nodes) and a list of node, direction pairs of nodes visited in look-ahead
-        operations. Returns the path to the goal if it exists.
+        """Generates the next step of the algorithm. Expands the popped jump point and yields
+        to the caller a 3-tuple, which contains:
+        1. The jump point node (current node),
+        2. The list of new jump points (visited_nodes) and
+        3. A list of (node, direction) tuples of nodes visited in look-ahead operations.
+
+        Returns the path to the goal if it exists.
         """
         self._init_start_node()
         self._expand_from_start_node()
+
         if self._generate_step_info:
             yield self.graph.get_start_node(), self._visible_nodes, self._expanded_nodes
 
         while True:
             current_node = self._open_nodes_by_distance.pop_node()
+
             if not current_node:
                 break
 
@@ -57,14 +52,22 @@ class JPS():
 
             if self._generate_step_info:
                 yield current_node, self._visible_nodes, self._expanded_nodes
-            else:
-                yield None
 
         return []
 
     def _jump_in_direction(self, initial_node, direction):
-        """ Performs a jump operation starting from initial node in the
-        given direction.
+        """Performs a jump operation starting from initial node in the
+        given direction. Diagonal jump directions cause new horizontal
+        and vertical jumps at each step.
+
+        Args:
+            initial_node (JPSNode): Starting point of the jumps.
+            direction (Grid's direction tuples): The direction the jump
+            defined by the UP, DOWN, etc direction tuples in Grid-class.
+
+        Returns:
+            JPSNode: Returns a node somewhere in the jump range. Returns
+            None when there was no new jump point in the given direction.
         """
         next_node = initial_node
         while True:
@@ -86,29 +89,27 @@ class JPS():
                         return next_node
 
     def _get_cost_for_jump(self, initial_node, jump_node):
-        """ Calculates the cost of travelling from initial_node to
-        the new jump node in octile distance.
+        """Calculates the cost of travelling from initial_node to
+        the new jump node.
         """
-        x_delta = abs(initial_node.pos[0] - jump_node.pos[0])
-        y_delta = abs(initial_node.pos[1] - jump_node.pos[1])
-        if x_delta > y_delta:
-            return x_delta - y_delta + math.sqrt(2) * y_delta
-        return y_delta - x_delta + math.sqrt(2) * x_delta
+        return octile_distance(initial_node, jump_node)
 
     def _add_jump_node_to_heap(self, initial_node, jump_node, direction):
-        """ Adds the jump node to the heap, if the node exists is actually
-        closer (in distance) than the previous iteration of it in the heap.
+        """Adds the jump node to the heap, if the node exists and is actually
+        closer (in distance) than the previous iteration of it already in the heap.
+
+        The direction is stored for later to allow finding the correct pruned
+        neighbors for the jump point.
         """
         if not jump_node or jump_node.visited:
             return
 
         new_total_cost = initial_node.total_cost + \
             self._get_cost_for_jump(initial_node, jump_node)
-        new_distance = new_total_cost + \
-            self._heuristic_distance(jump_node)
+        new_distance = new_total_cost + self._heuristic_distance(jump_node)
 
         if new_distance < jump_node.distance:
-            jump_node.distance = new_distance
+            jump_node.distance = new_distance  # The heuristic total distance.
             jump_node.total_cost = new_total_cost
             jump_node.previous = initial_node
             jump_node.direction = direction
@@ -118,7 +119,7 @@ class JPS():
                 self._visible_nodes.append(jump_node)
 
     def _expand_jump_point(self, initial_node):
-        """ Expands away from the jump point in the direction of pruned neighbors. This
+        """Expands away from the jump point in the direction of pruned neighbors. This
         operation can create new jump points in the heap.
         """
         direction = initial_node.direction
@@ -128,7 +129,8 @@ class JPS():
                 initial_node, jump_node, jump_direction)
 
     def _expand_from_start_node(self):
-        """ A special case of finding new jump points.
+        """A special case of finding new jump points. Expands to all 8 possible
+        directions from the start node.
         """
         start_node = self.graph.get_start_node()
         all_directions = list(Grid.CARDINAL_DIRECTIONS) + \
@@ -145,10 +147,13 @@ class JPS():
         start_node.visited = True
 
     def _heuristic_distance(self, node):
+        """Returns the heuristic distance of node. In this case, it means
+        the octile distance between node and goal_node.
+        """
         return self._get_cost_for_jump(node, self.graph.get_goal_node())
 
     def _get_nodes_between(self, node, previous_node):
-        """ Returns a list of JPSNodes between node and previous node. """
+        """Returns a list of JPSNodes between node and previous node. """
         delta_pos = previous_node.pos[0] - \
             node.pos[0], previous_node.pos[1] - node.pos[1]
         moves = max(abs(delta_pos[0]), abs(delta_pos[1]))

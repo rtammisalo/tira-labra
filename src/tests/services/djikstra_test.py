@@ -31,10 +31,6 @@ class TestDijkstra(unittest.TestCase):
         self.assertEqual(visited_node.pos, (2, 1))
         self.assertCountEqual(list_positions(visible_nodes), [(2, 2), (3, 1)])
 
-    def test_next_step_gen_yields_none_when_not_using_step_info(self):
-        next_step_gen = self.dijkstra.next_step(step_info=False)
-        self.assertIsNone(next_step_gen.__next__())
-
     def test_dijkstra_on_a_grid_with_no_path_to_goal_returns_empty_list_as_path(self):
         dijkstra = Dijkstra(Grid("S#G"))
         path = dijkstra.run()

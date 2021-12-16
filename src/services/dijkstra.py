@@ -1,37 +1,28 @@
 from entities.graph import Graph
 from services.heap import Heap
+from services.algorithm import Algorithm
 
 
-class Dijkstra():
+class Dijkstra(Algorithm):
     """Implementation of Dijkstra's algorithm. Finds the shortest path on a cell-based
     grid from the starting cell to the goal cell.
+
+    https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
     """
 
     def __init__(self, grid):
-        """Initializes the inner graph to resemble the given grid.
+        """Initializes the inner graph to resemble the given grid-object.
 
         Args:
             grid (Grid): Grid depiction of the map.
         """
-        self._grid = grid
+        super().__init__(grid)
         self.graph = Graph(grid)
         self._open_nodes_by_distance = Heap(self.graph.get_nodes())
         self._open_nodes_by_distance.decrease_distance(
             self.graph.get_start_node(), 0)
 
-    def run(self):
-        """Executes Dijkstra's algorithm on the graph. Returns a list of grid positions
-        as the path to the goal, if possible. If no path was found the method returns an
-        empty list.
-        """
-        try:
-            generator = self.next_step(step_info=False)
-            while True:
-                generator.__next__()
-        except StopIteration as stop:
-            return stop.value
-
-    def next_step(self, step_info=True):
+    def next_step(self):
         """A step generator for Dijkstra's algorithm.
 
         Args:
@@ -53,14 +44,14 @@ class Dijkstra():
                 # which means that there is no path to goal.
                 break
 
-            if step_info:
+            if self._generate_step_info:
                 visible_nodes = []
 
             for neighbor_node, edge_weight in node.get_neighbors():
                 if neighbor_node.visited:
                     continue
 
-                if step_info:
+                if self._generate_step_info:
                     visible_nodes.append(neighbor_node)
 
                 new_distance = node.distance + edge_weight
@@ -71,13 +62,11 @@ class Dijkstra():
                     neighbor_node.previous = node
 
                 if neighbor_node == self.graph.get_goal_node():
-                    if step_info:
+                    if self._generate_step_info:
                         yield node, visible_nodes
                     return neighbor_node.path_from_start()
 
-            if step_info:
+            if self._generate_step_info:
                 yield node, visible_nodes
-            else:
-                yield None
 
         return []

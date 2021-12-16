@@ -17,11 +17,6 @@ class TestDijkstra(unittest.TestCase):
         path = self.jps.run()
         self.assertEqual(path, [(0, 1), (1, 1), (2, 1), (3, 1)])
 
-    def test_next_step_gen_yields_none_when_not_using_step_info(self):
-        self.jps._generate_step_info = False
-        next_step_gen = self.jps.next_step()
-        self.assertIsNone(next_step_gen.__next__())
-
     def test_jps_on_a_grid_with_no_path_to_goal_returns_empty_list_as_path(self):
         jps = JPS(Grid("S#G"))
         path = jps.run()

@@ -21,4 +21,4 @@ class Algorithm:
 
     def next_step(self):
         """ Generates the next step of the algorithm. Does nothing here. """
-        pass
+        yield []
