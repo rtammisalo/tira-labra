@@ -17,7 +17,10 @@ if __name__ == "__main__":
             MAP_FILE = sys.argv[1]
 
     map_repo = MapRepository()
-    map_desc, test_map = map_repo.read_map(MAP_FILE)
-    print(map_desc)
-    display = UI(test_map)
-    display.run()
+    try:
+        map_desc, test_map = map_repo.read_map(MAP_FILE)
+        print(map_desc)
+        display = UI(test_map)
+        display.run()
+    except FileNotFoundError:
+        print(f"File not found:", MAP_FILE)

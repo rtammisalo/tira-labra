@@ -18,6 +18,7 @@ class UI():
     def __init__(self, grid_string):
         """ Takes as argument the string description of the grid. """
         pygame.display.init()
+        pygame.display.set_caption("MazeFinder")
         self._print_help()
         self._grid_string = grid_string
         self._create_grid_from_string()
