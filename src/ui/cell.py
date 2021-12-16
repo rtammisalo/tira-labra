@@ -1,6 +1,6 @@
 import pygame
 from entities.grid import Grid
-
+from entities.cell import Cell
 
 class Cell(pygame.sprite.DirtySprite):
     """ A class to provide graphical representation for graph nodes/cells. """
@@ -10,8 +10,8 @@ class Cell(pygame.sprite.DirtySprite):
     WALL_COLOR = (255, 255, 255)
     START_COLOR = (0, 0, 200)
     GOAL_COLOR = (200, 0, 0)
-    CELL_COLOR = {'.': EMPTY_COLOR, '#': WALL_COLOR,
-                  'S': START_COLOR, 'G': GOAL_COLOR}
+    CELL_COLOR = {Cell.EMPTY: EMPTY_COLOR, Cell.WALL: WALL_COLOR,
+                  Cell.START: START_COLOR, Cell.GOAL: GOAL_COLOR}
     VISITED_COLOR = (255, 255, 100)
     VISIBLE_COLOR = (120, 120, 10, 10)
     PATH_MARKER_COLOR = (250, 0, 250)
@@ -38,6 +38,7 @@ class Cell(pygame.sprite.DirtySprite):
         self._graph_visible = False
 
     def move(self, delta_pos):
+        """Moves the cell by delta_pos."""
         self.rect.x += delta_pos[0]
         self.rect.y += delta_pos[1]
         self.dirty = 1

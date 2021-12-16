@@ -46,7 +46,7 @@ class Grid():
 
         for line_number, line in enumerate(lines):
             if len(line) < max_line_length:
-                line += '.' * (max_line_length - len(line))
+                line += Cell.EMPTY * (max_line_length - len(line))
             lines[line_number] = line
 
         self.x_size = max_line_length
@@ -67,43 +67,44 @@ class Grid():
     def set_new_start(self, old_start, new_start):
         """ Tries to set a new starting point. The point is only set
         if it lies on an empty cell. """
-        if self._grid[new_start[1]][new_start[0]].cell == ".":
-            self._grid[old_start[1]][old_start[0]] = Cell(".")
-            self._grid[new_start[1]][new_start[0]] = Cell("S")
+        if self._grid[new_start[1]][new_start[0]].is_empty():
+            self._grid[old_start[1]][old_start[0]] = Cell(Cell.EMPTY)
+            self._grid[new_start[1]][new_start[0]] = Cell(Cell.START)
 
     def set_new_goal(self, old_goal, new_goal):
         """ Tries to set a new goal point. Only set if the new position
         is an empty cell location. """
-        if self._grid[new_goal[1]][new_goal[0]].cell == ".":
-            self._grid[old_goal[1]][old_goal[0]] = Cell(".")
-            self._grid[new_goal[1]][new_goal[0]] = Cell("G")
+        if self._grid[new_goal[1]][new_goal[0]].is_empty():
+            self._grid[old_goal[1]][old_goal[0]] = Cell(Cell.EMPTY)
+            self._grid[new_goal[1]][new_goal[0]] = Cell(Cell.GOAL)
 
     def flip_cell_status(self, cell_pos):
         """ Flips an empty cell at cell_pos into a wall cell and vice versa. """
-        old_cell = self._grid[cell_pos[1]][cell_pos[0]].cell
-        if old_cell == ".":
-            self._grid[cell_pos[1]][cell_pos[0]] = Cell("#")
-        if old_cell == "#":
-            self._grid[cell_pos[1]][cell_pos[0]] = Cell(".")
+        old_cell = self._grid[cell_pos[1]][cell_pos[0]]
+        if old_cell.is_empty():
+            self._grid[cell_pos[1]][cell_pos[0]] = Cell(Cell.WALL)
+        if old_cell.is_wall():
+            self._grid[cell_pos[1]][cell_pos[0]] = Cell(Cell.EMPTY)
 
     def clear_walls(self):
         """ Clears all walls from the grid. """
         for row, cell_row in enumerate(self._grid):
             for column, cell in enumerate(cell_row):
-                if cell.cell == "#":
-                    self._grid[row][column] = Cell(".")
+                if cell.is_wall():
+                    self._grid[row][column] = Cell(Cell.EMPTY)
 
 
 def _check_string_for_start_and_goal(grid_str):
-    matches_counter = Counter(re.findall(r'(S|G)', grid_str))
+    match_str = f"({Cell.START}|{Cell.GOAL})"
+    matches_counter = Counter(re.findall(match_str, grid_str))
 
-    if 'S' not in matches_counter:
+    if Cell.START not in matches_counter:
         raise ValueError('No starting cell in string.')
-    if 'G' not in matches_counter:
+    if Cell.GOAL not in matches_counter:
         raise ValueError('No goal cell in string.')
-    if matches_counter['S'] != 1:
+    if matches_counter[Cell.START] != 1:
         raise ValueError(
             f'Only 1 starting cell supported in string, found {matches_counter["S"]}')
-    if matches_counter['G'] != 1:
+    if matches_counter[Cell.GOAL] != 1:
         raise ValueError(
             f'Only 1 goal cell supported in string, found {matches_counter["G"]}')

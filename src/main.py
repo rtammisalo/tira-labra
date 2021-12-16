@@ -5,13 +5,19 @@ from repositories.map_repository import MapRepository
 
 
 if __name__ == "__main__":
+    MAP_FILE = "test.map"
+
     if len(sys.argv) > 1:
         if sys.argv[1] == "timer":
             timer = TimerService()
             timer.time_performance()
-    else:
-        map_repo = MapRepository()
-        map_desc, test_map = map_repo.read_map("test.map")
-        print(map_desc)
-        display = UI(test_map)
-        display.run()
+            sys.exit()
+        else:
+            # Use the console line argument as the map file: a direct file name in maps dir.
+            MAP_FILE = sys.argv[1]
+
+    map_repo = MapRepository()
+    map_desc, test_map = map_repo.read_map(MAP_FILE)
+    print(map_desc)
+    display = UI(test_map)
+    display.run()

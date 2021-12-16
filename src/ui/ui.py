@@ -25,6 +25,7 @@ class UI():
         self._screen_size = (UI.SCREEN_WIDTH, UI.SCREEN_HEIGHT)
         self._screen = pygame.display.set_mode(self._screen_size)
         self._clock = pygame.time.Clock()
+        # Use Dijkstra's algorithm by default.
         self._algorithm_class = Dijkstra
         self._reset_run()
 
