@@ -47,6 +47,11 @@ class Dijkstra(Algorithm):
             if self._generate_step_info:
                 visible_nodes = []
 
+            if node == self.graph.get_goal_node():
+                if self._generate_step_info:
+                    yield node, visible_nodes
+                return node.path_from_start()
+
             for neighbor_node, edge_weight in node.get_neighbors():
                 if neighbor_node.visited:
                     continue
@@ -60,11 +65,6 @@ class Dijkstra(Algorithm):
                     self._open_nodes_by_distance.decrease_distance(
                         neighbor_node, new_distance)
                     neighbor_node.previous = node
-
-                if neighbor_node == self.graph.get_goal_node():
-                    if self._generate_step_info:
-                        yield node, visible_nodes
-                    return neighbor_node.path_from_start()
 
             if self._generate_step_info:
                 yield node, visible_nodes

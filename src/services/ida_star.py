@@ -68,7 +68,7 @@ class IDAStar(Algorithm):
         node = self._last_node_on_path
         estimated_cost = total_cost + self._heuristic(node)
 
-        if estimated_cost > self._bound + 1:
+        if estimated_cost - 1e-10 > self._bound:
             self._update_found_paths()
             return estimated_cost
 

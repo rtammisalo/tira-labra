@@ -32,7 +32,7 @@ class Node():
             neighbor_node = self.graph.get_node(tuple(neighbor_pos))
 
             if neighbor_node:
-                if abs(relative_position[0]) + abs(relative_position[1]) == 2:
+                if relative_position[0] != 0 and relative_position[1] != 0:
                     edge_weight = math.sqrt(2)
                 else:
                     edge_weight = 1

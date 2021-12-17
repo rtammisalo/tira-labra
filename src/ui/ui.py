@@ -93,14 +93,14 @@ class UI():
         self._screen.fill(UI.BACKGROUND_COLOR)
         self._ui_grid.draw(self._screen)
 
-    def _process_input(self):
+    def _process_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1 and pygame.key.get_pressed()[pygame.K_LSHIFT]:
                     self._handle_move_screen(event.pos)
-                    return
+                    return False
                 cell_pos = self._ui_grid.get_cell_pos_at_screen_position(
                     event.pos)
                 if cell_pos:
@@ -112,10 +112,22 @@ class UI():
                         self._grid.flip_cell_status(cell_pos)
 
                     self._reset_run()
-                    return
+                    return False
+        return True
+
+    def _process_input(self):
+        if not self._process_events():
+            return
 
         if self._run_to_end:
             for i in range(self.STEPS_PER_UPDATE):
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        sys.exit()
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_s:
+                            self._run_to_end = False
+                            return
                 self._process_next_step()
             self._ui_grid.draw(self._screen)
 
@@ -180,7 +192,18 @@ class UI():
                 path_to_goal = stop.value
 
         if path_to_goal:
+            print("Path cost:", self._get_path_cost(path_to_goal))
             self._ui_grid.set_path_to_goal(path_to_goal)
+
+    def _get_path_cost(self, path):
+        import math
+        total_cost = 0
+        previous_pos = path[0]
+        for next_pos in path[1:]:
+            total_cost += math.sqrt((next_pos[0]-previous_pos[0])**2
+                                    + (next_pos[1]-previous_pos[1])**2)
+            previous_pos = next_pos
+        return total_cost
 
     def _update_grid(self, visited_nodes, visible_nodes, look_ahead_nodes=None):
         for visited_node in visited_nodes:
@@ -210,7 +233,6 @@ class UI():
             pygame.display.flip()
             pygame.time.wait(time_per_path)
             self._ui_grid.hide_idastar_path(path)
-            
 
         self._ui_grid.draw(self._screen)
         pygame.display.flip()
