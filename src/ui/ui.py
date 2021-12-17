@@ -11,7 +11,7 @@ from services.ida_star import IDAStar
 class UI():
     """ The main UI class, call run-method after initializing. """
     SCREEN_WIDTH = 1600
-    SCREEN_HEIGHT = 1200
+    SCREEN_HEIGHT = 800
     BACKGROUND_COLOR = (100, 100, 100)
     STEPS_PER_UPDATE = 100
 
@@ -33,15 +33,18 @@ class UI():
     def _print_help(self):
         print("\nKäyttöohjeet:")
         print("mouse 1 - siirrä lähtöruutu")
-        print("mouse 2 - siirrä maaliruutu")
+        print("lshift + mouse 1 - siirrä maaliruutu")
+        print("mouse 2 - vaihtaa ruudun keskipistettä")
         print("mouse 3 - muuta seinä tyhjäksi tai toisinpäin")
-        print("lshift + mouse 1 - vaihtaa ruudun keskipistettä")
         print("d - vaihda käyttöön Dijkstran algoritmi")
         print("j - vaihda käyttöön JPS algoritmi")
+        print("i - vaihda käyttöön IDA* algoritmi")
         print("r - aja algoritmi nopeasti loppuun")
-        print("space - aja algoritmin seuraava askel (ottaa yhden ruudun pois keosta)")
+        print("space - aja algoritmin seuraava 'askel'")
         print("c - tyhjentää kartan seinistä")
         print("n - palauttaa alkuperäisen kartan konfiguraation")
+        print("s - lopettaa algoritmin ajon (r-komento) kesken / IDA* polkujen näytön")
+        print("h - tulostaa käyttöohjeet uudestaan")
         print("ESC - lopettaa ohjelman\n")
 
     def _set_algorithm(self, algorithm=None):
@@ -98,16 +101,18 @@ class UI():
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1 and pygame.key.get_pressed()[pygame.K_LSHIFT]:
+                if event.button == 2:
                     self._handle_move_screen(event.pos)
                     return False
+
                 cell_pos = self._ui_grid.get_cell_pos_at_screen_position(
                     event.pos)
                 if cell_pos:
                     if event.button == 1:
-                        self._set_new_start_position(cell_pos)
-                    elif event.button == 2:
-                        self._set_new_goal_position(cell_pos)
+                        if pygame.key.get_pressed()[pygame.K_LSHIFT]:
+                            self._set_new_goal_position(cell_pos)
+                        else:
+                            self._set_new_start_position(cell_pos)
                     elif event.button == 3:
                         self._grid.flip_cell_status(cell_pos)
 
@@ -120,6 +125,8 @@ class UI():
             return
 
         if self._run_to_end:
+            # Have some way to stop auto-running to the end.
+            # This is mostly because of IDA*.
             for i in range(self.STEPS_PER_UPDATE):
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
@@ -153,6 +160,8 @@ class UI():
             self._screen_pos = (0, 0)
             self._create_grid_from_string()
             self._reset_run()
+        if key_pressed[pygame.K_h]:
+            self._print_help()
         if key_pressed[pygame.K_ESCAPE]:
             sys.exit()
 
