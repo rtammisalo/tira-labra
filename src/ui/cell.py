@@ -2,6 +2,7 @@ import pygame
 from entities.grid import Grid
 from entities.cell import Cell
 
+
 class Cell(pygame.sprite.DirtySprite):
     """ A class to provide graphical representation for graph nodes/cells. """
     WIDTH = 10
@@ -15,6 +16,7 @@ class Cell(pygame.sprite.DirtySprite):
     VISITED_COLOR = (255, 255, 100)
     VISIBLE_COLOR = (120, 120, 10, 10)
     PATH_MARKER_COLOR = (250, 0, 250)
+    IDASTAR_PATH_MARKER_COLOR = (150, 200, 150)
     DIRECTION_MARKER_COLOR = (50, 50, 200)
     DIRECTION_MARKER_VERTICES = {
         Grid.DOWN: [(WIDTH//2, HEIGHT - 1), (WIDTH//2 - 3, HEIGHT - 4), (WIDTH//2 + 3, HEIGHT - 4)],
@@ -83,4 +85,19 @@ class Cell(pygame.sprite.DirtySprite):
                            (0, 0), (Cell.WIDTH, Cell.HEIGHT))
         pygame.draw.aaline(self.image, Cell.PATH_MARKER_COLOR,
                            (Cell.WIDTH, 0), (0, Cell.HEIGHT))
+        self.dirty = 1
+
+    def show_idastar_path(self, nodes_from_start):
+        self._old_image = self.image.copy()
+        if nodes_from_start > 10:
+            nodes_from_start = 10
+        color = (self.IDASTAR_PATH_MARKER_COLOR[0] - nodes_from_start * 5,
+                 self.IDASTAR_PATH_MARKER_COLOR[1] - nodes_from_start * 5,
+                 self.IDASTAR_PATH_MARKER_COLOR[2] - nodes_from_start * 5)
+        self.image.fill(color)
+        self.set_graph_visited()
+        self.dirty = 1
+
+    def hide_idastar_path(self):
+        self.image = self._old_image
         self.dirty = 1

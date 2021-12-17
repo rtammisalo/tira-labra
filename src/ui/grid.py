@@ -78,3 +78,11 @@ class Grid():
             if cell_pos[1] < len(self.grid):
                 return cell_pos
         return None
+
+    def show_idastar_path(self, path):
+        for index, pos in enumerate(path):
+            self.grid[pos[1]][pos[0]].show_idastar_path(index)
+
+    def hide_idastar_path(self, path):
+        for pos in path:
+            self.grid[pos[1]][pos[0]].hide_idastar_path()

@@ -1,3 +1,4 @@
+import os
 from invoke import task
 
 
@@ -6,8 +7,8 @@ def timer(ctx):
     ctx.run("python3 src/main.py timer", pty=True)
 
 
-@task(help={"map": "Map file in maps-directory"})
-def start(ctx, map="test.map"):
+@task(help={"map": "Map file"})
+def start(ctx, map=os.path.join("maps", "test.map")):
     ctx.run(f"python3 src/main.py {map}", pty=True)
 
 

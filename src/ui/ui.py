@@ -173,8 +173,9 @@ class UI():
                 path_to_goal = stop.value
         elif isinstance(self._algorithm, IDAStar):
             try:
-                visited_nodes = self._step_algorithm.__next__()
+                visited_nodes, found_paths = self._step_algorithm.__next__()
                 self._update_grid(visited_nodes, visited_nodes)
+                self._show_idastar_found_paths(found_paths)
             except StopIteration as stop:
                 path_to_goal = stop.value
 
@@ -187,3 +188,29 @@ class UI():
         self._ui_grid.set_graph_visible_nodes(visible_nodes)
         if look_ahead_nodes:
             self._ui_grid.set_graph_look_ahead_nodes(look_ahead_nodes)
+
+    def _show_idastar_found_paths(self, found_paths):
+        if self._run_to_end or len(found_paths) == 0:
+            return
+
+        self._ui_grid.draw(self._screen)
+        pygame.display.flip()
+        time_per_path = 10
+        skip_show_path = False
+
+        for path in found_paths:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_s:
+                        skip_show_path = True
+            if skip_show_path:
+                break
+            self._ui_grid.show_idastar_path(path)
+            self._ui_grid.draw(self._screen)
+            pygame.display.flip()
+            pygame.time.wait(time_per_path)
+            self._ui_grid.hide_idastar_path(path)
+            
+
+        self._ui_grid.draw(self._screen)
+        pygame.display.flip()

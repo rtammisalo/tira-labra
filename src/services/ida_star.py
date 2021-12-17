@@ -15,6 +15,7 @@ class IDAStar(Algorithm):
         super().__init__(grid)
         self.graph = Graph(grid)
         self._visited_nodes = {}
+        self._found_paths = []
         self._bound = 0
         self._path_found = False
         self._last_node_on_path = None
@@ -28,7 +29,7 @@ class IDAStar(Algorithm):
             list: Returns the path to the goal as a list of node positions.
 
         Yields:
-            list: Yields per step a list of visited nodes.
+            list: Yields the tuple (visited_nodes, found_paths) per step.
         """
         self._bound = self._heuristic(self.graph.get_start_node())
         self._add_to_path(self.graph.get_start_node())
@@ -41,7 +42,6 @@ class IDAStar(Algorithm):
 
             if self._generate_step_info:
                 yield self._get_step_info()
-                self._visited_nodes = {}
 
             if self._path_found:
                 return self._get_path()
@@ -62,24 +62,25 @@ class IDAStar(Algorithm):
         Returns:
             float: The minimum path cost of all possible candidates around the
             node. In this case, this means the max. 8 directions the search
-            can move from the node at the top of the 'stack'.
+            can move from the node at the top of the 'stack'. If the estimated
+            path cost is higher than the bound, the method returns the estimation.
         """
         node = self._last_node_on_path
-        estimated_cheapest_cost = total_cost + self._heuristic(node)
+        estimated_cost = total_cost + self._heuristic(node)
 
-        # substract 10^(-10) to deal with rounding errors.
-        if estimated_cheapest_cost - 1e-10 > self._bound:
-            return estimated_cheapest_cost
+        if estimated_cost > self._bound + 1:
+            self._update_found_paths()
+            return estimated_cost
 
         if self._is_goal_node(node):
             self._path_found = True
-            return estimated_cheapest_cost
+            self._update_found_paths()
+            return estimated_cost
 
         min_cost = float('inf')
 
         for successor, move_cost, _ in self._successors(total_cost, node):
-            if not successor.previous and successor != self.graph.get_start_node():
-                # The successor node is on the path if it has a previous node linked to it.
+            if not self._node_is_on_path(successor):
                 self._add_to_path(successor)
 
                 cheapest_path_cost = self._search(total_cost + move_cost)
@@ -94,9 +95,14 @@ class IDAStar(Algorithm):
 
         return min_cost
 
+    def _node_is_on_path(self, node):
+        if node.previous or node == self.graph.get_start_node():
+            return True
+        return False
+
     def _add_to_path(self, node):
         """Adds the node to the path. Instead of a direct stack, I
-        used the previous links of the nodes to handle the stack.
+        used the previous links of the nodes to handle the path.
 
         Args:
             node (Node): Adds this node to the 'stack'.
@@ -135,10 +141,19 @@ class IDAStar(Algorithm):
         return sorted(ordered_neighbors, key=lambda node_data: node_data[2])
 
     def _get_step_info(self):
-        return list(self._visited_nodes.values())
+        visited_nodes = list(self._visited_nodes.values())
+        found_paths = self._found_paths
+        self._visited_nodes = {}
+        self._found_paths = []
+        return visited_nodes, found_paths
+
+    def _update_found_paths(self):
+        if self._generate_step_info:
+            self._found_paths.append(self._get_path())
 
     def _update_visited_nodes(self, new_visited_node):
-        self._visited_nodes[new_visited_node.pos] = new_visited_node
+        if self._generate_step_info:
+            self._visited_nodes[new_visited_node.pos] = new_visited_node
 
     def _heuristic(self, node):
         return octile_distance(node, self.graph.get_goal_node())
@@ -147,7 +162,7 @@ class IDAStar(Algorithm):
         return node == self.graph.get_goal_node()
 
     def _get_path(self):
-        """Returns a path from start to goal.
+        """Returns a path from start to last node on path.
 
         Returns:
             list: A list of node position tuples (x,y).

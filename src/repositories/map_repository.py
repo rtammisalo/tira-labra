@@ -31,7 +31,8 @@ class MapRepository:
 
 
     def iter_maps(self):
-        """ Loads all known maps. Yields a map description, map_string tuple per map to the caller.
+        """ Loads all known maps. Yields a map (description, map_string) tuple per map
+        to the caller.
         """
         for map_file in self._map_files:
             filename = os.path.join(self._dir, map_file)
