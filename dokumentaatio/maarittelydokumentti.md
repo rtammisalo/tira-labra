@@ -19,11 +19,13 @@ JPS ei vaadi lisätilaa A*:n verrattuna, jonka tilavaativuus on O(n) = O(b^d). D
 Valitsin JPS:n, koska en ollut aikaisemmin kuullut siitä. Dijkstra esitettiin vertailuvaihtoehtona kurssin sivuilla, joten päätin käyttää sitä toisena
 algoritminä. Halusin myös hieman kerrata Tirassa esitettyä Primin algoritmiä, joten valitsin sen muunnoksen sokkeloiden luomisalgoritmiksi.
 
-Tietorakenteina käytetään Pythonin valmiita toteutuksia. Testeissä käytettäviä karttoja luodaan käsin tekstipohjaisesti. 
+Tietorakenteina käytetään Pythonin valmiita toteutuksia. Testeissä käytettäviä karttoja luodaan käsin tekstipohjaisesti ja ladataan [movingai.com](https://movingai.com/benchmarks/grids.html)-sivustolta.
+
+Toteutin myös lisäksi [IDA*][3]-algoritmin.
 
 ## Ohjelman syöte
 
-Ohjelman argumenttina on graafisen esityksen estäminen, jolloin se ajaa vain testit. Mahdollisesti myöhemmin myös tiedostonimen käyttäjän omaan tekstipohjaiseen karttaan.
+Syötteenä ohjelmalle voi antaa joko käskyn ajaa kaikki ajastustestit `invoke timer` poetry shellissä tai käynnistää graafinen käyttöliittymä. Käyttöliittymälle voi antaa lisäkomentona ajettavan kartan.
 
 ## Opinto-ohjelma
 
@@ -37,7 +39,8 @@ Dokumentaatio on suomeksi, mutta koodi, kommentit ja github commitit ovat englan
 1. Harabor, D & Grastien, A 2011, 'Online Graph Pruning for Pathfinding on Grid Maps', <http://users.cecs.anu.edu.au/~dharabor/data/papers/harabor-grastien-aaai11.pdf>
 2. Dijkstra, E 1959, 'A Note on Two Problems in Connexion with Graphs', <http://www-m3.ma.tum.de/foswiki/pub/MN0506/WebHome/dijkstra.pdf>
 3. 'A* search algorithm', 2021, Wikipedia, <https://en.wikipedia.org/wiki/A*_search_algorithm>
+4. 'Iterative deepening A*', 2021, Wikipedia, <https://en.wikipedia.org/wiki/Iterative_deepening_A*>
 
 [1]: <http://users.cecs.anu.edu.au/~dharabor/data/papers/harabor-grastien-aaai11.pdf> "JPS"
 [2]: <http://www-m3.ma.tum.de/foswiki/pub/MN0506/WebHome/dijkstra.pdf> "Dijkstran algoritmi"
-
+[3]: <https://en.wikipedia.org/wiki/Iterative_deepening_A*>
