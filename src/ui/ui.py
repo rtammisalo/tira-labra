@@ -96,27 +96,76 @@ class UI():
         self._screen.fill(UI.BACKGROUND_COLOR)
         self._ui_grid.draw(self._screen)
 
+    def _process_mouse_events(self, event):
+        if event.button == 2:
+            self._handle_move_screen(event.pos)
+            return False
+
+        cell_pos = self._ui_grid.get_cell_pos_at_screen_position(
+            event.pos)
+        if cell_pos:
+            if event.button == 1:
+                if pygame.key.get_pressed()[pygame.K_LSHIFT]:
+                    self._set_new_goal_position(cell_pos)
+                else:
+                    self._set_new_start_position(cell_pos)
+            elif event.button == 3:
+                self._grid.flip_cell_status(cell_pos)
+
+            self._reset_run()
+            return False
+        return True
+
+    def _process_keydown_events(self, event):
+        if event.key == pygame.K_r:
+            if not self._run_to_end:
+                print("Ajetaan algoritmi nopeasti loppuun..")
+                self._run_to_end = True
+                return True
+        elif event.key == pygame.K_SPACE:
+            self._keys_pressed.add(pygame.K_SPACE)
+            return True
+        elif event.key == pygame.K_h:
+            self._print_help()
+            return True
+        elif event.key == pygame.K_d:
+            print("Vaihdetaan Dijkstran algoritmiin.")
+            self._reset_run(Dijkstra)
+        elif event.key == pygame.K_j:
+            print("Vaihdetaan JPS algoritmiin.")
+            self._reset_run(JPS)
+        elif event.key == pygame.K_i:
+            print("Vaihdetaan IDA* algoritmiin.")
+            self._reset_run(IDAStar)
+        elif event.key == pygame.K_c:
+            self._grid.clear_walls()
+            self._reset_run()
+        elif event.key == pygame.K_n:
+            self._screen_pos = (0, 0)
+            self._create_grid_from_string()
+            self._reset_run()
+        elif event.key == pygame.K_ESCAPE:
+            sys.exit()
+        return False
+
+    def _process_keyup_events(self, event):
+        if event.key == pygame.K_SPACE:
+            if pygame.K_SPACE in self._keys_pressed:
+                self._keys_pressed.remove(pygame.K_SPACE)
+        return True
+
     def _process_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 2:
-                    self._handle_move_screen(event.pos)
+                if not self._process_mouse_events(event):
                     return False
-
-                cell_pos = self._ui_grid.get_cell_pos_at_screen_position(
-                    event.pos)
-                if cell_pos:
-                    if event.button == 1:
-                        if pygame.key.get_pressed()[pygame.K_LSHIFT]:
-                            self._set_new_goal_position(cell_pos)
-                        else:
-                            self._set_new_start_position(cell_pos)
-                    elif event.button == 3:
-                        self._grid.flip_cell_status(cell_pos)
-
-                    self._reset_run()
+            elif event.type == pygame.KEYDOWN:
+                if not self._process_keydown_events(event):
+                    return False
+            elif event.type == pygame.KEYUP:
+                if not self._process_keyup_events(event):
                     return False
         return True
 
@@ -133,38 +182,15 @@ class UI():
                         sys.exit()
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_s:
+                            print("Laskenta lopetettu.")
                             self._run_to_end = False
                             return
                 self._process_next_step()
             self._ui_grid.draw(self._screen)
 
-        self._process_keyboard_input()
+        self._process_space_input()
 
-    def _process_keyboard_input(self):
-        key_pressed = pygame.key.get_pressed()
-
-        if key_pressed[pygame.K_SPACE]:
-            self._keys_pressed.add(pygame.K_SPACE)
-        if key_pressed[pygame.K_r]:
-            self._run_to_end = True
-        if key_pressed[pygame.K_d]:
-            self._reset_run(Dijkstra)
-        if key_pressed[pygame.K_j]:
-            self._reset_run(JPS)
-        if key_pressed[pygame.K_i]:
-            self._reset_run(IDAStar)
-        if key_pressed[pygame.K_c]:
-            self._grid.clear_walls()
-            self._reset_run()
-        if key_pressed[pygame.K_n]:
-            self._screen_pos = (0, 0)
-            self._create_grid_from_string()
-            self._reset_run()
-        if key_pressed[pygame.K_h]:
-            self._print_help()
-        if key_pressed[pygame.K_ESCAPE]:
-            sys.exit()
-
+    def _process_space_input(self):
         if self._keyboard_timer != 0:
             self._keyboard_timer -= 1
             return
@@ -174,7 +200,6 @@ class UI():
             self._ui_grid.draw(self._screen)
 
         self._keyboard_timer = 3
-        self._keys_pressed = set()
 
     def _process_next_step(self):
         path_to_goal = None
@@ -201,7 +226,7 @@ class UI():
                 path_to_goal = stop.value
 
         if path_to_goal:
-            print("Path cost:", self._get_path_cost(path_to_goal))
+            print("Polun pituus:", self._get_path_cost(path_to_goal))
             self._ui_grid.set_path_to_goal(path_to_goal)
 
     def _get_path_cost(self, path):
@@ -235,6 +260,8 @@ class UI():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_s:
                         skip_show_path = True
+                if event.type == pygame.KEYUP:
+                    self._process_keyup_events(event)
             if skip_show_path:
                 break
             self._ui_grid.show_idastar_path(path)
