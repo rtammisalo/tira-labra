@@ -5,13 +5,13 @@ from services.algorithm import Algorithm
 
 
 class IDAStar(Algorithm):
-    """ Implements IDA* pathfind algorithm.
+    """ Implements IDA* pathfind algorithm. Supports Timer time limits.
 
     https://en.wikipedia.org/wiki/Iterative_deepening_A*
     """
 
     def __init__(self, grid):
-        """ Constructor needs a Grid-object as an argument. """
+        """ Constructor needs a Grid-object as an argument."""
         super().__init__(grid)
         self.graph = Graph(grid)
         self._visited_nodes = {}
@@ -30,6 +30,8 @@ class IDAStar(Algorithm):
 
         Yields:
             list: Yields the tuple (visited_nodes, found_paths) per step.
+
+        Raises an exception if the time limit is reached.
         """
         self._bound = self._heuristic(self.graph.get_start_node())
         self._add_to_path(self.graph.get_start_node())
@@ -50,6 +52,8 @@ class IDAStar(Algorithm):
             if cheapest_path_cost == float('inf'):
                 return []
 
+            if self._timer.in_use():
+                self._timer.add_used_time()
 
     def _search(self, total_cost):
         """ IDA* search function. Called recursively to go through all possible
@@ -65,6 +69,9 @@ class IDAStar(Algorithm):
             can move from the node at the top of the 'stack'. If the estimated
             path cost is higher than the bound, the method returns the estimation.
         """
+        if self._timer.in_use():
+            self._timer.add_used_time()
+
         node = self._last_node_on_path
         estimated_cost = total_cost + self._heuristic(node)
 

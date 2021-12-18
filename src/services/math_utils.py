@@ -34,8 +34,8 @@ def calculate_path_cost(path):
     to the last.
 
     Args:
-        path (list): A list of (x,y) positions of the path. The path is assumed to 
-        be in traversal order (p_0 -> p_i -> ... -> p_n), where p_(i-1) is the neighbor 
+        path (list): A list of (x,y) positions of the path. The path is assumed to
+        be in traversal order (p_0 -> p_i -> ... -> p_n), where p_(i-1) is the neighbor
         of p_i for all 0 < i <= n.
     """
     cost = 0

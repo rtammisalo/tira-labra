@@ -1,16 +1,19 @@
-import sys
 import time
 import math
 from entities.grid import Grid
 from services.dijkstra import Dijkstra
 from services.jps import JPS
+from services.ida_star import IDAStar
+from services.timer import TimeOut
+from services.math_utils import calculate_path_cost
 from repositories.map_repository import MapRepository
 
 
 class TimerService():
-    """Small timer service for performance measuring.
+    """Small timer service for performance measuring. Ugly and quick.
     """
     RUNS = 5
+    IDA_TIME_LIMIT = 30
 
     @staticmethod
     def time_performance():
@@ -22,53 +25,58 @@ class TimerService():
             grid = Grid(map_string)
             dijkstra_deltas = [0]*TimerService.RUNS
             jps_deltas = [0]*TimerService.RUNS
-            print("Running", end="")
+            idas_deltas = [0]*TimerService.RUNS
+            idas_time_limit_reached = False
+            idas_path = []
+            print("\n\nRunning...")
 
             for run in range(TimerService.RUNS):
-                print(".", end="")
-                sys.stdout.flush()
+                print("Run", run + 1)
                 dijkstra_deltas[run], dijkstra_path = TimerService._time_algorithm(
                     Dijkstra, grid)
                 jps_deltas[run], jps_path = TimerService._time_algorithm(
                     JPS, grid)
 
+                if not idas_time_limit_reached:
+                    try:
+                        idas_deltas[run], idas_path = TimerService._time_algorithm(
+                            IDAStar, grid, TimerService.IDA_TIME_LIMIT)
+                    except TimeOut:
+                        print("Timelimit of", TimerService.IDA_TIME_LIMIT,
+                              "s reached for IDA*")
+                        idas_time_limit_reached = True
+                        idas_deltas = [-1] * TimerService.RUNS
+
             print()
             TimerService._print_details((dijkstra_deltas, dijkstra_path),
-                                        (jps_deltas, jps_path), map_desc)
+                                        (jps_deltas, jps_path), (idas_deltas, idas_path), map_desc)
 
     @staticmethod
-    def _print_details(dijkstra_details, jps_details, map_description):
+    def _print_details(dijkstra_details, jps_details, idas_details, map_description):
         """ Prints a timer details report for one map. Takes tuples of delta timings, path as
         the first 2 arguments. """
         print(f"\n{map_description}")
+
         dijkstra_delta_avg = TimerService.get_average(dijkstra_details[0])
         jps_delta_avg = TimerService.get_average(jps_details[0])
+        idas_delta_avg = TimerService.get_average(idas_details[0])
         print(f"Dijkstra average time taken: {dijkstra_delta_avg:0.5f} s")
         print(f"JPS average time taken: {jps_delta_avg:0.5f} s")
-        dijkstra_cost = TimerService._calculate_cost(dijkstra_details[1])
-        jps_cost = TimerService._calculate_cost(jps_details[1])
+        if idas_delta_avg == -1:
+            print("IDA* ran over time limit of", TimerService.IDA_TIME_LIMIT, "s")
+        else:
+            print(f"IDA* average time taken: {idas_delta_avg:0.5f} s")
+
+        dijkstra_cost = calculate_path_cost(dijkstra_details[1])
+        jps_cost = calculate_path_cost(jps_details[1])
+        idas_cost = calculate_path_cost(idas_details[1])
+        if idas_delta_avg != -1:
+            if not math.isclose(idas_cost, jps_cost):
+                print("Error: IDA* path cost did not match JPS.")
         if math.isclose(dijkstra_cost, jps_cost):
             print(
                 f"Found path length of {len(dijkstra_details[1])}"
                 f" with a total cost of {dijkstra_cost:0.5f}.")
-        else:
-            print("paths mismatch.")
-            print(
-                f"Found Dijkstra path length of {len(dijkstra_details[1])}"
-                f" with a total cost of {dijkstra_cost:0.5f}.")
-            print(
-                f"Found JPS path length of {len(jps_details[1])}"
-                f" with a total cost of {jps_cost:0.5f}.")
-
-    @staticmethod
-    def _calculate_cost(path):
-        total_cost = 0
-        previous_pos = path[0]
-        for next_pos in path[1:]:
-            total_cost += math.sqrt((next_pos[0]-previous_pos[0])**2
-                                    + (next_pos[1]-previous_pos[1])**2)
-            previous_pos = next_pos
-        return total_cost
 
     @staticmethod
     def get_average(deltas):
@@ -76,12 +84,12 @@ class TimerService():
         return sum(deltas) / len(deltas)
 
     @staticmethod
-    def _time_algorithm(algorithm_class, grid):
+    def _time_algorithm(algorithm_class, grid, time_limit=0):
         """ Times a run of algorithm on specified grid-object.
         Returns a tuple of delta time in ns, and the path.
         """
         algorithm = algorithm_class(grid)
         start_time = time.perf_counter()
-        path = algorithm.run()
+        path = algorithm.run(time_limit)
         end_time = time.perf_counter()
         return end_time - start_time, path

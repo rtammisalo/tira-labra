@@ -1,3 +1,6 @@
+from services.timer import Timer
+
+
 class Algorithm:
     """ A base class for all algorithm implementations. """
 
@@ -6,11 +9,15 @@ class Algorithm:
         """
         self._grid = grid
         self._generate_step_info = True
+        self._timer = Timer()
 
-    def run(self):
+    def run(self, time_limit=0):
         """ Runs the algorithm without generating step information or stopping every step.
         Returns the path to the goal, or an empty list if there was no path.
+
+        time_limit sets the time limit in seconds. 0 sets time limit off. Only used by IDA*.
         """
+        self._timer = Timer(time_limit)
         try:
             self._generate_step_info = False
             generator = self.next_step()

@@ -1,0 +1,257 @@
+pygame 2.1.0 (SDL 2.0.16, Python 3.8.10)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+
+Running each algorithm 5 times per map.
+
+
+Running...
+Run 1
+Timelimit of 30 s reached for IDA*
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/w_sundermount.map, 770x770 = 592900 cells.
+Dijkstra average time taken: 0.34388 s
+JPS average time taken: 0.08182 s
+IDA* ran over time limit of 30 s
+Found path length of 613 with a total cost of 702.71277.
+
+
+Running...
+Run 1
+Timelimit of 30 s reached for IDA*
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/AR0012SR.map, 512x512 = 262144 cells.
+Dijkstra average time taken: 0.32459 s
+JPS average time taken: 0.05320 s
+IDA* ran over time limit of 30 s
+Found path length of 195 with a total cost of 223.40916.
+
+
+Running...
+Run 1
+Timelimit of 30 s reached for IDA*
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/AR0400SR.map, 512x512 = 262144 cells.
+Dijkstra average time taken: 0.78177 s
+JPS average time taken: 0.18015 s
+IDA* ran over time limit of 30 s
+Found path length of 468 with a total cost of 548.60007.
+
+
+Running...
+Run 1
+Timelimit of 30 s reached for IDA*
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/huge.map, 999x1050 = 1048950 cells.
+Dijkstra average time taken: 10.72657 s
+JPS average time taken: 10.55836 s
+IDA* ran over time limit of 30 s
+Found path length of 1615 with a total cost of 1805.78088.
+
+
+Running...
+Run 1
+Timelimit of 30 s reached for IDA*
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/dr_0_deeproads.map, 560x733 = 410480 cells.
+Dijkstra average time taken: 0.42451 s
+JPS average time taken: 0.14326 s
+IDA* ran over time limit of 30 s
+Found path length of 875 with a total cost of 955.60007.
+
+
+Running...
+Run 1
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/ht_store.map, 37x37 = 1369 cells.
+Dijkstra average time taken: 0.00388 s
+JPS average time taken: 0.00134 s
+IDA* average time taken: 0.55902 s
+Found path length of 16 with a total cost of 17.48528.
+
+
+Running...
+Run 1
+Timelimit of 30 s reached for IDA*
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/AR0700SR.map, 512x512 = 262144 cells.
+Dijkstra average time taken: 1.50738 s
+JPS average time taken: 0.09010 s
+IDA* ran over time limit of 30 s
+Found path length of 370 with a total cost of 480.42345.
+
+
+Running...
+Run 1
+Timelimit of 30 s reached for IDA*
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/AR0516SR.map, 512x512 = 262144 cells.
+Dijkstra average time taken: 0.40388 s
+JPS average time taken: 0.08952 s
+IDA* ran over time limit of 30 s
+Found path length of 324 with a total cost of 367.73506.
+
+
+Running...
+Run 1
+Timelimit of 30 s reached for IDA*
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/AR0011SR.map, 512x512 = 262144 cells.
+Dijkstra average time taken: 1.30624 s
+JPS average time taken: 0.31939 s
+IDA* ran over time limit of 30 s
+Found path length of 477 with a total cost of 503.75231.
+
+
+Running...
+Run 1
+Timelimit of 30 s reached for IDA*
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/AR0203SR.map, 512x512 = 262144 cells.
+Dijkstra average time taken: 1.16181 s
+JPS average time taken: 0.30357 s
+IDA* ran over time limit of 30 s
+Found path length of 405 with a total cost of 485.18586.
+
+
+Running...
+Run 1
+Timelimit of 30 s reached for IDA*
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/AR0511SR.map, 512x512 = 262144 cells.
+Dijkstra average time taken: 0.90013 s
+JPS average time taken: 0.12486 s
+IDA* ran over time limit of 30 s
+Found path length of 379 with a total cost of 464.15642.
+
+
+Running...
+Run 1
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/lt_gallowsprison_n.map, 116x242 = 28072 cells.
+Dijkstra average time taken: 0.02716 s
+JPS average time taken: 0.00242 s
+IDA* average time taken: 0.00283 s
+Found path length of 122 with a total cost of 121.41421.
+
+
+Running...
+Run 1
+Timelimit of 30 s reached for IDA*
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/lt_foundry_n.map, 109x92 = 10028 cells.
+Dijkstra average time taken: 0.02990 s
+JPS average time taken: 0.00593 s
+IDA* ran over time limit of 30 s
+Found path length of 67 with a total cost of 78.42641.
+
+
+Running...
+Run 1
+Timelimit of 30 s reached for IDA*
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/AR0711SR.map, 512x512 = 262144 cells.
+Dijkstra average time taken: 0.29289 s
+JPS average time taken: 0.09415 s
+IDA* ran over time limit of 30 s
+Found path length of 616 with a total cost of 680.03153.
+
+
+Running...
+Run 1
+Timelimit of 30 s reached for IDA*
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/ca_caverns1_mines.map, 324x597 = 193428 cells.
+Dijkstra average time taken: 0.09675 s
+JPS average time taken: 0.01927 s
+IDA* ran over time limit of 30 s
+Found path length of 201 with a total cost of 233.13708.
+
+
+Running...
+Run 1
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/jps_loses.map, 999x1050 = 1048950 cells.
+Dijkstra average time taken: 0.00133 s
+JPS average time taken: 3.40875 s
+IDA* average time taken: 0.00040 s
+Found path length of 8 with a total cost of 8.24264.
