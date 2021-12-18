@@ -5,10 +5,12 @@ class Heap():
     """A small wrapper class for ease-of-use min-heap operations.
     """
 
-    def __init__(self, nodes_list):
+    def __init__(self, nodes_list=None):
         """Inits the min-heap. Accepts a list of nodes as an argument.
         """
-        self._heap = [(node.distance, node) for node in nodes_list]
+        self._heap = []
+        if nodes_list:
+            self.fill_with_nodes(nodes_list)
         heapq.heapify(self._heap)
 
     def push_node(self, node):
@@ -43,3 +45,15 @@ class Heap():
         """Returns True if the heap is empty.
         """
         return len(self._heap) == 0
+
+    def fill_with_nodes(self, nodes_list):
+        """Removes all nodes and pushes nodes in nodes_list to the heap. """
+        self._heap = [(node.distance, node) for node in nodes_list]
+
+    def get_heap_contents(self):
+        """Returns a list of all nodes in the heap as (distance, node) tuples."""
+        return self._heap
+
+    def peek_node(self):
+        """Returns the lowest node on the heap without removing. """
+        return self._heap[0][1]

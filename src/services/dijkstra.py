@@ -10,7 +10,7 @@ class Dijkstra(Algorithm):
     https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
     """
 
-    def __init__(self, grid):
+    def __init__(self, grid, heap=None):
         """Initializes the inner graph to resemble the given grid-object.
 
         Args:
@@ -18,7 +18,14 @@ class Dijkstra(Algorithm):
         """
         super().__init__(grid)
         self.graph = Graph(grid)
-        self._open_nodes_by_distance = Heap(self.graph.get_nodes())
+        nodes = self.graph.get_nodes()
+
+        if heap:
+            self._open_nodes_by_distance = heap
+        else:
+            self._open_nodes_by_distance = Heap()
+
+        self._open_nodes_by_distance.fill_with_nodes(nodes)
         self._open_nodes_by_distance.decrease_distance(
             self.graph.get_start_node(), 0)
 

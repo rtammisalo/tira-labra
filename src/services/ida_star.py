@@ -1,6 +1,6 @@
 from collections import deque
 from entities.graph import Graph
-from services.distance import octile_distance
+from services.math_utils import octile_distance
 from services.algorithm import Algorithm
 
 

@@ -2,7 +2,7 @@ from entities.jps_graph import JPSGraph
 from entities.grid import Grid
 from services.heap import Heap
 from services.algorithm import Algorithm
-from services.distance import octile_distance
+from services.math_utils import octile_distance
 
 
 class JPS(Algorithm):
