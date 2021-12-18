@@ -16,6 +16,12 @@ Sovelluksen graafisen näkymän algoritmeille saa ajamalla komennon:
 poetry run invoke start
 ```
 
+Antamalla lisäkomennon `-m kartannimi` voi vaihtaa ladattavaa karttaa käyttöliittymässä, eli vaikkapa
+
+``` bash
+poetry run invoke start -m maps/ht_store.map
+```
+
 ## Ohjelman käyttö
 
 - `mouse 1`-nappi siirtää lähtöruutua, 
