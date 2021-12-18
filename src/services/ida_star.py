@@ -39,6 +39,7 @@ class IDAStar(Algorithm):
 
         while True:
             cheapest_path_cost = self._search(0)
+            self._bound = cheapest_path_cost
 
             if self._generate_step_info:
                 yield self._get_step_info()
@@ -49,7 +50,6 @@ class IDAStar(Algorithm):
             if cheapest_path_cost == float('inf'):
                 return []
 
-            self._bound = cheapest_path_cost
 
     def _search(self, total_cost):
         """ IDA* search function. Called recursively to go through all possible
@@ -68,6 +68,7 @@ class IDAStar(Algorithm):
         node = self._last_node_on_path
         estimated_cost = total_cost + self._heuristic(node)
 
+        # Possible floating point errors.
         if estimated_cost - 1e-10 > self._bound:
             self._update_found_paths()
             return estimated_cost
