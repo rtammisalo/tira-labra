@@ -115,7 +115,7 @@ class TestJPS(unittest.TestCase):
             #######
             """
         jump_points = [(5, 1)]
-        look_ahead_points = [(4, 0)]
+        look_ahead_points = [(4, 0), (4, 1), (3, 1), (2, 1)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -127,7 +127,7 @@ class TestJPS(unittest.TestCase):
             ####.##
             """
         jump_points = [(5, 1)]
-        look_ahead_points = [(4, 2)]
+        look_ahead_points = [(4, 2), (4, 1), (3, 1), (2, 1)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -139,7 +139,7 @@ class TestJPS(unittest.TestCase):
             ####.##
             """
         jump_points = [(5, 1)]
-        look_ahead_points = [(4, 0), (4, 2)]
+        look_ahead_points = [(4, 0), (4, 1), (4, 2), (3, 1), (2, 1)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -151,19 +151,19 @@ class TestJPS(unittest.TestCase):
             ######
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(2, 0)]
+        look_ahead_points = [(2, 0), (2, 1), (3, 1)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
     def test_jumping_right_correctly_identifies_lower_jump_point(self):
         grid_str = \
             """
-            ##.###
-            S...#G
             ######
+            S...#G
+            ##.###
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(2, 0)]
+        look_ahead_points = [(2, 2), (2, 1), (3, 1)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -175,7 +175,7 @@ class TestJPS(unittest.TestCase):
             ##.###
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(2, 0), (2, 2)]
+        look_ahead_points = [(2, 0), (2, 2), (2, 1), (3, 1)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -187,7 +187,7 @@ class TestJPS(unittest.TestCase):
             #S###
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(0, 0)]
+        look_ahead_points = [(0, 0), (1, 0)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -199,7 +199,7 @@ class TestJPS(unittest.TestCase):
             #S###
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(2, 0)]
+        look_ahead_points = [(2, 0), (1, 0)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -211,7 +211,7 @@ class TestJPS(unittest.TestCase):
             #S###
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(0, 0), (2, 0)]
+        look_ahead_points = [(0, 0), (2, 0), (1, 0)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -223,7 +223,7 @@ class TestJPS(unittest.TestCase):
             ..###
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(0, 2)]
+        look_ahead_points = [(0, 2), (1, 2)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -235,7 +235,7 @@ class TestJPS(unittest.TestCase):
             #..##
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(2, 2)]
+        look_ahead_points = [(2, 2), (1, 2)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -247,7 +247,7 @@ class TestJPS(unittest.TestCase):
             ...##
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(0, 2), (2, 2)]
+        look_ahead_points = [(0, 2), (2, 2), (1, 2)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -259,7 +259,7 @@ class TestJPS(unittest.TestCase):
             S.###
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(0, 0)]
+        look_ahead_points = [(0, 0), (1, 0)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -271,7 +271,7 @@ class TestJPS(unittest.TestCase):
             S#.##
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(2, 2)]
+        look_ahead_points = [(2, 2), (1, 0)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -283,7 +283,7 @@ class TestJPS(unittest.TestCase):
             S#.##
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(2, 2), (0, 0)]
+        look_ahead_points = [(2, 2), (0, 0), (1, 0)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -295,7 +295,7 @@ class TestJPS(unittest.TestCase):
             ..###
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(0, 2)]
+        look_ahead_points = [(0, 2), (1, 2)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -307,7 +307,7 @@ class TestJPS(unittest.TestCase):
             #.###
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(2, 0)]
+        look_ahead_points = [(2, 0), (1, 2)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -319,7 +319,7 @@ class TestJPS(unittest.TestCase):
             ..###
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(2, 0), (0, 2)]
+        look_ahead_points = [(2, 0), (0, 2), (1, 2)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -331,7 +331,7 @@ class TestJPS(unittest.TestCase):
             ..###
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(0, 0)]
+        look_ahead_points = [(0, 0), (0, 2), (1, 2)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -343,7 +343,7 @@ class TestJPS(unittest.TestCase):
             ...##
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(2, 2)]
+        look_ahead_points = [(2, 2), (0, 2), (1, 2)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -355,7 +355,7 @@ class TestJPS(unittest.TestCase):
             ...##
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(0, 0), (2, 2)]
+        look_ahead_points = [(0, 0), (2, 2), (0, 2), (1, 2)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -367,7 +367,7 @@ class TestJPS(unittest.TestCase):
             .#S##
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(0, 2)]
+        look_ahead_points = [(0, 2), (0, 0), (1, 0)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -379,7 +379,7 @@ class TestJPS(unittest.TestCase):
             ##S##
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(2, 0)]
+        look_ahead_points = [(2, 0), (0, 0), (1, 0)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
@@ -391,7 +391,7 @@ class TestJPS(unittest.TestCase):
             .#S##
             """
         jump_points = [(1, 1)]
-        look_ahead_points = [(0, 2), (2, 0)]
+        look_ahead_points = [(0, 2), (2, 0), (0, 0), (1, 0)]
         self._jump_identifies_new_jump_points_and_expands_correctly(
             grid_str, jump_points, look_ahead_points)
 
