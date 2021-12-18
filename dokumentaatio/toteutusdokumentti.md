@@ -28,7 +28,7 @@ hylätään. Päivitys tapahtuu O(log V) ajassa. Yhteensä Dijkstran algoritmin 
 
 Jump Point Search (JPS) algoritmin toteutuksessa pyöritään while-loopissa next_step-metodissa. Jokaisella askeleella haetaan min-heapistä uusi alkio, jonka
 toiminallisuus on sama kuin ylempänä eli yhteisaikavaativuus sille on O(V log V). Keon päivitys, kuten ylempänä, ei muuta aikavaativuutta. Pahimmassa tapauksessa JPS:n jump-funktiolla (JPS-luokan `_jump_in_direction`-metodi) joudutaan käymään kuitenkin läpi kaikki ruudukon ruudut. Aikaa per ruutu kuluu O(1) ja tämä nostaa
-pahimman aikavaativuuden luokkaan O(V^2), kun [A*-algoritmin](https://en.wikipedia.org/wiki/A*_search_algorithm) aikavaativuus on luokkaa O(V). Hieman vähemmän harvoissa kartoissa näin ei kuitenkaan tapahdu, sillä eteenpäin hyppääminen törmää nopeasti joko seinään tai uuteen hyppypisteeseen. Ohjelman toteutuksessa ongelman tapaus esiintyy, kun ajetaan algoritmiä kartalla `maps/jps_loses.map`. Ongelmaa voisi korjata antamalla JPS:lle hyppyrajan, jonka jälkeen pakotetaan uusi hyppypiste kekoon ja hyppääminen lopetetaan kesken.
+pahimman aikavaativuuden luokkaan O(V^2), kun [A*-algoritmin](https://en.wikipedia.org/wiki/A*_search_algorithm) aikavaativuus on luokkaa O(V). Hieman vähemmän avoimissa kartoissa näin ei kuitenkaan tapahdu, sillä eteenpäin hyppääminen törmää nopeasti joko seinään tai uuteen hyppypisteeseen. Ohjelman toteutuksessa tapaus esiintyy, kun ajetaan algoritmiä kartalla `maps/jps_loses.map`. Ongelmaa voisi korjata antamalla JPS:lle hyppyrajan, jonka jälkeen pakotetaan uusi hyppypiste kekoon ja hyppääminen lopetetaan kesken.
 
 IDA*:n pahin aikavaativuus on [Wikipedian](https://en.wikipedia.org/wiki/Iterative_deepening_A*) nojalla luokkaa O(b^d). En osaa sanoa, miten paljon A*-heuristiikka auttaa haussa. Polkujahan kuitenkin syntyy todella suuria määriä, vaikka niiden pituus olisikin rajattu joka kerralla ja suuntaa ohjataan heuristisella etäisyydellä. Kaikki polut myös joudutaan käymään aina uudestaan ja uudestaan läpi joka kerta, kun rajaa (bound) kasvatetaan. Algoritmin hitaus näkyy heti, kun kartassa on muutamaa ruutua enemmän yhtenäistä seinää maalin edessä.
 
@@ -184,5 +184,6 @@ Hieman kömpelö käyttöliittymä. Mahdollisuus esim. zoomata kartalla.
 - [Dijkstran algoritmi](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
 - [Pythonin heapq decrease_key toteutuksesta](https://docs.python.org/2/library/heapq.html#priority-queue-implementation-notes)
 - [JPS](http://users.cecs.anu.edu.au/~dharabor/data/papers/harabor-grastien-aaai11.pdf)
+- [IDA*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)
 - [movingai.com:n kartat](https://www.movingai.com/benchmarks/bg512/index.html)
 
