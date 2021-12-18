@@ -11,12 +11,15 @@ class JPS(Algorithm):
     http://users.cecs.anu.edu.au/~dharabor/data/papers/harabor-grastien-aaai11.pdf
     """
 
-    def __init__(self, grid):
+    def __init__(self, grid, heap=None):
         """Inits the algorithm, requires a fully formed Grid-object as the base map.
         """
         super().__init__(grid)
         self.graph = JPSGraph(grid)
-        self._open_nodes_by_distance = Heap([])
+        if heap:
+            self._open_nodes_by_distance = heap
+        else:
+            self._open_nodes_by_distance = Heap()
         self._expanded_nodes = []
         self._visible_nodes = []
 
