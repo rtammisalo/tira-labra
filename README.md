@@ -2,7 +2,7 @@
 
 ![Actions:CI](https://github.com/rtammisalo/tira-labra/workflows/CI/badge.svg) [![codecov](https://codecov.io/gh/rtammisalo/tira-labra/branch/main/graph/badge.svg?token=T9UVAQ8WRV)](https://codecov.io/gh/rtammisalo/tira-labra)
 
-Projektin tarkoituksena on tehdä vertailua kahden reitinhakualgoritmin välillä (Jump Point Search ja Dijkstra). Ohjelman graafisessa näkymässä voi seurata valitun algoritmin toimintaa askel kerrallaan. Askeleeksi lasketaan yksi poisto open setistä, eli minimi-keosta. Käyttöliittymässä voi myös muuttaa aloitus- ja maalipaikkaa, sekä muuttaa karttaa. Tehokkuustesteissä käytetään suurimmaksi osaksi valmiskarttoja [movingai.com](https://www.movingai.com/benchmarks/grids.html) sivustolta.
+Projektin tarkoituksena on tehdä vertailua kahden reitinhakualgoritmin välillä (Jump Point Search ja Dijkstra). Toteutin myöhemmin myös lisäksi IDA*-algoritmin. Ohjelman graafisessa näkymässä voi seurata valitun algoritmin toimintaa askel kerrallaan. Askeleeksi lasketaan yksi poisto open setistä, eli minimi-keosta. Käyttöliittymässä voi myös muuttaa aloitus- ja maalipaikkaa, sekä muuttaa karttaa. Tehokkuustesteissä käytetään suurimmaksi osaksi valmiskarttoja [movingai.com](https://www.movingai.com/benchmarks/grids.html) sivustolta.
 
 Toteutuskielenä Python.
 
