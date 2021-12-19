@@ -18,10 +18,7 @@ Jump Point Search on monimutkaisin algoritmeistä, joten toteutin sille eniten y
 
 IDA* algoritmin toteutuksen yksikkötesteissä varmistetaan, ettei iteratiiviset polut koskaan käy jo polulla ollutta pistettä ja etteivät ne kulje ulos 'nähtyjen' (solu jossa käytiin jossakin polussa) solujen joukosta. Testeissä varmistetaan, myös ettei kyseisten polkujen pituudet ole koskaan yli rajan (bound/threshold). Sama tehdään myös jokaiselle 'nähdylle' pisteelle. Näille myös varmistetaan, etteivät ne ole yksin (eli algoritmi jotenkin olisi päässyt hyppäämään). Rajan nostolle on myös oma testinsä, jossa yritetään varmistetaa, ettei rajaa nosteta kuin minimi arvolla.
 
-Olen pyrkinyt myös kattavasti yksikkötestata algoritmeihin liittyvää sovelluslogiikkaa ja rakenteita.
-
-Ohjelmaa on testattu käsin muutamalla eri kartalla. Käytössä on myös 
-kattava automaattinen yksikkötestaus.
+Olen pyrkinyt myös kattavasti yksikkötestata algoritmeihin liittyvää sovelluslogiikkaa ja rakenteita. Ohjelmaa on myös testattu käyttöliittymän kautta käsin.
 
 ## Nopeustestit
 
