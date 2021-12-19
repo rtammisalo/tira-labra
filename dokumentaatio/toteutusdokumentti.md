@@ -47,14 +47,14 @@ IDA* ei tarvitse edes kekoa, mutta kuitenkin vaatii koko Graph-olion, joten senk
 
 Testikartoissa on yleisesti käsinvalittu alku- ja maalipisteet niin, että polunhaussa olisi laskettavaa. Tuloksien mukaan suurimmassa osassa kartoista JPS saavuttaa huomattavia nopeusetuja verrattuna Dijkstraan.
 
-Kaikkien 16 (ei ida_wins.map) kartan keskiarvot:
+Kaikkien 17 kartan keskiarvot:
 ```
-Dijkstra: 1.145791875 s
-JPS:      0.967255625 s, 0.17853625 s nopeampi
-IDA*:     aivan liian hidas
+Dijkstra: 1.840405294 s
+JPS:      1.126668824 s, 0.7137364706 s nopeampi
+IDA*:     liian hidas keskiarvojen vertailuun
 ```
 
-Jos poistetaan kartat jps_loses.map, joka on tahallaan viritetty ansa JPS-algoritmille (maali on ihan vieressä seinän takana, mutta JPS joutuu tutkimaan koko miljoonan solun kartan hypyillä) ja maps/huge.map (suuri kartta, jossa on paljon tyhjää, mutta myös rakennuksia), niin keskiarvot ovat:
+Jos poistetaan kartat ida_wins.map ja jps_loses.map, joka on tahallaan viritetty ansa JPS-algoritmille (maali on ihan vieressä seinän takana, mutta JPS joutuu tutkimaan koko miljoonan solun kartan hypyillä) sekä huge.map (suuri kartta, jossa on paljon tyhjää, mutta myös rakennuksia), niin keskiarvot ovat:
 
 ```
 Dijkstra: 0.5431978571 s
