@@ -25,7 +25,7 @@ kattava automaattinen yksikkötestaus.
 
 ## Nopeustestit
 
-Nopeustestit ajetaan 16 eri kartalle, joista suurin osa on otettu [movingai.com](https://movingai.com/benchmarks/grids.html) sivustolta. Käytän myös muutamaa omaa karttaa, joista esim. `maps/jps_loses.map` on tarkoituksella luotu niin, että JPS häviää kummallekkin algoritmille luonteensa takia. Dokumentin lopussa on tekstimuotoinen raportti (`invoke timer`-kutsu) eräästä ajastuksesta.
+Nopeustestit ajetaan 17 eri kartalle, joista suurin osa on otettu [movingai.com](https://movingai.com/benchmarks/grids.html) sivustolta. Käytän myös muutamaa omaa karttaa, joista esim. `maps/jps_loses.map` on tarkoituksella luotu niin, että JPS häviää kummallekkin algoritmille luonteensa takia. Dokumentin lopussa on tekstimuotoinen raportti (`invoke timer`-kutsu) eräästä ajastuksesta. `maps/ida_wins.map` on tyhjä kartta, joka on suunniteltu suosimaan IDA*-algoritmin toimintaa. 
 
 ## Testien toistaminen
 
@@ -35,13 +35,13 @@ Aja komento `poetry run invoke timer`, jolloin ohjelma alkaa laskemaan tuloksia.
 
 Kartat koon mukaan:
 
-![image](https://user-images.githubusercontent.com/81182631/146653136-73ace727-8f86-43b6-941c-23e58cb3030c.png)
+![image](https://user-images.githubusercontent.com/81182631/146669134-62f257dc-1d2e-44c5-9c57-2771e5365579.png)
 
 Tulokset kartoille, joissa IDA* pystyi löytämään reitin edes vähän järkevässä ajassa:
 
-![image](https://user-images.githubusercontent.com/81182631/146656429-0c1709e4-91a6-4fcb-8656-f3214e4d30de.png)
+![image](https://user-images.githubusercontent.com/81182631/146669145-3ebf8719-af37-484a-a917-a6c22365bb82.png)
 
-Ylläolevien kolmen kartan kuvat:
+Ylläolevien kolmen (ida_wins.map on tyhjä kartta, jossa maali- ja alkuruutu ovat kartan toisella puolella) kartan kuvat:
 
 ![image](https://user-images.githubusercontent.com/81182631/146653028-b63b06a7-6ed9-424c-81ea-2dd0fafb4a48.png)
 
@@ -55,7 +55,7 @@ Loput kartat:
 
 Kaikki tulokset:
 
-![image](https://user-images.githubusercontent.com/81182631/146653201-ed40624d-b010-4244-a0a1-b9d09755ff5d.png)
+![image](https://user-images.githubusercontent.com/81182631/146669202-83390f04-b628-4a31-96ea-04a5f938f737.png)
 
 ### Tekstiraportti
 
