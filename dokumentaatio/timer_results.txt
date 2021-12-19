@@ -255,3 +255,18 @@ Dijkstra average time taken: 0.00133 s
 JPS average time taken: 3.40875 s
 IDA* average time taken: 0.00040 s
 Found path length of 8 with a total cost of 8.24264.
+
+
+Running...
+Run 1
+Run 2
+Run 3
+Run 4
+Run 5
+
+
+Map file: maps/ida_wins.map, 999x1050 = 1048950 cells.
+Dijkstra average time taken: 12.95422 s
+JPS average time taken: 3.67728 s
+IDA* average time taken: 0.02215 s
+Found path length of 960 with a total cost of 1292.85613.

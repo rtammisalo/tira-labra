@@ -47,7 +47,7 @@ IDA* ei tarvitse edes kekoa, mutta kuitenkin vaatii koko Graph-olion, joten senk
 
 Testikartoissa on yleisesti käsinvalittu alku- ja maalipisteet niin, että polunhaussa olisi laskettavaa. Tuloksien mukaan suurimmassa osassa kartoista JPS saavuttaa huomattavia nopeusetuja verrattuna Dijkstraan.
 
-Kaikkien 16 kartan keskiarvot:
+Kaikkien 16 (ei ida_wins.map) kartan keskiarvot:
 ```
 Dijkstra: 1.145791875 s
 JPS:      0.967255625 s, 0.17853625 s nopeampi
@@ -61,9 +61,15 @@ Dijkstra: 0.5431978571 s
 JPS:      0.1077842857 s, 0.4354135714 s nopeampi (5x)
 ```
 
-IDA* ei kuitenkaan ole ihan täysin huono, sillä se onnistuu pienillä avoimilla kartoilla ja kartassa, jossa on suora reitti maaliin (maps/lt_gallowsprison_n.map). Se myös voittaa JPS:n kartassa jps_loses.map.
+IDA* ei kuitenkaan ole ihan täysin huono, sillä se onnistuu pienillä avoimilla kartoilla ja kartassa, jossa on suora reitti maaliin (maps/lt_gallowsprison_n.map). Se myös voittaa JPS:n kartassa jps_loses.map. Kartassa `maps/ida_wins.map`, joka on täysin tyhjä kartta, voittaa IDA* selvästi molemmat algoritmit.
 
 ```
+Map file: maps/ida_wins.map, 999x1050 = 1048950 cells.
+Dijkstra average time taken: 12.95422 s
+JPS average time taken: 3.67728 s
+IDA* average time taken: 0.02215 s
+Found path length of 960 with a total cost of 1292.85613.
+
 Map file: maps/ht_store.map, 37x37 = 1369 cells.
 Dijkstra average time taken: 0.00388 s
 JPS average time taken: 0.00134 s
@@ -175,6 +181,8 @@ Found path length of 8 with a total cost of 8.24264.
 ```
 
 ## Puutteet
+
+IDA* on toteutettu rekursiivisesti ja sitä ei siten voi käyttää kartoilla, joissa polku on liian pitkä tai ohjelma kaatuu.
 
 Hieman kömpelö käyttöliittymä. Mahdollisuus esim. zoomata kartalla.
 
