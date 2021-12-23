@@ -1,4 +1,5 @@
 import time
+import sys
 from entities.grid import Grid
 from services.dijkstra import Dijkstra
 from services.jps import JPS
@@ -23,7 +24,7 @@ class TimerService:
     """Small timer service for performance measuring.
     """
     RUNS = 5
-    IDA_TIME_LIMIT = 15
+    IDA_TIME_LIMIT = 20
 
     def __init__(self, printer=console_printer, map_repository=None):
         """Initializes the service.
@@ -61,7 +62,11 @@ class TimerService:
             mapfile (str): Filename
             algorithm_class (Algorithm): Class of the used algorithm
         """
-        map_desc, map_string = self._map_repository.read_map(mapfile)
+        try:
+            map_desc, map_string = self._map_repository.read_map(mapfile)
+        except FileNotFoundError:
+            self._printer.write(f"Tiedostoa {mapfile} ei löydetty.")
+            sys.exit(0)
         grid = Grid(map_string)
         time_limit = 0
         path = []
@@ -101,7 +106,7 @@ class TimerService:
             f"Average time in seconds: {sum(delta_times) / len(delta_times):0.7f}")
         cost = calculate_path_cost(path)
         self._printer.write(
-            f"Found path length of {len(delta_times)}" +
+            f"Found path length of {len(path)} moves" +
             f" with a total cost of {cost:0.5f}.")
 
     @staticmethod
