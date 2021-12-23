@@ -2,9 +2,12 @@ import os
 from invoke import task
 
 
-@task
-def timer(ctx):
-    ctx.run("python3 src/main.py timer", pty=True)
+@task(help={"map": "Map file"})
+def timer(ctx, map=None):
+    if map:
+        ctx.run(f"python3 src/main.py timer {map}", pty=True)
+    else:
+        ctx.run("python3 src/main.py timer", pty=True)
 
 
 @task(help={"map": "Map file"})

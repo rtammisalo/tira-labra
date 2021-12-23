@@ -7,13 +7,13 @@ class MapRepository:
 
     def __init__(self):
         self._dir = "maps"
-        self._map_files = set(["AR0011SR.map", "AR0516SR.map", "AR0711SR.map",
-                               "AR0012SR.map", "AR0203SR.map", "AR0700SR.map",
-                               "AR0400SR.map", "AR0511SR.map", "huge.map",
-                               "jps_loses.map", "w_sundermount.map",
-                               "ca_caverns1_mines.map", "dr_0_deeproads.map",
-                               "ht_store.map", "lt_foundry_n.map",
-                               "lt_gallowsprison_n.map"])
+        self._map_files = ["AR0011SR.map", "AR0516SR.map", "AR0711SR.map",
+                           "AR0012SR.map", "AR0203SR.map", "AR0700SR.map",
+                           "AR0400SR.map", "AR0511SR.map", "huge.map",
+                           "jps_loses.map", "w_sundermount.map",
+                           "ca_caverns1_mines.map", "dr_0_deeproads.map",
+                           "ht_store.map", "lt_foundry_n.map",
+                           "lt_gallowsprison_n.map"]
 
     def read_map(self, map_file):
         """ Reads the map indicated by map_file. Returns a tuple of
@@ -32,11 +32,11 @@ class MapRepository:
 
         return map_description, map_string
 
-    def iter_maps(self):
-        """ Loads all known maps. Yields a map (description, map_string) tuple per map
-        to the caller.
+    def get_map_files(self):
+        """ Returns a list of all map files
         """
+        maps = []
         for map_file in self._map_files:
             filename = os.path.join(self._dir, map_file)
-            map_desc, map_string = self.read_map(filename)
-            yield map_desc, map_string
+            maps.append(filename)
+        return maps

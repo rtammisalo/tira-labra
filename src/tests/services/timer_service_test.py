@@ -1,0 +1,86 @@
+import time
+import unittest
+from unittest.mock import Mock
+from services.ida_star import IDAStar
+from services.timer_service import TimerService
+from services.dijkstra import Dijkstra
+
+TEST_MAP = \
+    """
+    S.........#
+    ########.##
+    ########.##
+    #####......
+    ###........
+    ###...#####
+    #.........G
+    """
+
+
+class StubPrinter:
+    def __init__(self):
+        self.messages = []
+
+    def write(self, message):
+        self.messages.append(message)
+
+
+class TestTimerService(unittest.TestCase):
+    def setUp(self):
+        self.printer = StubPrinter()
+
+    def test_time_performance_calls_map_repository_read_map(self):
+        map_repository = Mock()
+        map_repository.read_map.return_value = "test map desc", "S...G"
+        service = TimerService(self.printer, map_repository)
+        service.time_performance("mapfile", Dijkstra)
+        map_repository.read_map.assert_called_with("mapfile")
+
+    def test_time_all_performances_calls_get_map_files_when_no_mapfile_given(self):
+        map_repository = Mock()
+        map_repository.get_map_files.return_value = []
+        service = TimerService(self.printer, map_repository)
+        service.time_all_performances()
+        map_repository.get_map_files.assert_called()
+
+    def test_print_report_prints_average_correctly(self):
+        service = TimerService(self.printer)
+        service._print_report([1, 2, 3], [])
+        for message in self.printer.messages:
+            if "Average" in message:
+                splits = message.split()
+                self.assertAlmostEqual(float(splits[4]), 2)
+
+    def test_idastar_tests_use_timer_and_end_correctly(self):
+        map_repository = Mock()
+        map_repository.read_map.return_value = "test map desc", TEST_MAP
+        service = TimerService(self.printer, map_repository=map_repository)
+        service.IDA_TIME_LIMIT = 0.001
+        service.time_performance("testmapfile", IDAStar)
+
+        self.assertIn(
+            "Time ran out for IDA*, stopping..", self.printer.messages)
+
+    def test_time_performance_runs_as_many_times_as_specified(self):
+        map_repository = Mock()
+        map_repository.read_map.return_value = "test map desc", TEST_MAP
+        service = TimerService(self.printer, map_repository=map_repository)
+        service.time_performance("testmapfile", Dijkstra)
+
+        for run in range(service.RUNS):
+            self.assertIn(f"Starting run {run + 1}", self.printer.messages)
+
+    def test_time_performance_took_at_least_as_much_time_to_perform_as_the_report_specifies(self):
+        map_repository = Mock()
+        map_repository.read_map.return_value = "test map desc", TEST_MAP
+        service = TimerService(self.printer, map_repository=map_repository)
+
+        start_time = time.perf_counter()
+        service.time_performance("testmapfile", Dijkstra)
+        end_time = time.perf_counter()
+        delta_time = end_time - start_time
+
+        for message in self.printer.messages:
+            if "Average" in message:
+                splits = message.split()
+                self.assertLessEqual(float(splits[4]), delta_time/service.RUNS)

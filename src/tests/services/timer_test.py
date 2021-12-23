@@ -17,8 +17,8 @@ class TestTimer(unittest.TestCase):
         timer.add_used_time()
 
     def test_add_used_time_causes_an_exception_when_over_limit(self):
-        timer = Timer(1)
-        time.sleep(2)
+        timer = Timer(0.1)
+        time.sleep(0.3)
         with self.assertRaises(TimeOut):
             timer.add_used_time()
 

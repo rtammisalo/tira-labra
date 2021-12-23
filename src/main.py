@@ -11,7 +11,11 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         if sys.argv[1] == "timer":
             timer = TimerService()
-            timer.time_performance()
+            if len(sys.argv) == 3:
+                MAP_FILE = sys.argv[2]
+            else:
+                MAP_FILE = None
+            timer.time_all_performances(MAP_FILE)
             sys.exit()
         else:
             # Use the console line argument as the map file.
