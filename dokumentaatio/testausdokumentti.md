@@ -16,13 +16,28 @@ Dijkstran yksikkötesteissä katsotaan testissä keon sisällöstä, että sen s
 
 Jump Point Search on monimutkaisin algoritmeistä, joten toteutin sille eniten yksikkötestejä. Kaikille ajettavien pituustestien lisäksi testaan kaikki tavat löytää uusia pakotettujen naapurien (forced neighbors) takia luotavia jump pointteja ja sen, että jump pointista myös käydään läpi pakotetun naapurin suunta. Jos näin ei ole tehty, niin karttaan voin jäädä tyhjiä kohtia. Testeissä varmistetaan myös, että JPS pistää alle 10% kartan soluista jump pointeiksi kekoon harvassa kartassa. Varmistan myös toisessa testissä, että JPS joutuu kuitenkin käymään hypyillä huomattavan osan karttaa.
 
-IDA* algoritmin toteutuksen yksikkötesteissä varmistetaan, ettei iteratiiviset polut koskaan käy jo polulla ollutta pistettä ja etteivät ne kulje ulos 'nähtyjen' (solu jossa käytiin jossakin polussa) solujen joukosta. Testeissä varmistetaan, myös ettei kyseisten polkujen pituudet ole koskaan yli rajan (bound/threshold). Sama tehdään myös jokaiselle 'nähdylle' pisteelle. Näille myös varmistetaan, etteivät ne ole yksin (eli algoritmi jotenkin olisi päässyt hyppäämään). Rajan nostolle on myös oma testinsä, jossa yritetään varmistetaa, ettei rajaa nosteta kuin minimi arvolla.
+IDA* algoritmin toteutuksen yksikkötesteissä varmistetaan, ettei iteratiiviset polut koskaan käy jo polulla ollutta pistettä ja etteivät ne kulje ulos 'nähtyjen'  solujen (solu jossa käytiin jossakin polussa) joukosta eli ettei nähtyjä soluja raportoida väärin. Testeissä varmistetaan myös, ettei kyseisten polkujen pituudet ole koskaan yli rajan (bound/threshold). Sama tehdään myös jokaiselle 'nähdylle' pisteelle. Näille myös varmistetaan, etteivät ne ole yksin (eli algoritmi jotenkin olisi päässyt hyppäämään). Rajan nostolle on myös oma testinsä, jossa yritetään varmistetaa, ettei rajaa nosteta kuin minimi arvolla.
 
 Olen pyrkinyt myös kattavasti yksikkötestata algoritmeihin liittyvää sovelluslogiikkaa ja rakenteita. Ohjelmaa on myös testattu käyttöliittymän kautta käsin.
 
 ## Nopeustestit
 
-Nopeustestit ajetaan 17 eri kartalle, joista suurin osa on otettu [movingai.com](https://movingai.com/benchmarks/grids.html) sivustolta. Käytän myös muutamaa omaa karttaa, joista esim. `maps/jps_loses.map` on tarkoituksella luotu niin, että JPS häviää kummallekkin algoritmille luonteensa takia. Dokumentin lopussa on tekstimuotoinen raportti (`invoke timer`-kutsu) eräästä ajastuksesta. `maps/ida_wins.map` on tyhjä kartta, joka on suunniteltu suosimaan IDA*-algoritmin toimintaa. 
+Nopeustestit ajetaan 27 eri kartalle, joista suurin osa on otettu [movingai.com](https://movingai.com/benchmarks/grids.html) sivustolta. Käytän myös muutamaa omaa karttaa, joista esim. `maps/jps_loses.map` on tarkoituksella luotu niin, että JPS häviää kummallekkin algoritmille hyppyjen takia. On olemassa myös karttoja, kuten `maps/pillars-X.map`, joissa kartta koostuu yhden kokoisista seinistä muuten tyhjällä kartalla.
+
+Pillars karttojen peruskuvio, joka aiheuttaa JPS:n pakotettuja naapureita ja häiritsee siten hyppyoperaatioiden toimintaa:
+
+```
+#.#.#.#
+.......
+.#.#.#.
+.......
+```
+
+Maze-alkuisissa kartoissa on kyseessä tavallisista sokkeloista, joita loin [maze-generator](https://www.dcode.fr/maze-generator):n avulla.
+
+`maps/ida_wins.map` on tyhjä kartta, joka on suunniteltu suosimaan IDA*-algoritmin toimintaa Dijkstran ja JPS:iin verrattuna.
+
+Dokumentin lopussa on tekstimuotoinen raportti (`invoke timer`-kutsu) eräästä ajastuksesta. 
 
 ## Testien toistaminen
 
@@ -32,27 +47,38 @@ Aja komento `poetry run invoke timer`, jolloin ohjelma alkaa laskemaan tuloksia.
 
 Kartat koon mukaan:
 
-![image](https://user-images.githubusercontent.com/81182631/146669134-62f257dc-1d2e-44c5-9c57-2771e5365579.png)
+![image](https://user-images.githubusercontent.com/81182631/147457008-0dd20360-0efe-4988-b82c-37cc85de102c.png)
 
-Tulokset kartoille, joissa IDA* pystyi löytämään reitin edes vähän järkevässä ajassa:
+Tulokset kartoille, joissa IDA* pystyi löytämään reitin edes vähän järkevässä ajassa. Kun sokkelokarttojen (`maze-x.map`) koko kasvaa 11x11 ruudukosta 15x15 ruudukkoon, ei IDA* enää kyennyt aikarajassa löytämään reittiä. `maze-15-straight.amp` on sokkelokartta, johon tahallaan loin suoremman reitin.
 
-![image](https://user-images.githubusercontent.com/81182631/146669145-3ebf8719-af37-484a-a917-a6c22365bb82.png)
+![image](https://user-images.githubusercontent.com/81182631/147463444-4ffc6ea8-ef0f-4eeb-9464-4d2893549055.png)
 
-Ylläolevien kolmen (ida_wins.map on tyhjä kartta, jossa maali- ja alkuruutu ovat kartan toisella puolella) kartan kuvat:
+IDA*:n kyky selvitä järkevässä ajassa pillars-kartoissa, kun koko kasvaa yhdellä rivillä ja sarakkeella:
+
+![image](https://user-images.githubusercontent.com/81182631/147463495-148df65c-13a4-4edd-b33d-efbab1c765c5.png)
+
+Muutaman ylläolevan (ida_wins.map on tyhjä kartta, jossa maali- ja alkuruutu ovat kartan toisella puolella) kartan kuvat. IDA* selvästi pärjää parhaiten tyhjillä kartoilla ja kartoilla, joissa on olemassa tasan heuristiikan pituinen polku maaliin.
 
 ![image](https://user-images.githubusercontent.com/81182631/146653028-b63b06a7-6ed9-424c-81ea-2dd0fafb4a48.png)
 
-Loput kartat:
+Alla loput kartat, joissa IDA* ei pärjännyt ja testit keskeytettiin aikarajan takia. Huomioitavaa on, että kaikissa satunnaisesti luoduissa sokkelokartoissa (`maze-x.map`) JPS silti voittaa Dijkstran. `AR*.map`-kartoissa Dijkstra kuluttaa aikaa n. 5.3 kertaa enemmän. Kartat näyttävät olevan hyvin lähellä JPS:n ideaalitapausta. Niiden kuvat ilman alku- ja loppupisteitä löytyvät sivulta [movingai.com](https://movingai.com/benchmarks/bg512/index.html).
 
-![image](https://user-images.githubusercontent.com/81182631/146652631-503ab25b-13e4-4bd4-844e-14aaf209c477.png)
-![image](https://user-images.githubusercontent.com/81182631/146652635-0b1fff94-0fdd-4ea4-9b26-ea50dcf392a2.png)
-![image](https://user-images.githubusercontent.com/81182631/146652636-75bd45de-ba16-41f4-90f0-d763c7e535a1.png)
-![image](https://user-images.githubusercontent.com/81182631/146652641-fab9425d-c387-4504-8aae-c595e5e5dd3e.png)
+![image](https://user-images.githubusercontent.com/81182631/147464653-50d60849-b371-49d2-9654-4ad0f1c9fb66.png)
+
+![image](https://user-images.githubusercontent.com/81182631/147466792-c9bc733f-ebb1-4439-91a0-8a4f1e34e0a1.png)
+
+Isossa miljoonan ruudun kartassa, joka on suurimmiten tyhjää, pärjäävät kummatkin algoritmit samalla tavalla. `huge.map`-kartassa selvästi JPS:n heuristiikasta ei ole apua ja liian suuret hypyt muodostuvat haitaksi.
+
+![image](https://user-images.githubusercontent.com/81182631/147464858-25c54464-43c9-42b5-9ba7-056e7ea01855.png)
+
+Aiemmin mainituissa pillars-tyylisissä kartoissa JPS silti päihittää Dijkstran. `pillars-maze-260.map` on kuitenkin suunniteltu niin, että JPS:n heuristiikka hidastaa toimintaa, joka johtaa Dijkstran selvään voittoon.
+
+![image](https://user-images.githubusercontent.com/81182631/147464991-a5314292-f4fc-4c4e-9f9a-32a0b24411e9.png)
 
 
 Kaikki tulokset:
 
-![image](https://user-images.githubusercontent.com/81182631/146669202-83390f04-b628-4a31-96ea-04a5f938f737.png)
+![image](https://user-images.githubusercontent.com/81182631/147466307-00d76959-e53e-49b7-9337-293978fac4f0.png)
 
 ### Tekstiraportti
 
