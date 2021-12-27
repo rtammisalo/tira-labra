@@ -1,272 +1,717 @@
 pygame 2.1.0 (SDL 2.0.16, Python 3.8.10)
 Hello from the pygame community. https://www.pygame.org/contribute.html
 
-Running each algorithm 5 times per map.
-
-
-Running...
-Run 1
-Timelimit of 30 s reached for IDA*
-Run 2
-Run 3
-Run 4
-Run 5
-
-
-Map file: maps/w_sundermount.map, 770x770 = 592900 cells.
-Dijkstra average time taken: 0.34388 s
-JPS average time taken: 0.08182 s
-IDA* ran over time limit of 30 s
-Found path length of 613 with a total cost of 702.71277.
-
-
-Running...
-Run 1
-Timelimit of 30 s reached for IDA*
-Run 2
-Run 3
-Run 4
-Run 5
-
-
-Map file: maps/AR0012SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 0.32459 s
-JPS average time taken: 0.05320 s
-IDA* ran over time limit of 30 s
-Found path length of 195 with a total cost of 223.40916.
-
-
-Running...
-Run 1
-Timelimit of 30 s reached for IDA*
-Run 2
-Run 3
-Run 4
-Run 5
-
-
-Map file: maps/AR0400SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 0.78177 s
-JPS average time taken: 0.18015 s
-IDA* ran over time limit of 30 s
-Found path length of 468 with a total cost of 548.60007.
-
-
-Running...
-Run 1
-Timelimit of 30 s reached for IDA*
-Run 2
-Run 3
-Run 4
-Run 5
-
-
-Map file: maps/huge.map, 999x1050 = 1048950 cells.
-Dijkstra average time taken: 10.72657 s
-JPS average time taken: 10.55836 s
-IDA* ran over time limit of 30 s
-Found path length of 1615 with a total cost of 1805.78088.
-
-
-Running...
-Run 1
-Timelimit of 30 s reached for IDA*
-Run 2
-Run 3
-Run 4
-Run 5
-
-
-Map file: maps/dr_0_deeproads.map, 560x733 = 410480 cells.
-Dijkstra average time taken: 0.42451 s
-JPS average time taken: 0.14326 s
-IDA* ran over time limit of 30 s
-Found path length of 875 with a total cost of 955.60007.
-
-
-Running...
-Run 1
-Run 2
-Run 3
-Run 4
-Run 5
-
-
-Map file: maps/ht_store.map, 37x37 = 1369 cells.
-Dijkstra average time taken: 0.00388 s
-JPS average time taken: 0.00134 s
-IDA* average time taken: 0.55902 s
-Found path length of 16 with a total cost of 17.48528.
-
-
-Running...
-Run 1
-Timelimit of 30 s reached for IDA*
-Run 2
-Run 3
-Run 4
-Run 5
-
-
-Map file: maps/AR0700SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 1.50738 s
-JPS average time taken: 0.09010 s
-IDA* ran over time limit of 30 s
-Found path length of 370 with a total cost of 480.42345.
-
-
-Running...
-Run 1
-Timelimit of 30 s reached for IDA*
-Run 2
-Run 3
-Run 4
-Run 5
-
-
-Map file: maps/AR0516SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 0.40388 s
-JPS average time taken: 0.08952 s
-IDA* ran over time limit of 30 s
-Found path length of 324 with a total cost of 367.73506.
-
-
-Running...
-Run 1
-Timelimit of 30 s reached for IDA*
-Run 2
-Run 3
-Run 4
-Run 5
-
-
+Running Dijkstra 5 times.
 Map file: maps/AR0011SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 1.30624 s
-JPS average time taken: 0.31939 s
-IDA* ran over time limit of 30 s
-Found path length of 477 with a total cost of 503.75231.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 1.4799638
+Found path length of 477 moves with a total cost of 503.75231.
 
+Running JPS 5 times.
+Map file: maps/AR0011SR.map, 512x512 = 262144 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.3908852
+Found path length of 477 moves with a total cost of 503.75231.
 
-Running...
-Run 1
-Timelimit of 30 s reached for IDA*
-Run 2
-Run 3
-Run 4
-Run 5
+Running IDAStar 5 times.
+Map file: maps/AR0011SR.map, 512x512 = 262144 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
 
+Running Dijkstra 5 times.
+Map file: maps/AR0516SR.map, 512x512 = 262144 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.4583969
+Found path length of 324 moves with a total cost of 367.73506.
 
-Map file: maps/AR0203SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 1.16181 s
-JPS average time taken: 0.30357 s
-IDA* ran over time limit of 30 s
-Found path length of 405 with a total cost of 485.18586.
+Running JPS 5 times.
+Map file: maps/AR0516SR.map, 512x512 = 262144 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0935195
+Found path length of 324 moves with a total cost of 367.73506.
 
+Running IDAStar 5 times.
+Map file: maps/AR0516SR.map, 512x512 = 262144 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
 
-Running...
-Run 1
-Timelimit of 30 s reached for IDA*
-Run 2
-Run 3
-Run 4
-Run 5
-
-
-Map file: maps/AR0511SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 0.90013 s
-JPS average time taken: 0.12486 s
-IDA* ran over time limit of 30 s
-Found path length of 379 with a total cost of 464.15642.
-
-
-Running...
-Run 1
-Run 2
-Run 3
-Run 4
-Run 5
-
-
-Map file: maps/lt_gallowsprison_n.map, 116x242 = 28072 cells.
-Dijkstra average time taken: 0.02716 s
-JPS average time taken: 0.00242 s
-IDA* average time taken: 0.00283 s
-Found path length of 122 with a total cost of 121.41421.
-
-
-Running...
-Run 1
-Timelimit of 30 s reached for IDA*
-Run 2
-Run 3
-Run 4
-Run 5
-
-
-Map file: maps/lt_foundry_n.map, 109x92 = 10028 cells.
-Dijkstra average time taken: 0.02990 s
-JPS average time taken: 0.00593 s
-IDA* ran over time limit of 30 s
-Found path length of 67 with a total cost of 78.42641.
-
-
-Running...
-Run 1
-Timelimit of 30 s reached for IDA*
-Run 2
-Run 3
-Run 4
-Run 5
-
-
+Running Dijkstra 5 times.
 Map file: maps/AR0711SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 0.29289 s
-JPS average time taken: 0.09415 s
-IDA* ran over time limit of 30 s
-Found path length of 616 with a total cost of 680.03153.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.3241907
+Found path length of 616 moves with a total cost of 680.03153.
 
+Running JPS 5 times.
+Map file: maps/AR0711SR.map, 512x512 = 262144 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.1101156
+Found path length of 616 moves with a total cost of 680.03153.
 
-Running...
-Run 1
-Timelimit of 30 s reached for IDA*
-Run 2
-Run 3
-Run 4
-Run 5
+Running IDAStar 5 times.
+Map file: maps/AR0711SR.map, 512x512 = 262144 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
 
+Running Dijkstra 5 times.
+Map file: maps/AR0012SR.map, 512x512 = 262144 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.3565340
+Found path length of 195 moves with a total cost of 223.40916.
 
-Map file: maps/ca_caverns1_mines.map, 324x597 = 193428 cells.
-Dijkstra average time taken: 0.09675 s
-JPS average time taken: 0.01927 s
-IDA* ran over time limit of 30 s
-Found path length of 201 with a total cost of 233.13708.
+Running JPS 5 times.
+Map file: maps/AR0012SR.map, 512x512 = 262144 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0570250
+Found path length of 195 moves with a total cost of 223.40916.
 
+Running IDAStar 5 times.
+Map file: maps/AR0012SR.map, 512x512 = 262144 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
 
-Running...
-Run 1
-Run 2
-Run 3
-Run 4
-Run 5
+Running Dijkstra 5 times.
+Map file: maps/AR0203SR.map, 512x512 = 262144 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 1.2148013
+Found path length of 405 moves with a total cost of 485.18586.
 
+Running JPS 5 times.
+Map file: maps/AR0203SR.map, 512x512 = 262144 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.3211107
+Found path length of 405 moves with a total cost of 485.18586.
 
+Running IDAStar 5 times.
+Map file: maps/AR0203SR.map, 512x512 = 262144 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
+
+Running Dijkstra 5 times.
+Map file: maps/AR0700SR.map, 512x512 = 262144 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 1.6370598
+Found path length of 370 moves with a total cost of 480.42345.
+
+Running JPS 5 times.
+Map file: maps/AR0700SR.map, 512x512 = 262144 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0967646
+Found path length of 370 moves with a total cost of 480.42345.
+
+Running IDAStar 5 times.
+Map file: maps/AR0700SR.map, 512x512 = 262144 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
+
+Running Dijkstra 5 times.
+Map file: maps/AR0400SR.map, 512x512 = 262144 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.8349016
+Found path length of 468 moves with a total cost of 548.60007.
+
+Running JPS 5 times.
+Map file: maps/AR0400SR.map, 512x512 = 262144 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.1999988
+Found path length of 468 moves with a total cost of 548.60007.
+
+Running IDAStar 5 times.
+Map file: maps/AR0400SR.map, 512x512 = 262144 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
+
+Running Dijkstra 5 times.
+Map file: maps/AR0511SR.map, 512x512 = 262144 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 1.0159035
+Found path length of 379 moves with a total cost of 464.15642.
+
+Running JPS 5 times.
+Map file: maps/AR0511SR.map, 512x512 = 262144 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.1351786
+Found path length of 379 moves with a total cost of 464.15642.
+
+Running IDAStar 5 times.
+Map file: maps/AR0511SR.map, 512x512 = 262144 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
+
+Running Dijkstra 5 times.
+Map file: maps/huge.map, 999x1050 = 1048950 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 11.8502545
+Found path length of 1615 moves with a total cost of 1805.78088.
+
+Running JPS 5 times.
+Map file: maps/huge.map, 999x1050 = 1048950 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 11.3280247
+Found path length of 1615 moves with a total cost of 1805.78088.
+
+Running IDAStar 5 times.
+Map file: maps/huge.map, 999x1050 = 1048950 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
+
+Running Dijkstra 5 times.
 Map file: maps/jps_loses.map, 999x1050 = 1048950 cells.
-Dijkstra average time taken: 0.00133 s
-JPS average time taken: 3.40875 s
-IDA* average time taken: 0.00040 s
-Found path length of 8 with a total cost of 8.24264.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0013243
+Found path length of 8 moves with a total cost of 8.24264.
 
+Running JPS 5 times.
+Map file: maps/jps_loses.map, 999x1050 = 1048950 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 3.9974468
+Found path length of 8 moves with a total cost of 8.24264.
 
-Running...
-Run 1
-Run 2
-Run 3
-Run 4
-Run 5
+Running IDAStar 5 times.
+Map file: maps/jps_loses.map, 999x1050 = 1048950 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0004754
+Found path length of 8 moves with a total cost of 8.24264.
 
-
+Running Dijkstra 5 times.
 Map file: maps/ida_wins.map, 999x1050 = 1048950 cells.
-Dijkstra average time taken: 12.95422 s
-JPS average time taken: 3.67728 s
-IDA* average time taken: 0.02215 s
-Found path length of 960 with a total cost of 1292.85613.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 15.2831964
+Found path length of 960 moves with a total cost of 1292.85613.
+
+Running JPS 5 times.
+Map file: maps/ida_wins.map, 999x1050 = 1048950 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 4.0850139
+Found path length of 960 moves with a total cost of 1292.85613.
+
+Running IDAStar 5 times.
+Map file: maps/ida_wins.map, 999x1050 = 1048950 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0279650
+Found path length of 960 moves with a total cost of 1292.85613.
+
+Running Dijkstra 5 times.
+Map file: maps/w_sundermount.map, 770x770 = 592900 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.3949804
+Found path length of 613 moves with a total cost of 702.71277.
+
+Running JPS 5 times.
+Map file: maps/w_sundermount.map, 770x770 = 592900 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0884542
+Found path length of 613 moves with a total cost of 702.71277.
+
+Running IDAStar 5 times.
+Map file: maps/w_sundermount.map, 770x770 = 592900 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
+
+Running Dijkstra 5 times.
+Map file: maps/ca_caverns1_mines.map, 324x597 = 193428 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.1054091
+Found path length of 201 moves with a total cost of 233.13708.
+
+Running JPS 5 times.
+Map file: maps/ca_caverns1_mines.map, 324x597 = 193428 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0233186
+Found path length of 201 moves with a total cost of 233.13708.
+
+Running IDAStar 5 times.
+Map file: maps/ca_caverns1_mines.map, 324x597 = 193428 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
+
+Running Dijkstra 5 times.
+Map file: maps/dr_0_deeproads.map, 560x733 = 410480 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.4968480
+Found path length of 875 moves with a total cost of 955.60007.
+
+Running JPS 5 times.
+Map file: maps/dr_0_deeproads.map, 560x733 = 410480 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.1604830
+Found path length of 875 moves with a total cost of 955.60007.
+
+Running IDAStar 5 times.
+Map file: maps/dr_0_deeproads.map, 560x733 = 410480 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
+
+Running Dijkstra 5 times.
+Map file: maps/ht_store.map, 37x37 = 1369 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0038541
+Found path length of 16 moves with a total cost of 17.48528.
+
+Running JPS 5 times.
+Map file: maps/ht_store.map, 37x37 = 1369 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0013417
+Found path length of 16 moves with a total cost of 17.48528.
+
+Running IDAStar 5 times.
+Map file: maps/ht_store.map, 37x37 = 1369 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.6071031
+Found path length of 16 moves with a total cost of 17.48528.
+
+Running Dijkstra 5 times.
+Map file: maps/lt_foundry_n.map, 109x92 = 10028 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0278580
+Found path length of 67 moves with a total cost of 78.42641.
+
+Running JPS 5 times.
+Map file: maps/lt_foundry_n.map, 109x92 = 10028 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0057368
+Found path length of 67 moves with a total cost of 78.42641.
+
+Running IDAStar 5 times.
+Map file: maps/lt_foundry_n.map, 109x92 = 10028 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
+
+Running Dijkstra 5 times.
+Map file: maps/lt_gallowsprison_n.map, 116x242 = 28072 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0275571
+Found path length of 122 moves with a total cost of 121.41421.
+
+Running JPS 5 times.
+Map file: maps/lt_gallowsprison_n.map, 116x242 = 28072 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0027718
+Found path length of 122 moves with a total cost of 121.41421.
+
+Running IDAStar 5 times.
+Map file: maps/lt_gallowsprison_n.map, 116x242 = 28072 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0040932
+Found path length of 122 moves with a total cost of 121.41421.
+
+Running Dijkstra 5 times.
+Map file: maps/maze-101.map, 101x101 = 10201 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0515179
+Found path length of 254 moves with a total cost of 298.97771.
+
+Running JPS 5 times.
+Map file: maps/maze-101.map, 101x101 = 10201 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0346845
+Found path length of 254 moves with a total cost of 298.97771.
+
+Running IDAStar 5 times.
+Map file: maps/maze-101.map, 101x101 = 10201 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
+
+Running Dijkstra 5 times.
+Map file: maps/maze-11.map, 11x11 = 121 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0006011
+Found path length of 26 moves with a total cost of 29.55635.
+
+Running JPS 5 times.
+Map file: maps/maze-11.map, 11x11 = 121 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0003660
+Found path length of 26 moves with a total cost of 29.55635.
+
+Running IDAStar 5 times.
+Map file: maps/maze-11.map, 11x11 = 121 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.4679806
+Found path length of 26 moves with a total cost of 29.55635.
+
+Running Dijkstra 5 times.
+Map file: maps/maze-15.map, 15x15 = 225 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0015511
+Found path length of 31 moves with a total cost of 35.79899.
+
+Running JPS 5 times.
+Map file: maps/maze-15.map, 15x15 = 225 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0005487
+Found path length of 31 moves with a total cost of 35.79899.
+
+Running IDAStar 5 times.
+Map file: maps/maze-15.map, 15x15 = 225 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
+
+Running Dijkstra 5 times.
+Map file: maps/maze-15-straight.map, 15x15 = 225 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0010562
+Found path length of 16 moves with a total cost of 20.38478.
+
+Running JPS 5 times.
+Map file: maps/maze-15-straight.map, 15x15 = 225 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0003452
+Found path length of 16 moves with a total cost of 20.38478.
+
+Running IDAStar 5 times.
+Map file: maps/maze-15-straight.map, 15x15 = 225 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0005295
+Found path length of 16 moves with a total cost of 20.38478.
+
+Running Dijkstra 5 times.
+Map file: maps/maze-101-near.map, 101x101 = 10201 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0645034
+Found path length of 271 moves with a total cost of 313.49242.
+
+Running JPS 5 times.
+Map file: maps/maze-101-near.map, 101x101 = 10201 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0162646
+Found path length of 271 moves with a total cost of 313.49242.
+
+Running IDAStar 5 times.
+Map file: maps/maze-101-near.map, 101x101 = 10201 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
+
+Running Dijkstra 5 times.
+Map file: maps/pillars-260.map, 260x264 = 68640 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.6424701
+Found path length of 327 moves with a total cost of 406.77164.
+
+Running JPS 5 times.
+Map file: maps/pillars-260.map, 260x264 = 68640 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.3464975
+Found path length of 327 moves with a total cost of 406.77164.
+
+Running IDAStar 5 times.
+Map file: maps/pillars-260.map, 260x264 = 68640 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
+
+Running Dijkstra 5 times.
+Map file: maps/pillars-22.map, 22x22 = 484 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0038905
+Found path length of 27 moves with a total cost of 32.62742.
+
+Running JPS 5 times.
+Map file: maps/pillars-22.map, 22x22 = 484 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0020437
+Found path length of 27 moves with a total cost of 32.62742.
+
+Running IDAStar 5 times.
+Map file: maps/pillars-22.map, 22x22 = 484 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 1.4028971
+Found path length of 27 moves with a total cost of 32.62742.
+
+Running Dijkstra 5 times.
+Map file: maps/pillars-23.map, 23x23 = 529 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0047013
+Found path length of 28 moves with a total cost of 33.62742.
+
+Running JPS 5 times.
+Map file: maps/pillars-23.map, 23x23 = 529 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0025223
+Found path length of 28 moves with a total cost of 33.62742.
+
+Running IDAStar 5 times.
+Map file: maps/pillars-23.map, 23x23 = 529 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 7.1475633
+Found path length of 28 moves with a total cost of 33.62742.
+
+Running Dijkstra 5 times.
+Map file: maps/pillars-24.map, 24x24 = 576 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0050381
+Found path length of 30 moves with a total cost of 36.04163.
+
+Running JPS 5 times.
+Map file: maps/pillars-24.map, 24x24 = 576 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.0022333
+Found path length of 30 moves with a total cost of 36.04163.
+
+Running IDAStar 5 times.
+Map file: maps/pillars-24.map, 24x24 = 576 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
+
+Running Dijkstra 5 times.
+Map file: maps/pillars-maze-260.map, 260x264 = 68640 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.6166863
+Found path length of 1029 moves with a total cost of 1136.52395.
+
+Running JPS 5 times.
+Map file: maps/pillars-maze-260.map, 260x264 = 68640 cells.
+Starting run 1
+Starting run 2
+Starting run 3
+Starting run 4
+Starting run 5
+Average time in seconds: 0.9482389
+Found path length of 1029 moves with a total cost of 1136.52395.
+
+Running IDAStar 5 times.
+Map file: maps/pillars-maze-260.map, 260x264 = 68640 cells.
+Starting run 1
+Time ran out for IDA*, stopping..
