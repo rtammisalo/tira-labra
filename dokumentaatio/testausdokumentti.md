@@ -41,7 +41,17 @@ Dokumentin lopussa on tekstimuotoinen raportti (`invoke timer`-kutsu) eräästä
 
 ## Testien toistaminen
 
-Aja komento `poetry run invoke timer`, jolloin ohjelma alkaa laskemaan tuloksia. Laskenta on hidasta, ja siinä tulee kuitenkin kestämään monta minuuttia.
+Aja komento `poetry run invoke timer`, jolloin ohjelma alkaa laskemaan tuloksia. Laskenta on hidasta ja siinä tulee kestämään monta minuuttia.
+
+Muistin käyttöä voi tarkkailla komennoilla:
+
+``` bash
+poetry run mprof run src/main.py idastar maps/ida_wins.map
+poetry run mprof run src/main.py jps maps/ida_wins.map
+poetry run mprof run src/main.py dijkstra maps/ida_wins.map
+```
+
+Käsky luo projektin juureen uusia .dat tiedostoja, joista löytyy tiedot tekstimuodossa.
 
 ## Testitulokset
 
