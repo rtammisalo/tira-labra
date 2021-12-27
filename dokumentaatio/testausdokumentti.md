@@ -47,7 +47,7 @@ Aja komento `poetry run invoke timer`, jolloin ohjelma alkaa laskemaan tuloksia.
 
 Kartat koon mukaan:
 
-![image](https://user-images.githubusercontent.com/81182631/147457008-0dd20360-0efe-4988-b82c-37cc85de102c.png)
+![image](https://user-images.githubusercontent.com/81182631/147485066-003e6cd5-6d41-48b5-8bbd-71d3d5c1cc55.png)
 
 Tulokset kartoille, joissa IDA* pystyi löytämään reitin edes vähän järkevässä ajassa. Kun sokkelokarttojen (`maze-x.map`) koko kasvaa 11x11 ruudukosta 15x15 ruudukkoon, ei IDA* enää kyennyt aikarajassa löytämään reittiä. `maze-15-straight.amp` on sokkelokartta, johon tahallaan loin suoremman reitin.
 
@@ -61,7 +61,7 @@ Muutaman ylläolevan (ida_wins.map on tyhjä kartta, jossa maali- ja alkuruutu o
 
 ![image](https://user-images.githubusercontent.com/81182631/146653028-b63b06a7-6ed9-424c-81ea-2dd0fafb4a48.png)
 
-Alla loput kartat, joissa IDA* ei pärjännyt ja testit keskeytettiin aikarajan takia. Huomioitavaa on, että kaikissa satunnaisesti luoduissa sokkelokartoissa (`maze-x.map`) JPS silti voittaa Dijkstran. `AR*.map`-kartoissa Dijkstra kuluttaa aikaa n. 5.3 kertaa enemmän. Kartat sisältävät paljon sopivan kokooisia avoimia alueita, joita JPS:n hyppyoperaatiot tehokkaasti käyvät läpi. Niiden kuvat ilman alku- ja loppupisteitä löytyvät sivulta [movingai.com](https://movingai.com/benchmarks/bg512/index.html).
+Alla loput kartat, joissa IDA* ei pärjännyt ja testit keskeytettiin aikarajan takia. Huomioitavaa on, että kaikissa satunnaisesti luoduissa sokkelokartoissa (`maze-x.map`) JPS silti voittaa Dijkstran. `AR*.map`-kartoissa Dijkstra kuluttaa aikaa n. 5.3 kertaa enemmän. Kartat sisältävät paljon sopivan kokoisia avoimia alueita, joita JPS:n hyppyoperaatiot tehokkaasti käyvät läpi. Niiden kuvat ilman alku- ja loppupisteitä löytyvät sivulta [movingai.com](https://movingai.com/benchmarks/bg512/index.html).
 
 ![image](https://user-images.githubusercontent.com/81182631/147464653-50d60849-b371-49d2-9654-4ad0f1c9fb66.png)
 
@@ -77,10 +77,13 @@ Aiemmin mainituissa pillars-tyylisissä kartoissa JPS silti päihittää Dijkstr
 
 ![image](https://user-images.githubusercontent.com/81182631/147464991-a5314292-f4fc-4c4e-9f9a-32a0b24411e9.png)
 
+Alla pillars ja empty-karttojen skaalautuvuudesta. Dijkstran ja JPS:n kuluttuma aika tuplaantuu, kun ruutujen määrää tuplataan (100x100 -> 140x140 -> 200x200 ruudukoilla).
 
-Kaikki tulokset:
+![image](https://user-images.githubusercontent.com/81182631/147484113-9e94f2d9-f63d-4352-b631-b2c1a59a2f5e.png)
 
-![image](https://user-images.githubusercontent.com/81182631/147466307-00d76959-e53e-49b7-9337-293978fac4f0.png)
+Kaikki tulokset yhdessä:
+
+![image](https://user-images.githubusercontent.com/81182631/147484638-79725d26-a06b-44c3-becc-d120c3baa1c1.png)
 
 ### Tekstiraportti
 
