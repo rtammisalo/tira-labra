@@ -22,7 +22,7 @@ Olen pyrkinyt myös kattavasti yksikkötestata algoritmeihin liittyvää sovellu
 
 ## Nopeustestit
 
-Nopeustestit ajetaan 27 eri kartalle, joista suurin osa on otettu [movingai.com](https://movingai.com/benchmarks/grids.html) sivustolta. Käytän myös muutamaa omaa karttaa, joista esim. `maps/jps_loses.map` on tarkoituksella luotu niin, että JPS häviää kummallekkin algoritmille hyppyjen takia. On olemassa myös karttoja, kuten `maps/pillars-X.map`, joissa kartta koostuu yhden kokoisista seinistä muuten tyhjällä kartalla.
+Nopeustestit ajetaan 33 eri kartalle, joista suurin osa on otettu [movingai.com](https://movingai.com/benchmarks/grids.html) sivustolta. Käytän myös muutamaa omaa karttaa, joista esim. `maps/jps_loses.map` on tarkoituksella luotu niin, että JPS häviää kummallekkin algoritmille hyppyjen takia. On olemassa myös karttoja, kuten `maps/pillars-X.map`, joissa kartta koostuu yhden kokoisista seinistä muuten tyhjällä kartalla.
 
 Pillars karttojen peruskuvio, joka aiheuttaa JPS:n pakotettuja naapureita ja häiritsee siten hyppyoperaatioiden toimintaa:
 
@@ -35,9 +35,9 @@ Pillars karttojen peruskuvio, joka aiheuttaa JPS:n pakotettuja naapureita ja hä
 
 Maze-alkuisissa kartoissa on kyseessä tavallisista sokkeloista, joita loin [maze-generator](https://www.dcode.fr/maze-generator):n avulla.
 
-`maps/ida_wins.map` on tyhjä kartta, joka on suunniteltu suosimaan IDA*-algoritmin toimintaa Dijkstran ja JPS:iin verrattuna.
+`maps/ida_wins.map` on miljoonan ruudun tyhjä kartta, joka on suunniteltu suosimaan IDA*-algoritmin toimintaa Dijkstran ja JPS:iin verrattuna eli lähtö- ja maaliruudut ovat kartan toisilla puolilla.
 
-Dokumentin lopussa on tekstimuotoinen raportti (`invoke timer`-kutsu) eräästä ajastuksesta. 
+Dokumentin lopussa on tekstimuotoinen raportti (`invoke timer`-kutsu) eräästä ajastuksesta.
 
 ## Testien toistaminen
 
@@ -47,7 +47,7 @@ Aja komento `poetry run invoke timer`, jolloin ohjelma alkaa laskemaan tuloksia.
 
 Kartat koon mukaan:
 
-![image](https://user-images.githubusercontent.com/81182631/147485066-003e6cd5-6d41-48b5-8bbd-71d3d5c1cc55.png)
+![image](https://user-images.githubusercontent.com/81182631/147489766-44bde07c-6a60-4655-aa8b-3eadad4d0208.png)
 
 Tulokset kartoille, joissa IDA* pystyi löytämään reitin edes vähän järkevässä ajassa. Kun sokkelokarttojen (`maze-x.map`) koko kasvaa 11x11 ruudukosta 15x15 ruudukkoon, ei IDA* enää kyennyt aikarajassa löytämään reittiä. `maze-15-straight.amp` on sokkelokartta, johon tahallaan loin suoremman reitin.
 
@@ -57,7 +57,7 @@ IDA*:n kyky selvitä järkevässä ajassa pillars-kartoissa, kun koko kasvaa yhd
 
 ![image](https://user-images.githubusercontent.com/81182631/147463495-148df65c-13a4-4edd-b33d-efbab1c765c5.png)
 
-Muutaman ylläolevan (ida_wins.map on tyhjä kartta, jossa maali- ja alkuruutu ovat kartan toisella puolella) kartan kuvat. IDA* selvästi pärjää parhaiten tyhjillä kartoilla ja kartoilla, joissa on olemassa tasan heuristiikan pituinen polku maaliin.
+Muutaman ylläolevan (ida_wins.map on tyhjä kartta, jossa maali- ja alkuruutu ovat kartan toisella puolella) kartan kuvat. IDA* selvästi pärjää parhaiten tyhjillä kartoilla ja kartoilla, joissa on olemassa tasan heuristiikan pituinen polku maaliin. Kartta `jps-loses.map` on n. 1000x1000 ruutua suuri.
 
 ![image](https://user-images.githubusercontent.com/81182631/146653028-b63b06a7-6ed9-424c-81ea-2dd0fafb4a48.png)
 
@@ -66,7 +66,7 @@ Alla loput kartat, joissa IDA* ei pärjännyt ja testit keskeytettiin aikarajan 
 ![image](https://user-images.githubusercontent.com/81182631/147464653-50d60849-b371-49d2-9654-4ad0f1c9fb66.png)
 
 ![image](https://user-images.githubusercontent.com/81182631/147466792-c9bc733f-ebb1-4439-91a0-8a4f1e34e0a1.png)
-![image](https://user-images.githubusercontent.com/81182631/147468600-e8dabf12-3d0d-4348-8dfb-c8ea2f24fc1e.png)
+![image](https://user-images.githubusercontent.com/81182631/147491453-c89884be-4db3-4482-bf3c-30de09b70e14.png)
 
 
 Isossa miljoonan ruudun kartassa, joka on suurimmiten tyhjää, pärjäävät kummatkin algoritmit samalla tavalla. `huge.map`-kartassa selvästi JPS:n heuristiikasta ei ole apua ja liian suuret hypyt muodostuvat haitaksi.
