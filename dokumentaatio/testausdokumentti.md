@@ -59,7 +59,7 @@ Kartat koon mukaan:
 
 ![image](https://user-images.githubusercontent.com/81182631/147489766-44bde07c-6a60-4655-aa8b-3eadad4d0208.png)
 
-Tulokset kartoille, joissa IDA* pystyi löytämään reitin edes vähän järkevässä ajassa. Kun sokkelokarttojen (`maze-x.map`) koko kasvaa 11x11 ruudukosta 15x15 ruudukkoon, ei IDA* enää kyennyt aikarajassa löytämään reittiä. `maze-15-straight.amp` on sokkelokartta, johon tahallaan loin suoremman reitin.
+Tulokset kartoille, joissa IDA* pystyi löytämään reitin edes vähän järkevässä ajassa. Kun sokkelokarttojen (`maze-x.map`) koko kasvaa 11x11 ruudukosta 15x15 ruudukkoon, ei IDA* enää kyennyt aikarajassa löytämään reittiä. `maze-15-straight.amp` on sokkelokartta, johon tahallaan loin suoremman reitin. Tulokset annettu sekuntteina.
 
 ![image](https://user-images.githubusercontent.com/81182631/147463444-4ffc6ea8-ef0f-4eeb-9464-4d2893549055.png)
 
