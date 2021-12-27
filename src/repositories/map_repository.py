@@ -17,7 +17,9 @@ class MapRepository:
                            "maze-101.map", "maze-11.map", "maze-15.map", "maze-15-straight.map",
                            "maze-101-near.map",
                            "pillars-260.map", "pillars-22.map", "pillars-23.map", "pillars-24.map",
-                           "pillars-maze-260.map"]
+                           "pillars-maze-260.map",
+                           "pillars-100.map", "pillars-140.map", "pillars-200.map",
+                           "empty-100.map", "empty-140.map", "empty-200.map"]
 
     def read_map(self, map_file):
         """ Reads the map indicated by map_file. Returns a tuple of
