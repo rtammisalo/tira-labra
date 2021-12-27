@@ -61,11 +61,13 @@ Muutaman ylläolevan (ida_wins.map on tyhjä kartta, jossa maali- ja alkuruutu o
 
 ![image](https://user-images.githubusercontent.com/81182631/146653028-b63b06a7-6ed9-424c-81ea-2dd0fafb4a48.png)
 
-Alla loput kartat, joissa IDA* ei pärjännyt ja testit keskeytettiin aikarajan takia. Huomioitavaa on, että kaikissa satunnaisesti luoduissa sokkelokartoissa (`maze-x.map`) JPS silti voittaa Dijkstran. `AR*.map`-kartoissa Dijkstra kuluttaa aikaa n. 5.3 kertaa enemmän. Kartat näyttävät olevan hyvin lähellä JPS:n ideaalitapausta. Niiden kuvat ilman alku- ja loppupisteitä löytyvät sivulta [movingai.com](https://movingai.com/benchmarks/bg512/index.html).
+Alla loput kartat, joissa IDA* ei pärjännyt ja testit keskeytettiin aikarajan takia. Huomioitavaa on, että kaikissa satunnaisesti luoduissa sokkelokartoissa (`maze-x.map`) JPS silti voittaa Dijkstran. `AR*.map`-kartoissa Dijkstra kuluttaa aikaa n. 5.3 kertaa enemmän. Kartat sisältävät paljon sopivan kokooisia avoimia alueita, joita JPS:n hyppyoperaatiot tehokkaasti käyvät läpi. Niiden kuvat ilman alku- ja loppupisteitä löytyvät sivulta [movingai.com](https://movingai.com/benchmarks/bg512/index.html).
 
 ![image](https://user-images.githubusercontent.com/81182631/147464653-50d60849-b371-49d2-9654-4ad0f1c9fb66.png)
 
 ![image](https://user-images.githubusercontent.com/81182631/147466792-c9bc733f-ebb1-4439-91a0-8a4f1e34e0a1.png)
+![image](https://user-images.githubusercontent.com/81182631/147468600-e8dabf12-3d0d-4348-8dfb-c8ea2f24fc1e.png)
+
 
 Isossa miljoonan ruudun kartassa, joka on suurimmiten tyhjää, pärjäävät kummatkin algoritmit samalla tavalla. `huge.map`-kartassa selvästi JPS:n heuristiikasta ei ole apua ja liian suuret hypyt muodostuvat haitaksi.
 
