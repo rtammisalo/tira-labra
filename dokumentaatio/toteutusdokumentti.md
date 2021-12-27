@@ -26,11 +26,11 @@ Dijkstran algoritmin toteutuksessa kutsutaan korkeintaan 8V kertaa min_heapistä
 päivittämään 8 naapurin sijaa min-heapissä. Päivitys tapahtuu pushaamalla sama Node uudestaan kekoon pienemmällä etäisyydellä. Myöhemmät versiot samasta Nodesta
 hylätään. Päivitys tapahtuu O(log V) ajassa. Yhteensä Dijkstran algoritmin toteutuksen aikavaativuus on siis O(V log V).
 
-JPS:n toteutuksessa käytettävän A*-algoritmin aikavaativuus on O(b^d) Wikipedian mukaan ([A*](https://en.wikipedia.org/wiki/A*_search_algorithm)), jossa b on haarautuvuuskerroin ja d polun syvyys. Koska sen toteutuksessa käytetään myös kekoa, niin pahimman aikavaativuuden voisi myös ajatella olevan luokkaa O(V log V) tapauksissa, missä joudutaan käymään läpi koko kartta. JPS käyttää hyppyoperaatioita vähentämään A*-kekoon laitettavien ruutujen määrää. Testikartoista löytyvät `maps/pillars-x.map` kartat on suunniteltu niin, että JPS joutuu käyttämään silti noin puolet koko kartan vapaista ruuduista hyppypisteinä. Pahimman tapauksen aikavaativuus ei siis voi olla pienempi, kuin puhtaassa A* tapauksessa.
+JPS:n toteutuksessa käytettävän A*-algoritmin pahimman tapauksen aikavaativuus on O(b^d) Wikipedian mukaan ([A*](https://en.wikipedia.org/wiki/A*_search_algorithm)), jossa b on haarautuvuuskerroin ja d polun syvyys. Haarautuvuuskerrointa saa pienennettyä käyttämällä hyvää heurististafunktiota. Koska JPS:n toteutuksessa käytetään myös kekoa, niin pahimman aikavaativuuden voisi myös ajatella olevan luokkaa O(V log V) tapauksissa, missä joudutaan käymään läpi koko kartta. JPS käyttää hyppyoperaatioita vähentämään A*-kekoon laitettavien ruutujen määrää. Tätä varten on testikartoista löytyvät `maps/pillars-x.map` kartat suunniteltu niin, että JPS joutuu käyttämään silti noin puolet koko kartan vapaista ruuduista hyppypisteinä. Pahimman tapauksen aikavaativuus ei siis voi olla pienempi, kuin puhtaassa A* tapauksessa.
 
-IDA*:n pahin aikavaativuus on [Wikipedian](https://en.wikipedia.org/wiki/Iterative_deepening_A*) nojalla luokkaa O(b^d). Polkujahan kuitenkin syntyy todella suuria määriä, vaikka niiden pituus olisikin rajattu joka kerralla ja suuntaa ohjataan heuristisella etäisyydellä. Kaikki polut myös joudutaan käymään aina uudestaan ja uudestaan läpi joka kerta, kun rajaa (bound) kasvatetaan. Algoritmin hitaus näkyy heti, kun kartassa on muutamaa ruutua enemmän yhtenäistä seinää maalin edessä.
+IDA*:n pahin aikavaativuus on [Wikipedian](https://en.wikipedia.org/wiki/Iterative_deepening_A*) esittelemän pseudokoodin nojalla luokkaa O(b^d) eli sama kuin [IDS](https://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search):n. Polkujahan kuitenkin syntyy todella suuria määriä, vaikka niiden pituus olisikin rajattu joka kerralla ja suuntaa ohjataan heuristisella etäisyydellä. Kaikki polut myös joudutaan käymään aina uudestaan ja uudestaan läpi joka kerta, kun rajaa (bound) kasvatetaan. Algoritmin hitaus näkyy heti, kun kartassa on muutamaa ruutua enemmän yhtenäistä seinää maalin edessä.
 
-Vertailutesteissä algoritmien toteutuksien kuluneet ajat sopivat yllä olevien aikavaativuuksien olettamuksiin. Esim. tuplaamalla tyhjissä `empty-x.map` kartoissa ruutujen määrän kasvaa Dijkstran ja JPS:n kuluttama aika noin kaksinkertaiseksi.
+Vertailutesteissä algoritmien toteutuksien kuluneet ajat sopivat yllä olevien aikavaativuuksien olettamuksiin. Esim. tuplaamalla tyhjissä `empty-x.map` kartoissa ruutujen määrän kasvaa Dijkstran ja JPS:n kuluttama aika noin kaksinkertaiseksi. Sama tapahtuu myös `pillars-x.map` kartoilla.
 
 ```
 kartat          Dijkstra        JPS             IDA*
@@ -41,14 +41,14 @@ empty-200.map	0.4926179	0.1295996	0.0047159
 
 ## Saavutetut tilavaativuudet
 
-Dijkstran algoritmi on toteutettuna kartan ruudukon kokoisena taulukkona Nodeja, jotka sisältävät muutaman ylläpitoon liittyvän kentän. Graafin siirtymiä ei erikseen
-säilytetä missään, vaan ne haetaan taulukosta (yhdellä nodella on korkeintaan 8 naapuria). Tallennus vie O(V) tilaa, jossa V on solmujen
+Dijkstran algoritmi on toteutettuna kartan ruudukon kokoisena taulukkona Nodeja, jotka sisältävät muutaman ylläpitoon liittyvän kentän. Verkon siirtymiä ei erikseen
+säilytetä missään, vaan ne haetaan taulukosta (yhdellä solmulla (Node) on korkeintaan 8 naapuria). Tallennus vie O(V) tilaa, jossa V on solmujen
 määrä. Graphin avoimista Nodeista saadaan valittua Node, jolla on pienin etäisyys käyttämällä Pythonin heapq min-heap toteutusta (min-heapillä on tilavaativuus O(N)).
 Yhteensä siis O(V).
 
 JPS:n toteutus ei tarvitse lisärakenteita toimintaansa verrattuna Dijkstran algoritmiin, joten sen tilavaativuus on O(V).
 
-IDA* ei tarvitse edes kekoa, mutta kuitenkin vaatii koko Graph-olion, joten senkin tilavaativuus on O(V). IDA*:n pino on toteutettu epäsuorasti käyttäen Graphin Node-olioiden previous-kenttää linkitetyn listan tavalla. Jos Node-oliolla on previous-kenttä asetettuna, niin se katsotaan olevan iteratiivisella polulla.
+IDA* toteutus ei tarvitse edes kekoa, mutta kuitenkin vaatii koko Graph-olion, joten senkin tilavaativuus on O(V). IDA*:n pino on toteutettu epäsuorasti käyttäen Graphin Node-olioiden previous-kenttää linkitetyn listan tavalla. Jos Node-oliolla on previous-kenttä asetettuna, niin se katsotaan olevan iteratiivisella polulla.
 
 Tilansäästö ei ollut tarkoituksena toteutuksissa. Ohjelmassa pidetään esim. karttaa kaksi kertaa eri muodoissa muistissa (Grid- ja Graph-oliot). IDA* pitää myös koko verkon muistissa. Muistiprofilointi käyttäen miljoonan ruudun `maps/ida_wins.map` karttaa antaa tuloksena odotettuja arvoja:
 
@@ -115,4 +115,6 @@ Hieman kömpelö käyttöliittymä ja hidas. Mahdollisuus zoomata karttaa puuttu
 - [Pythonin heapq decrease_key toteutuksesta](https://docs.python.org/2/library/heapq.html#priority-queue-implementation-notes)
 - [JPS](http://users.cecs.anu.edu.au/~dharabor/data/papers/harabor-grastien-aaai11.pdf)
 - [IDA*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)
+- [IDS](https://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search)
 - [movingai.com:n kartat](https://www.movingai.com/benchmarks/bg512/index.html)
+
