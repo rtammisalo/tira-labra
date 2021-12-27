@@ -16,13 +16,8 @@ def start(ctx, map=os.path.join("maps", "test.map")):
 
 
 @task
-def dijkstra(ctx):
-    ctx.run("python3 src/main.py dijsktra", pty=True)
-
-
-@task
-def jps(ctx):
-    ctx.run("python3 src/main.py jps", pty=True)
+def csv(ctx):
+    ctx.run(f"python3 src/main.py csv", pty=True)
 
 
 @task

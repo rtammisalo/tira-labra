@@ -1,5 +1,6 @@
 import time
 import sys
+import os
 from entities.grid import Grid
 from services.dijkstra import Dijkstra
 from services.jps import JPS
@@ -10,14 +11,29 @@ from repositories.map_repository import MapRepository
 
 
 class ConsolePrinter:
-    """A wrapper for console printing. """
+    """A helper for console printing. """
+    # pylint: disable=too-few-public-methods
 
     def write(self, message):
         """Uses print to print out the message."""
         print(message)
 
 
+class FileWriter:
+    """A helper for file writing. """
+    # pylint: disable=too-few-public-methods
+
+    def __init__(self, filename):
+        self._filename = filename
+
+    def write(self, messages):
+        """Writes messages-list to file. Overwrites old results file. """
+        with open(self._filename, "w", encoding="utf-8") as file:
+            file.writelines(messages)
+
+
 console_printer = ConsolePrinter()
+default_file_writer = FileWriter("results.txt")
 
 
 class TimerService:
@@ -26,7 +42,8 @@ class TimerService:
     RUNS = 5
     IDA_TIME_LIMIT = 20
 
-    def __init__(self, printer=console_printer, map_repository=None):
+    def __init__(self, printer=console_printer, map_repository=None,
+                 file_writer=default_file_writer):
         """Initializes the service.
 
         Args:
@@ -38,6 +55,8 @@ class TimerService:
         else:
             self._map_repository = MapRepository()
         self._printer = printer
+        self._file_writer = file_writer
+        self._results = []
 
     def time_all_performances(self, mapfile=None):
         """Times the performance with all algorithms on a specific map (or all maps).
@@ -89,8 +108,11 @@ class TimerService:
 
         except TimeOut:
             self._printer.write("Time ran out for IDA*, stopping..")
+            self._results.append(f"{mapfile[5:]},{algorithm_name},\n")
             return
 
+        self._results.append(
+            f"{mapfile[5:]},{algorithm_name},{sum(delta_times) / len(delta_times):0.7f}\n")
         self._print_report(delta_times, path)
 
     def _time_map_repository_maps(self):
@@ -99,6 +121,7 @@ class TimerService:
         all_map_files = self._map_repository.get_map_files()
         for map_file in all_map_files:
             self.time_all_performances(map_file)
+        self._file_writer.write(self._results)
 
     def _print_report(self, delta_times, path):
         """Uses self._printer to print out timer results."""

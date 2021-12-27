@@ -10,10 +10,14 @@ class MapRepository:
         self._map_files = ["AR0011SR.map", "AR0516SR.map", "AR0711SR.map",
                            "AR0012SR.map", "AR0203SR.map", "AR0700SR.map",
                            "AR0400SR.map", "AR0511SR.map", "huge.map",
-                           "jps_loses.map", "w_sundermount.map",
+                           "jps_loses.map", "ida_wins.map", "w_sundermount.map",
                            "ca_caverns1_mines.map", "dr_0_deeproads.map",
                            "ht_store.map", "lt_foundry_n.map",
-                           "lt_gallowsprison_n.map"]
+                           "lt_gallowsprison_n.map",
+                           "maze-101.map", "maze-11.map", "maze-15.map", "maze-15-straight.map",
+                           "maze-101-near.map",
+                           "pillars-260.map", "pillars-22.map", "pillars-23.map", "pillars-24.map",
+                           "pillars-maze-260.map"]
 
     def read_map(self, map_file):
         """ Reads the map indicated by map_file. Returns a tuple of
