@@ -26,172 +26,93 @@ Dijkstran algoritmin toteutuksessa kutsutaan korkeintaan 8V kertaa min_heapistä
 päivittämään 8 naapurin sijaa min-heapissä. Päivitys tapahtuu pushaamalla sama Node uudestaan kekoon pienemmällä etäisyydellä. Myöhemmät versiot samasta Nodesta
 hylätään. Päivitys tapahtuu O(log V) ajassa. Yhteensä Dijkstran algoritmin toteutuksen aikavaativuus on siis O(V log V).
 
-Jump Point Search (JPS) algoritmin toteutuksessa pyöritään while-loopissa next_step-metodissa. Jokaisella askeleella haetaan min-heapistä uusi alkio, jonka
-toiminallisuus on sama kuin ylempänä eli yhteisaikavaativuus sille on O(V log V). Keon päivitys, kuten ylempänä, ei muuta aikavaativuutta. Pahimmassa tapauksessa JPS:n jump-funktiolla (JPS-luokan `_jump_in_direction`-metodi) joudutaan käymään kuitenkin läpi kaikki ruudukon ruudut. Aikaa per ruutu kuluu O(1) ja tämä nostaa
-pahimman aikavaativuuden luokkaan O(V^2), kun [A*-algoritmin](https://en.wikipedia.org/wiki/A*_search_algorithm) aikavaativuus on luokkaa O(V). Hieman vähemmän avoimissa kartoissa näin ei kuitenkaan tapahdu, sillä eteenpäin hyppääminen törmää nopeasti joko seinään tai uuteen hyppypisteeseen. Ohjelman toteutuksessa tapaus esiintyy, kun ajetaan algoritmiä kartalla `maps/jps_loses.map`. Ongelmaa voisi korjata antamalla JPS:lle hyppyrajan, jonka jälkeen pakotetaan uusi hyppypiste kekoon ja hyppääminen lopetetaan kesken.
+JPS:n toteutuksessa käytettävän A*-algoritmin aikavaativuus on O(b^d) Wikipedian mukaan ([A*](https://en.wikipedia.org/wiki/A*_search_algorithm)), jossa b on haarautuvuuskerroin ja d polun syvyys. Koska sen toteutuksessa käytetään myös kekoa, niin pahimman aikavaativuuden voisi myös ajatella olevan luokkaa O(V log V) tapauksissa, missä joudutaan käymään läpi koko kartta. JPS käyttää hyppyoperaatioita vähentämään A*-kekoon laitettavien ruutujen määrää. Testikartoista löytyvät `maps/pillars-x.map` kartat on suunniteltu niin, että JPS joutuu käyttämään silti noin puolet koko kartan vapaista ruuduista hyppypisteinä. Pahimman tapauksen aikavaativuus ei siis voi olla pienempi, kuin puhtaassa A* tapauksessa.
 
-IDA*:n pahin aikavaativuus on [Wikipedian](https://en.wikipedia.org/wiki/Iterative_deepening_A*) nojalla luokkaa O(b^d). En osaa sanoa, miten paljon A*-heuristiikka auttaa haussa. Polkujahan kuitenkin syntyy todella suuria määriä, vaikka niiden pituus olisikin rajattu joka kerralla ja suuntaa ohjataan heuristisella etäisyydellä. Kaikki polut myös joudutaan käymään aina uudestaan ja uudestaan läpi joka kerta, kun rajaa (bound) kasvatetaan. Algoritmin hitaus näkyy heti, kun kartassa on muutamaa ruutua enemmän yhtenäistä seinää maalin edessä.
+IDA*:n pahin aikavaativuus on [Wikipedian](https://en.wikipedia.org/wiki/Iterative_deepening_A*) nojalla luokkaa O(b^d). Polkujahan kuitenkin syntyy todella suuria määriä, vaikka niiden pituus olisikin rajattu joka kerralla ja suuntaa ohjataan heuristisella etäisyydellä. Kaikki polut myös joudutaan käymään aina uudestaan ja uudestaan läpi joka kerta, kun rajaa (bound) kasvatetaan. Algoritmin hitaus näkyy heti, kun kartassa on muutamaa ruutua enemmän yhtenäistä seinää maalin edessä.
+
+Vertailutesteissä algoritmien toteutuksien kuluneet ajat sopivat yllä olevien aikavaativuuksien olettamuksiin. Esim. tuplaamalla tyhjissä `empty-x.map` kartoissa ruutujen määrän kasvaa Dijkstran ja JPS:n kuluttama aika noin kaksinkertaiseksi.
+
+```
+kartat          Dijkstra        JPS             IDA*
+empty-100.map	0.117708	0.0328797	0.0027998
+empty-140.map	0.2361574	0.0606722	0.003259
+empty-200.map	0.4926179	0.1295996	0.0047159
+```
 
 ## Saavutetut tilavaativuudet
 
 Dijkstran algoritmi on toteutettuna kartan ruudukon kokoisena taulukkona Nodeja, jotka sisältävät muutaman ylläpitoon liittyvän kentän. Graafin siirtymiä ei erikseen
-säiltytetä missään, vaan ne haetaan taulukon muodosta (yhdellä nodella on korkeintaan 8 naapuria). Tallennus vie O(V) tilaa, jossa V on solmujen
+säilytetä missään, vaan ne haetaan taulukosta (yhdellä nodella on korkeintaan 8 naapuria). Tallennus vie O(V) tilaa, jossa V on solmujen
 määrä. Graphin avoimista Nodeista saadaan valittua Node, jolla on pienin etäisyys käyttämällä Pythonin heapq min-heap toteutusta (min-heapillä on tilavaativuus O(N)).
 Yhteensä siis O(V).
 
 JPS:n toteutus ei tarvitse lisärakenteita toimintaansa verrattuna Dijkstran algoritmiin, joten sen tilavaativuus on O(V).
 
-IDA* ei tarvitse edes kekoa, mutta kuitenkin vaatii koko Graph-olion, joten senkin tilavaativuus on O(V). IDA*:n pino on toteutettu epäsuorasti käyttäen Graphin Node-olioiden previous-kenttää linkitetyn listan tavalla. Jos node-oliolla on previous-kenttä asetettuna, niin se katsotaan olevan iteratiivisella polulla.
+IDA* ei tarvitse edes kekoa, mutta kuitenkin vaatii koko Graph-olion, joten senkin tilavaativuus on O(V). IDA*:n pino on toteutettu epäsuorasti käyttäen Graphin Node-olioiden previous-kenttää linkitetyn listan tavalla. Jos Node-oliolla on previous-kenttä asetettuna, niin se katsotaan olevan iteratiivisella polulla.
+
+Tilansäästö ei ollut tarkoituksena toteutuksissa. Ohjelmassa pidetään esim. karttaa kaksi kertaa eri muodoissa muistissa (Grid- ja Graph-oliot). IDA* pitää myös koko verkon muistissa. Muistiprofilointi käyttäen miljoonan ruudun `maps/ida_wins.map` karttaa antaa tuloksena odotettuja arvoja:
+
+```
+Algoritmi AVG           MAX (MB)
+Dijkstra  575.3099024	626.195312
+JPS       529.2931309	614.332031
+IDA*      484.263869	598.9375
+```
+
+IDA*:n toteutus vaatii vähemmän muistia kuin JPS ja Dijkstra, sillä se ei tarvitse erillistä kekoa toimiakseen.
 
 ## Suorituskyky
 
 Testikartoissa on yleisesti käsinvalittu alku- ja maalipisteet niin, että polunhaussa olisi laskettavaa. Tuloksien mukaan suurimmassa osassa kartoista JPS saavuttaa huomattavia nopeusetuja verrattuna Dijkstraan.
 
-Kaikkien 17 kartan keskiarvot:
+Kaikkien 33 kartan keskiarvot:
 ```
-Dijkstra: 1.840405294 s
-JPS:      1.126668824 s, 0.7137364706 s nopeampi
-IDA*:     liian hidas keskiarvojen vertailuun
+Dijkstra: 1.024803124 s, (n. 2x aikaa vs JPS)
+JPS:      0.6365040788 s,
+IDA*:     2.264157742 s (ei oteta huomioon keskeytettyjä 21 karttaa, keskiarvo ei ole vertailukelpoinen)
 ```
 
 Jos poistetaan kartat ida_wins.map ja jps_loses.map, joka on tahallaan viritetty ansa JPS-algoritmille (maali on ihan vieressä seinän takana, mutta JPS joutuu tutkimaan koko miljoonan solun kartan hypyillä) sekä huge.map (suuri kartta, jossa on paljon tyhjää, mutta myös rakennuksia), niin keskiarvot ovat:
 
 ```
-Dijkstra: 0.5431978571 s
-JPS:      0.1077842857 s, 0.4354135714 s nopeampi (5x)
+Dijkstra: 0.34757978 s (n 3.2x aikaa vs JPS),
+JPS:      0.1078690067 s
 ```
 
-IDA* ei kuitenkaan ole ihan täysin huono, sillä se onnistuu pienillä avoimilla kartoilla ja kartassa, jossa on suora reitti maaliin (maps/lt_gallowsprison_n.map). Se myös voittaa JPS:n kartassa jps_loses.map. Kartassa `maps/ida_wins.map`, joka on täysin tyhjä kartta, voittaa IDA* selvästi molemmat algoritmit.
+Movingai.com sivuston Baldurs Gate 2 kartat (`maps/AR*.map`) olivat suotuisia JPS-algoritmille valituilla alku- ja loppuruuduilla. Niissä keskiarvot olivat seuraavat:
 
 ```
-Map file: maps/ida_wins.map, 999x1050 = 1048950 cells.
-Dijkstra average time taken: 12.95422 s
-JPS average time taken: 3.67728 s
-IDA* average time taken: 0.02215 s
-Found path length of 960 with a total cost of 1292.85613.
-
-Map file: maps/ht_store.map, 37x37 = 1369 cells.
-Dijkstra average time taken: 0.00388 s
-JPS average time taken: 0.00134 s
-IDA* average time taken: 0.55902 s
-
-Map file: maps/lt_gallowsprison_n.map, 116x242 = 28072 cells.
-Dijkstra average time taken: 0.02716 s
-JPS average time taken: 0.00242 s
-IDA* average time taken: 0.00283 s
+Dijkstra: 0.831961825 s, (n. 5.3x aikaa vs JPS)
+JPS:      0.157765175 s
 ```
 
-Ajamalla kaikki kartat maps-hakemistosta kummallakin algoritmillä antaa seuraavat tulokset:
+Kartassa `maps/AR0700SR.map` Dijkstra oli n. `17.6` kertaa hitaampi. Tulos on ymmärrettävä ottaen huomioon alku- ja maaliruutujen sijainnit ja kartan muoto. Niiden takia Dijkstra tutkii paljon turhia ruutuja ja JPS hyötyy huomattavasti heuristiikasta ja hypyistä. Tuloksista on lisää [testausdokumentissa](/dokumentaatio/testausdokumentti.md).
+
+Algoritmeistä IDA* ei kuitenkaan ole ihan täysin huono, sillä se onnistuu pienillä avoimilla kartoilla ja kartassa, jossa on suora reitti maaliin (esim `lt_gallowsprison_n.map`). Se myös voittaa JPS:n kartassa `jps_loses.map`, joka on suurimmaksi osaksi tyhjä miljoonan ruudun kartta, jossa lähtö- sekä maaliruutu ovat melkein vierekkäin. Kartassa `maps/ida_wins.map`, joka on täysin tyhjä kartta, voittaa IDA* selvästi molemmat algoritmit. Tyhjässä miljoonan ruudun `ida_wins.map`-kartassa JPS silti pärjää paremmin kuin Dijkstra, jota myös tukee JPS toiminnan perusteet: Dijkstrassa joudutaan tekemään hitaampia keko-operaatioita ajassa O(log V), kun taas JPS tekee kartan läpikäynnin nopeammin hyppyoperaatioilla ajassa O(1). IDA* toimii sekunnin sisällä pienemmillä kartoilla, joissa on esteitä tiellä, kuten `ht_store.map` ja 11x11 sokkelossa `maze-11.map`. Ei tyhjillä kartoilla yleisesti katsottuna mitä lyhyempi reitti maaliin (d), sitä nopeampi IDA* on. Tähän myös vaikuttaa mahdollisten haarautumien määrä (b).
+
 ```
-Map file: maps/w_sundermount.map, 770x770 = 592900 cells.
-Dijkstra average time taken: 0.34388 s
-JPS average time taken: 0.08182 s
-IDA* ran over time limit of 30 s
-Found path length of 613 with a total cost of 702.71277.
-
-Map file: maps/AR0012SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 0.32459 s
-JPS average time taken: 0.05320 s
-IDA* ran over time limit of 30 s
-Found path length of 195 with a total cost of 223.40916.
-
-Map file: maps/AR0400SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 0.78177 s
-JPS average time taken: 0.18015 s
-IDA* ran over time limit of 30 s
-Found path length of 468 with a total cost of 548.60007.
-
-Map file: maps/huge.map, 999x1050 = 1048950 cells.
-Dijkstra average time taken: 10.72657 s
-JPS average time taken: 10.55836 s
-IDA* ran over time limit of 30 s
-Found path length of 1615 with a total cost of 1805.78088.
-
-Map file: maps/dr_0_deeproads.map, 560x733 = 410480 cells.
-Dijkstra average time taken: 0.42451 s
-JPS average time taken: 0.14326 s
-IDA* ran over time limit of 30 s
-Found path length of 875 with a total cost of 955.60007.
-
-Map file: maps/ht_store.map, 37x37 = 1369 cells.
-Dijkstra average time taken: 0.00388 s
-JPS average time taken: 0.00134 s
-IDA* average time taken: 0.55902 s
-Found path length of 16 with a total cost of 17.48528.
-
-Map file: maps/AR0700SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 1.50738 s
-JPS average time taken: 0.09010 s
-IDA* ran over time limit of 30 s
-Found path length of 370 with a total cost of 480.42345.
-
-Map file: maps/AR0516SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 0.40388 s
-JPS average time taken: 0.08952 s
-IDA* ran over time limit of 30 s
-Found path length of 324 with a total cost of 367.73506.
-
-Map file: maps/AR0011SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 1.30624 s
-JPS average time taken: 0.31939 s
-IDA* ran over time limit of 30 s
-Found path length of 477 with a total cost of 503.75231.
-
-Map file: maps/AR0203SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 1.16181 s
-JPS average time taken: 0.30357 s
-IDA* ran over time limit of 30 s
-Found path length of 405 with a total cost of 485.18586
-
-Map file: maps/AR0511SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 0.90013 s
-JPS average time taken: 0.12486 s
-IDA* ran over time limit of 30 s
-Found path length of 379 with a total cost of 464.15642.
-
-Map file: maps/lt_gallowsprison_n.map, 116x242 = 28072 cells.
-Dijkstra average time taken: 0.02716 s
-JPS average time taken: 0.00242 s
-IDA* average time taken: 0.00283 s
-Found path length of 122 with a total cost of 121.41421.
-
-Map file: maps/lt_foundry_n.map, 109x92 = 10028 cells.
-Dijkstra average time taken: 0.02990 s
-JPS average time taken: 0.00593 s
-IDA* ran over time limit of 30 s
-Found path length of 67 with a total cost of 78.42641.
-
-Map file: maps/AR0711SR.map, 512x512 = 262144 cells.
-Dijkstra average time taken: 0.29289 s
-JPS average time taken: 0.09415 s
-IDA* ran over time limit of 30 s
-Found path length of 616 with a total cost of 680.03153.
-
-Map file: maps/ca_caverns1_mines.map, 324x597 = 193428 cells.
-Dijkstra average time taken: 0.09675 s
-JPS average time taken: 0.01927 s
-IDA* ran over time limit of 30 s
-Found path length of 201 with a total cost of 233.13708.
-
-Map file: maps/jps_loses.map, 999x1050 = 1048950 cells.
-Dijkstra average time taken: 0.00133 s
-JPS average time taken: 3.40875 s
-IDA* average time taken: 0.00040 s
-Found path length of 8 with a total cost of 8.24264.
+Kartta         Dijkstra     JPS         IDA*
+jps_loses.map  0.0013052s   3.5919679s  0.0003933s
+ida_wins.map   12.8282026s  3.5459878s  0.0215891s
+maze-11.map    0.000817s    0.0004958s  0.4332852s
+ht_store.map   0.0188726s   0.0017542s  0.5703822s
 ```
+
+Ongelmana JPS:llä on siis myös testien perusteella avoimet kartat, jossa tehdään liikaa turhia hyppyjä, sekä kartat, joissa A*-heuristiikka haittaa toimintaa (esim. sokkelot, missä nopein polku lähtee alkuruudusta maaliruutua päinvastaiseen suuntaan). Dijkstralle tuottaa vaikeuksia kartat, joissa on "väärässä" suunnassa paljon avoimia ruutuja, joita se joutuu tutkimaan turhaan.
+
 
 ## Puutteet
 
 IDA* on toteutettu rekursiivisesti ja sitä ei siten voi käyttää kartoilla, joissa polku on liian pitkä tai ohjelma kaatuu.
 
-Hieman kömpelö käyttöliittymä. Mahdollisuus esim. zoomata kartalla.
+Hieman kömpelö käyttöliittymä ja hidas. Mahdollisuus zoomata karttaa puuttuu, joka tekee suurempien karttojen seuraamisesti sekavaa.
 
 ## Lähteet
 - [PyGame](https://www.pygame.org/)
 - [Binary Heap](https://en.wikipedia.org/wiki/Binary_heap)
 - [Dijkstran algoritmi](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
+- [A*](https://en.wikipedia.org/wiki/A*_search_algorithm)
 - [Pythonin heapq decrease_key toteutuksesta](https://docs.python.org/2/library/heapq.html#priority-queue-implementation-notes)
 - [JPS](http://users.cecs.anu.edu.au/~dharabor/data/papers/harabor-grastien-aaai11.pdf)
 - [IDA*](https://en.wikipedia.org/wiki/Iterative_deepening_A*)
 - [movingai.com:n kartat](https://www.movingai.com/benchmarks/bg512/index.html)
-
