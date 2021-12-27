@@ -26,7 +26,7 @@ Dijkstran algoritmin toteutuksessa kutsutaan korkeintaan 8V kertaa min_heapistä
 päivittämään 8 naapurin sijaa min-heapissä. Päivitys tapahtuu pushaamalla sama Node uudestaan kekoon pienemmällä etäisyydellä. Myöhemmät versiot samasta Nodesta
 hylätään. Päivitys tapahtuu O(log V) ajassa. Yhteensä Dijkstran algoritmin toteutuksen aikavaativuus on siis O(V log V).
 
-JPS:n toteutuksessa käytettävän A*-algoritmin pahimman tapauksen aikavaativuus on O(b^d) Wikipedian mukaan ([A*](https://en.wikipedia.org/wiki/A*_search_algorithm)), jossa b on haarautuvuuskerroin ja d polun syvyys. Haarautuvuuskerrointa saa pienennettyä käyttämällä hyvää heurististafunktiota. Koska JPS:n toteutuksessa käytetään myös kekoa, niin pahimman aikavaativuuden voisi myös ajatella olevan luokkaa O(V log V) tapauksissa, missä joudutaan käymään läpi koko kartta. JPS käyttää hyppyoperaatioita vähentämään A*-kekoon laitettavien ruutujen määrää. Tätä varten on testikartoista löytyvät `maps/pillars-x.map` kartat suunniteltu niin, että JPS joutuu käyttämään silti noin puolet koko kartan vapaista ruuduista hyppypisteinä. Pahimman tapauksen aikavaativuus ei siis voi olla pienempi, kuin puhtaassa A* tapauksessa.
+JPS:n toteutuksessa käytettävän A*-algoritmin pahimman tapauksen aikavaativuus on O(b^d) Wikipedian mukaan ([A*](https://en.wikipedia.org/wiki/A*_search_algorithm)), jossa b on haarautuvuuskerroin ja d polun syvyys. Haarautuvuuskerrointa saa pienennettyä käyttämällä hyvää heurististafunktiota. Koska JPS:n toteutuksessa käytetään myös kekoa, niin pahimman aikavaativuuden voisi myös ajatella olevan luokkaa O(V log V) tapauksissa, missä joudutaan käymään läpi koko kartta. JPS käyttää hyppyoperaatioita vähentämään A*-kekoon laitettavien ruutujen määrää. Tätä varten on testikartoista löytyvät `maps/pillars-x.map` kartat suunniteltu niin, että JPS joutuu käyttämään silti noin kolmanneksen koko kartan vapaista ruuduista hyppypisteinä. Pahimman tapauksen aikavaativuus ei siis voi olla pienempi, kuin puhtaassa A* tapauksessa.
 
 IDA*:n pahin aikavaativuus on [Wikipedian](https://en.wikipedia.org/wiki/Iterative_deepening_A*) esittelemän pseudokoodin nojalla luokkaa O(b^d) eli sama kuin [IDS](https://en.wikipedia.org/wiki/Iterative_deepening_depth-first_search):n. Polkujahan kuitenkin syntyy todella suuria määriä, vaikka niiden pituus olisikin rajattu joka kerralla ja suuntaa ohjataan heuristisella etäisyydellä. Kaikki polut myös joudutaan käymään aina uudestaan ja uudestaan läpi joka kerta, kun rajaa (bound) kasvatetaan. Algoritmin hitaus näkyy heti, kun kartassa on muutamaa ruutua enemmän yhtenäistä seinää maalin edessä.
 
@@ -86,7 +86,7 @@ Dijkstra: 0.831961825 s, (n. 5.3x aikaa vs JPS)
 JPS:      0.157765175 s
 ```
 
-Kartassa `maps/AR0700SR.map` Dijkstra oli n. `17.6` kertaa hitaampi. Tulos on ymmärrettävä ottaen huomioon alku- ja maaliruutujen sijainnit ja kartan muoto. Niiden takia Dijkstra tutkii paljon turhia ruutuja ja JPS hyötyy huomattavasti heuristiikasta ja hypyistä. Tuloksista on lisää [testausdokumentissa](/dokumentaatio/testausdokumentti.md).
+Kartassa `maps/AR0700SR.map` Dijkstra oli n. 17.6 kertaa hitaampi. Tulos on ymmärrettävä ottaen huomioon alku- ja maaliruutujen sijainnit ja kartan muoto. Niiden takia Dijkstra tutkii paljon turhia ruutuja ja JPS hyötyy huomattavasti heuristiikasta ja hypyistä. Tuloksista on lisää [testausdokumentissa](/dokumentaatio/testausdokumentti.md).
 
 Algoritmeistä IDA* ei kuitenkaan ole ihan täysin huono, sillä se onnistuu pienillä avoimilla kartoilla ja kartassa, jossa on suora reitti maaliin (esim `lt_gallowsprison_n.map`). Se myös voittaa JPS:n kartassa `jps_loses.map`, joka on suurimmaksi osaksi tyhjä miljoonan ruudun kartta, jossa lähtö- sekä maaliruutu ovat melkein vierekkäin. Kartassa `maps/ida_wins.map`, joka on täysin tyhjä kartta, voittaa IDA* selvästi molemmat algoritmit. Tyhjässä miljoonan ruudun `ida_wins.map`-kartassa JPS silti pärjää paremmin kuin Dijkstra, jota myös tukee JPS toiminnan perusteet: Dijkstrassa joudutaan tekemään hitaampia keko-operaatioita ajassa O(log V), kun taas JPS tekee kartan läpikäynnin nopeammin hyppyoperaatioilla ajassa O(1). IDA* toimii sekunnin sisällä pienemmillä kartoilla, joissa on esteitä tiellä, kuten `ht_store.map` ja 11x11 sokkelossa `maze-11.map`. Ei tyhjillä kartoilla yleisesti katsottuna mitä lyhyempi reitti maaliin (d), sitä nopeampi IDA* on. Tähän myös vaikuttaa mahdollisten haarautumien määrä (b).
 
@@ -105,7 +105,7 @@ Ongelmana JPS:llä on siis myös testien perusteella avoimet kartat, jossa tehd�
 
 IDA* on toteutettu rekursiivisesti ja sitä ei siten voi käyttää kartoilla, joissa polku on liian pitkä tai ohjelma kaatuu.
 
-Hieman kömpelö käyttöliittymä ja hidas. Mahdollisuus zoomata karttaa puuttuu, joka tekee suurempien karttojen seuraamisesti sekavaa.
+Hieman kömpelö ja hidas käyttöliittymä. Mahdollisuus zoomata karttaa puuttuu, joka tekee suurempien karttojen seuraamisesti sekavaa.
 
 ## Lähteet
 - [PyGame](https://www.pygame.org/)
