@@ -58,3 +58,5 @@ poetry run mprof run src/main.py idastar maps/ida_wins.map
 poetry run mprof run src/main.py jps maps/ida_wins.map
 poetry run mprof run src/main.py dijkstra maps/ida_wins.map
 ```
+
+Komento luo .dat-loppuisia lokitiedostoja projektin juureen.
