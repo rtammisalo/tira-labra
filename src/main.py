@@ -3,6 +3,9 @@ import os
 from ui.ui import UI
 from services.timing_service import TimingService
 from repositories.map_repository import MapRepository
+from services.dijkstra import Dijkstra
+from services.jps import JPS
+from services.ida_star import IDAStar
 
 
 def get_csv_map_details(map_repository):
@@ -27,8 +30,8 @@ def main():
     map_file = os.path.join("maps", "test.map")
 
     if len(sys.argv) > 1:
+        timer = TimingService()
         if sys.argv[1] == "timer":
-            timer = TimingService()
             if len(sys.argv) == 3:
                 map_file = sys.argv[2]
             else:
@@ -38,6 +41,18 @@ def main():
         elif sys.argv[1] == "csv":
             for line in get_csv_map_details(map_repository):
                 print(line)
+            sys.exit()
+        elif sys.argv[1] == "dijkstra":
+            map_file = sys.argv[2]
+            timer.time_performance(map_file, Dijkstra)
+            sys.exit()
+        elif sys.argv[1] == "jps":
+            map_file = sys.argv[2]
+            timer.time_performance(map_file, JPS)
+            sys.exit()
+        elif sys.argv[1] == "idastar":
+            map_file = sys.argv[2]
+            timer.time_performance(map_file, IDAStar)
             sys.exit()
         else:
             # Use the console line argument as the map file.

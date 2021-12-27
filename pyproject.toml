@@ -8,6 +8,7 @@ authors = ["Roni Tammisalo <81182631+rtammisalo@users.noreply.github.com>"]
 python = "^3.6"
 pygame = "^2.1.0"
 invoke = "^1.6.0"
+memory-profiler = "^0.60.0"
 
 [tool.poetry.dev-dependencies]
 pygame = "^2.1.0"

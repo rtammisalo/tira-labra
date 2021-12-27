@@ -20,6 +20,21 @@ def csv(ctx):
     ctx.run(f"python3 src/main.py csv", pty=True)
 
 
+@task(help={"map": "Map file"})
+def dijkstra(ctx, map=os.path.join("maps", "test.map")):
+    ctx.run(f"python3 src/main.py dijkstra {map}", pty=True)
+
+
+@task(help={"map": "Map file"})
+def jps(ctx, map=os.path.join("maps", "test.map")):
+    ctx.run(f"python3 src/main.py jps {map}", pty=True)
+
+
+@task(help={"map": "Map file"})
+def idastra(ctx, map=os.path.join("maps", "test.map")):
+    ctx.run(f"python3 src/main.py idastar {map}", pty=True)
+
+
 @task
 def pytest(ctx):
     ctx.run("pytest", pty=True)
