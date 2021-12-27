@@ -1,7 +1,7 @@
 import sys
 import os
 from ui.ui import UI
-from services.timer_service import TimerService
+from services.timing_service import TimingService
 from repositories.map_repository import MapRepository
 
 
@@ -28,7 +28,7 @@ def main():
 
     if len(sys.argv) > 1:
         if sys.argv[1] == "timer":
-            timer = TimerService()
+            timer = TimingService()
             if len(sys.argv) == 3:
                 map_file = sys.argv[2]
             else:

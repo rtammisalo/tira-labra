@@ -36,7 +36,7 @@ console_printer = ConsolePrinter()
 default_file_writer = FileWriter("results.txt")
 
 
-class TimerService:
+class TimingService:
     """Small timer service for performance measuring.
     """
     RUNS = 5
